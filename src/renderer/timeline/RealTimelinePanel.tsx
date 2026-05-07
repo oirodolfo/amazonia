@@ -19,7 +19,7 @@ export interface RealTimelinePanelProps {
  * <RealTimelinePanel events={timelineEvents} />
  * ```
  */
-export function RealTimelinePanel(props: RealTimelinePanelProps): React.Element {
+export function RealTimelinePanel(props: RealTimelinePanelProps): React.ReactElement {
     const model = buildVisualTimelineModel(props.events);
     return (
         <PremiumCard tone="terminal" eyebrow="DevTools Mode" title="Real Timeline" className="min-h-96">

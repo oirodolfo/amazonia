@@ -24,7 +24,7 @@ describe('output parser', () => {
 
   it('creates friendly output cards with links', () => {
     const card = parseFriendlyOutput(run, ['error src/app.ts:1:1 failed https://example.com']);
-    expect(card.links).toEqual(['https://example.com']);
+    expect(card.links).toEqual(['https://example.com', 'src/app.ts:1:1']);
     expect(card.status).toBe('failed');
     expect(card.diagnostics[0]?.level).toBe('error');
   });

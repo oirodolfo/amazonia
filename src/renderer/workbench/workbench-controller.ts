@@ -1,13 +1,15 @@
-import {parseFriendlyOutput} from '@/shared/output/output-parser';
+import type {WorkbenchTerminalClient} from '@/renderer/terminal/workbench-terminal-client';
+import {runWorkbenchAction} from '@/renderer/actions/run-action-controller';
+import {parseFriendlyOutput} from '@/output/parser';
+import type {RunRecord} from '@/shared/types';
 import type {WorkbenchStoreSnapshot} from '@/shared/persistence/workbench-store';
 import type {WorkbenchRuntime} from '@/shared/runtime/runtime-types';
-import {runWorkbenchAction} from '@/renderer/actions/run-action-controller';
-import type {WorkbenchTerminalClient} from '@/renderer/terminal/workbench-terminal-client';
 import {
     findWorkbenchAction,
     type FriendlyOutputCard,
+    type ParsedOutputSummary,
     type WorkbenchEvent,
-    type WorkbenchState
+    type WorkbenchState,
 } from './workbench-state';
 
 export interface WorkbenchController {
@@ -52,8 +54,33 @@ export function createWorkbenchController(options: CreateWorkbenchControllerOpti
         },
 
         handleTerminalOutput(sessionId, title, data) {
-            const summary = parseFriendlyOutput(data);
-            if (summary.errors === 0 && summary.warnings === 0 && summary.links.length === 0) return;
+            const run: RunRecord = {
+                id: sessionId,
+                actionId: sessionId,
+                command: title,
+                cwd: '',
+                startedAtIso: new Date().toISOString(),
+                status: 'running',
+            };
+            const parsed = parseFriendlyOutput(run, [data]);
+            const summary: ParsedOutputSummary = {
+                errors: parsed.diagnostics.filter((d) => d.level === 'error').length,
+                warnings: parsed.diagnostics.filter((d) => d.level === 'warning').length,
+                issues: parsed.diagnostics
+                    .filter((d) => d.level === 'error' || d.level === 'warning')
+                    .map((d) => ({
+                        severity: d.level === 'error' ? ('error' as const) : ('warning' as const),
+                        message: d.message,
+                        file: d.filePath,
+                        line: d.line,
+                        column: d.column,
+                    })),
+                links: parsed.links.map((value) => ({value})),
+            };
+
+            if (summary.errors === 0 && summary.warnings === 0 && summary.links.length === 0) {
+                return;
+            }
 
             const card: FriendlyOutputCard = {
                 id: `output_${Date.now()}_${Math.random().toString(36).slice(2)}`,

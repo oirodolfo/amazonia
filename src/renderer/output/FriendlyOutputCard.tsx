@@ -1,4 +1,4 @@
-import type {FriendlyOutputCard as FriendlyOutputCardModel} from '@/renderer/workbench/workbench-state';
+import type {FriendlyOutputCard as FriendlyOutputCardModel, ParsedOutputSummary} from '@/renderer/workbench/workbench-state';
 
 export interface FriendlyOutputCardProps {
     readonly card: FriendlyOutputCardModel;
@@ -15,7 +15,7 @@ export interface FriendlyOutputCardProps {
  * <FriendlyOutputCard card={card} />
  * ```
  */
-export function FriendlyOutputCard(props: FriendlyOutputCardProps): React.Element {
+export function FriendlyOutputCard(props: FriendlyOutputCardProps): React.ReactElement {
     const {card} = props;
 
     return (
@@ -32,7 +32,7 @@ export function FriendlyOutputCard(props: FriendlyOutputCardProps): React.Elemen
             </header>
 
             <div className="mt-4 space-y-2">
-                {card.summary.issues.map((issue, index) => (
+                {card.summary.issues.map((issue: ParsedOutputSummary['issues'][number], index: number) => (
                     <div key={`${issue.message}-${index}`}
                          className="rounded-xl border border-zinc-700/70 bg-zinc-950/70 p-3 text-xs">
                         <div
@@ -45,7 +45,7 @@ export function FriendlyOutputCard(props: FriendlyOutputCardProps): React.Elemen
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
-                {card.summary.links.slice(0, 8).map((link, index) => (
+                {card.summary.links.slice(0, 8).map((link: ParsedOutputSummary['links'][number], index: number) => (
                     <span key={`${link.value}-${index}`}
                           className="rounded-lg border border-emerald-400/10 bg-emerald-400/5 px-2 py-1 font-mono text-[11px] text-emerald-200">
             {link.value}{link.line ? `:${link.line}` : ''}

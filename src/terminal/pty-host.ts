@@ -27,7 +27,7 @@ export class PtyHost {
      */
     public spawn(request: TerminalSpawnRequest): void {
         const shell = resolveShell();
-        const child = pty.spawn(shell.command, shell.args, {
+        const child = pty.spawn(shell.command, [...shell.args], {
             name: 'xterm-256color',
             cols: request.cols,
             rows: request.rows,

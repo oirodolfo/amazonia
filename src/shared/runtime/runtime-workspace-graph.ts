@@ -1,4 +1,9 @@
-import type {RuntimeCommandLifecycle, RuntimeWorkspaceGraph,} from './runtime-intelligence-types';
+import type {
+    RuntimeCommandLifecycle,
+    RuntimeWorkspaceGraph,
+    RuntimeWorkspaceGraphEdge,
+    RuntimeWorkspaceGraphNode,
+} from './runtime-intelligence-types';
 
 /**
  * Builds a lightweight runtime graph from command lifecycles.
@@ -14,8 +19,8 @@ import type {RuntimeCommandLifecycle, RuntimeWorkspaceGraph,} from './runtime-in
 export function createRuntimeWorkspaceGraph(
     lifecycles: readonly RuntimeCommandLifecycle[],
 ): RuntimeWorkspaceGraph {
-    const nodes = [];
-    const edges = [];
+    const nodes: RuntimeWorkspaceGraphNode[] = [];
+    const edges: RuntimeWorkspaceGraphEdge[] = [];
 
     for (const lifecycle of lifecycles) {
         nodes.push({

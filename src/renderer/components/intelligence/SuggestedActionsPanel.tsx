@@ -16,7 +16,7 @@ export interface SuggestedActionsPanelProps {
  * <SuggestedActionsPanel suggestions={suggestions} onRun={runAction} />
  * ```
  */
-export function SuggestedActionsPanel({suggestions, onRun}: SuggestedActionsPanelProps): React.Element {
+export function SuggestedActionsPanel({suggestions, onRun}: SuggestedActionsPanelProps): React.ReactElement {
     return (
         <section className="rounded-2xl border border-cyan-400/20 bg-zinc-950/60 p-3">
             <p className="mb-3 text-xs uppercase tracking-[0.3em] text-cyan-200/70">Frequent trails</p>

@@ -16,7 +16,7 @@ export interface RunTimelinePanelProps {
  * <RunTimelinePanel events={events} />
  * ```
  */
-export function RunTimelinePanel(props: RunTimelinePanelProps): React.Element {
+export function RunTimelinePanel(props: RunTimelinePanelProps): React.ReactElement {
     const groups = groupTimelineByRun(props.events);
 
     return (

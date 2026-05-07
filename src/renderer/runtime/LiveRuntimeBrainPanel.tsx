@@ -18,7 +18,7 @@ export interface LiveRuntimeBrainPanelProps {
  */
 export function LiveRuntimeBrainPanel(
     props: LiveRuntimeBrainPanelProps,
-): React.Element {
+): React.ReactElement {
     return (
         <PremiumCard tone="warning" eyebrow="Runtime Brain" title="Behavior Intelligence">
             <div className="space-y-3">

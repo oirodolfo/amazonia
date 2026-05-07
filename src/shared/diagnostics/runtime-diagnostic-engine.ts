@@ -8,7 +8,7 @@ export interface RuntimeDiagnostic {
 export function detectRuntimeDiagnostics(
     lines: readonly string[],
 ): RuntimeDiagnostic[] {
-    return lines.flatMap((line, index) => {
+    return lines.flatMap((line, index): RuntimeDiagnostic[] => {
         const lower = line.toLowerCase();
 
         if (lower.includes('error')) {

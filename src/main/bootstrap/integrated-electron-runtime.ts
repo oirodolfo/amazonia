@@ -11,6 +11,7 @@ import {createWorkbenchRepository} from '@/main/persistence/workbench-repository
 import {openRuntimeSQLiteDatabase} from '@/main/persistence/runtime-sqlite-database';
 import {createRuntimeSQLiteRepository} from '@/main/persistence/runtime-sqlite-repository';
 import {createIntegratedRuntimeStore} from '@/shared/runtime/integrated-runtime-store';
+import type {RuntimeRunPersistenceRecord} from '@/shared/runtime/runtime-persistence-types';
 import type {TerminalDataFrame, TerminalSessionSnapshot} from '@/shared/runtime/runtime-types';
 
 export interface IntegratedElectronRuntimeOptions {
@@ -86,11 +87,7 @@ export async function bootstrapIntegratedElectronRuntime(
                 id: snapshot.id,
                 command: snapshot.command ?? '',
                 cwd: snapshot.cwd,
-                status: snapshot.status === 'created' || snapshot.status === 'connecting'
-                    ? 'created'
-                    : snapshot.status === 'idle'
-                        ? 'created'
-                        : snapshot.status,
+                status: toRuntimeRunStatus(snapshot.status),
                 startedAt: snapshot.createdAt,
                 finishedAt: snapshot.status === 'exited' ? snapshot.updatedAt : null,
                 exitCode: snapshot.exitCode,
@@ -143,4 +140,22 @@ export async function bootstrapIntegratedElectronRuntime(
         workbenchDatabasePath,
         runtimeDatabasePath,
     };
+}
+
+function toRuntimeRunStatus(
+    status: TerminalSessionSnapshot['status'],
+): RuntimeRunPersistenceRecord['status'] {
+    if (status === 'created' || status === 'connecting') {
+        return 'created';
+    }
+    if (status === 'running') {
+        return 'running';
+    }
+    if (status === 'exited') {
+        return 'exited';
+    }
+    if (status === 'failed') {
+        return 'failed';
+    }
+    return 'killed';
 }

@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- Restored missing shared modules (`action-types`, `workbench-store`, terminal planner, output-parser barrel) so `pnpm typecheck` succeeds under `strict` + unused checks.
+- Corrected TS types across renderer (`React.ReactElement`, `cmdk` imports, `Group` orientation for `react-resizable-panels` v4).
+- Wired grouped package sidebar (`GroupedActionSidebar`), sidebar state (`searchQuery`, `selectedPackageId`), and workbench output cards with real `ParsedOutputSummary` mapping.
+- Fixed `node-pty` spawn typing (`readonly` args), WebLinks addon handler, and semantic warp blocks severity checks.
+- Aligned open-target helpers with `OutputLinkCandidate` (`kind` / `target`).
+- Removed legacy `amazonia-v9-real` snapshot folder.
+- Excluded `src/utils` (typed-native helper mirror) from root `tsc`; added `src/vite-env.d.ts` for Vite/client types.
+
 ## v9.0.0
 
 - Added action indexing and ranked action search.

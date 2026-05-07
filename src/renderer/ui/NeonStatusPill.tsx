@@ -17,7 +17,7 @@ export interface NeonStatusPillProps {
  * <NeonStatusPill tone="info" label="runs" value={12} />
  * ```
  */
-export function NeonStatusPill(props: NeonStatusPillProps): React.Element {
+export function NeonStatusPill(props: NeonStatusPillProps): React.ReactElement {
     const tone = getPremiumSurfaceTokens(props.tone ?? 'forest');
     return (
         <span

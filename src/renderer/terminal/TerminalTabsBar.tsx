@@ -18,7 +18,7 @@ export interface TerminalTabsBarProps {
  * <TerminalTabsBar sessions={sessions} activeSessionId={activeId} />
  * ```
  */
-export function TerminalTabsBar(props: TerminalTabsBarProps): React.Element {
+export function TerminalTabsBar(props: TerminalTabsBarProps): React.ReactElement {
     return (
         <div className="flex h-12 items-center gap-2 border-b border-emerald-400/10 bg-zinc-950/80 px-3">
             {props.sessions.map((session) => (

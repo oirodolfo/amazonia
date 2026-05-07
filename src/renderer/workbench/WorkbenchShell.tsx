@@ -1,15 +1,15 @@
 import {Group, Panel, Separator} from 'react-resizable-panels';
-import type {WorkspaceAction} from '@/shared';
+import type {WorkspaceActionGroup} from '@/shared/actions/action-types';
 import type {FriendlyOutputCard as FriendlyOutputCardModel} from './workbench-state';
-import {ActionSidebar} from '@/renderer/components/actions/ActionSidebar';
-import type {SidebarState} from '@/renderer/sidebar/sidebar-state';
+import {GroupedActionSidebar} from '@/renderer/components/actions/GroupedActionSidebar';
+import type {SidebarState} from '@/renderer/workbench/sidebar/sidebar-state';
 import type {TerminalTabsState} from '@/renderer/terminal/terminal-tabs-state';
 import {TerminalTabsBar} from '@/renderer/terminal/TerminalTabsBar';
 import {XtermTerminalView} from '@/renderer/terminal/XtermTerminalView';
 import {FriendlyOutputCard} from '@/renderer/output/FriendlyOutputCard';
 
 export interface WorkbenchShellProps {
-    readonly actionGroups: readonly WorkspaceAction[];
+    readonly actionGroups: readonly WorkspaceActionGroup[];
     readonly sidebarState: SidebarState;
     readonly terminalTabs: TerminalTabsState;
     readonly outputCards: readonly FriendlyOutputCardModel[];
@@ -40,8 +40,9 @@ export function WorkbenchShell(props: WorkbenchShellProps): React.ReactElement {
         <div className="h-screen w-screen overflow-hidden bg-[#030706] text-zinc-100">
             <Group orientation="horizontal">
                 <Panel minSize={18} defaultSize={24}>
-                    <ActionSidebar groups={props.actionGroups} state={props.sidebarState}
-                                   onRunAction={props.onRunAction} onQueryChange={props.onQueryChange} t={props.t}/>
+                    <GroupedActionSidebar groups={props.actionGroups} state={props.sidebarState}
+                                          onRunAction={props.onRunAction} onQueryChange={props.onQueryChange}
+                                          t={props.t}/>
                 </Panel>
                 <Separator className="w-1 bg-emerald-400/10 hover:bg-emerald-400/30"/>
                 <Panel minSize={35} defaultSize={50}>

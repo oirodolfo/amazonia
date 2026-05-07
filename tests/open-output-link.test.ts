@@ -6,8 +6,9 @@ describe('openFriendlyOutputLink', () => {
     const openTarget = vi.fn(async () => true);
 
     await openFriendlyOutputLink({ openTarget }, {
-      type: 'file',
-      value: 'src/index.ts',
+      kind: 'file',
+      raw: 'src/index.ts:10:2',
+      target: 'src/index.ts',
       line: 10,
       column: 2,
     });

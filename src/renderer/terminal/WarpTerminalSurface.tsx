@@ -20,7 +20,7 @@ export interface WarpTerminalSurfaceProps {
 /**
  * Premium Warp-inspired terminal surface.
  */
-export function WarpTerminalSurface(props: WarpTerminalSurfaceProps): React.Element {
+export function WarpTerminalSurface(props: WarpTerminalSurfaceProps): React.ReactElement {
     const terminalHostRef = useRef<HTMLDivElement | null>(null);
     const terminalRef = useRef<Terminal | null>(null);
     const [draft, setDraft] = useState('');

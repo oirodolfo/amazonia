@@ -16,7 +16,7 @@ export interface SemanticReplayStripProps {
  * <SemanticReplayStrip timeline={timeline} />
  * ```
  */
-export function SemanticReplayStrip(props: SemanticReplayStripProps): React.Element {
+export function SemanticReplayStrip(props: SemanticReplayStripProps): React.ReactElement {
     return (
         <div className="rounded-[1.5rem] border border-emerald-400/10 bg-black/30 p-3">
             <div className="mb-3 flex items-center justify-between text-xs">

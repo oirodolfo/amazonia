@@ -23,12 +23,6 @@ export interface WorkbenchWindowApi {
     readonly terminal: WorkbenchTerminalApi;
 }
 
-declare global {
-    interface Window {
-        readonly workbench?: WorkbenchWindowApi;
-    }
-}
-
 /**
  * Creates the secure preload API exposed to the renderer.
  *

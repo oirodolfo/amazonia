@@ -112,8 +112,8 @@ export function appendWarpCommandOutput(
             if (index !== targetIndex) return block;
 
             const nextTokens = [...block.tokens, ...tokens];
-            const hasError = nextTokens.some((token) => token.type === 'error');
-            const hasWarning = nextTokens.some((token) => token.type === 'warning');
+            const hasError = nextTokens.some((token) => token.severity === 'error');
+            const hasWarning = nextTokens.some((token) => token.severity === 'warning');
 
             return {
                 ...block,

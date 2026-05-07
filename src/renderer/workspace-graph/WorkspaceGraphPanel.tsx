@@ -20,7 +20,7 @@ export interface WorkspaceGraphPanelProps {
  * <WorkspaceGraphPanel rootLabel="amazonia" groups={groups} onRunAction={runAction} />
  * ```
  */
-export function WorkspaceGraphPanel(props: WorkspaceGraphPanelProps): React.Element {
+export function WorkspaceGraphPanel(props: WorkspaceGraphPanelProps): React.ReactElement {
     const graph = buildWorkspaceGraph({rootLabel: props.rootLabel, groups: props.groups});
     const centralPackages = getCentralWorkspacePackages(graph);
     const actionNodes = graph.nodes.filter((node) => node.kind === 'action');

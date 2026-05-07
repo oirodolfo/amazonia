@@ -18,7 +18,7 @@ export interface RuntimeReplayPanelProps {
  */
 export function RuntimeReplayPanel(
     props: RuntimeReplayPanelProps,
-): React.Element {
+): React.ReactElement {
     return (
         <PremiumCard tone="violet" eyebrow="Replay Mode" title="Runtime Replay">
             <div className="space-y-2">

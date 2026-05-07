@@ -1,5 +1,5 @@
 import type {WorkspaceAction} from '@/shared/actions/action-types';
-import {createLocalAnalyticsEvent} from '@/shared/analytics/local-analytics';
+import {createLocalAnalyticsEvent} from '@/analytics/local-analytics';
 import {incrementActionFrequency, type WorkbenchStoreSnapshot} from '@/shared/persistence/workbench-store';
 import type {WorkbenchRuntime} from '@/shared/runtime/runtime-types';
 import {createTerminalActionPlan} from '@/shared/terminal/action-terminal-planner';

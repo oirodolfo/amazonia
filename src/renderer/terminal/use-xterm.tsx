@@ -185,7 +185,7 @@ function registerTerminalListeners(
 }
 
 export interface XTermProps
-    extends Omit<ComponentPropsWithoutRef<'div'>, 'onResize' | 'onScroll'>,
+    extends Omit<ComponentPropsWithoutRef<'div'>, 'onResize' | 'onScroll' | 'autoFocus'>,
         UseXTermProps {
 }
 
@@ -209,7 +209,7 @@ export function XTerm({
                           onTerminalReady,
                           options,
                           ...props
-                      }: XTermProps): React.Element {
+                      }: XTermProps): React.ReactElement {
     const {ref} = useXTerm({
         addons,
         autoFocus,
