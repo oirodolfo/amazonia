@@ -12,6 +12,10 @@ export interface FriendlyOutputCard {
   readonly createdAt: number;
 }
 
+export type SidebarState = {
+  
+}
+
 export interface WorkbenchState {
   readonly actions: readonly WorkspaceAction[];
   readonly actionGroups: readonly WorkspaceActionGroup[];
@@ -20,6 +24,7 @@ export interface WorkbenchState {
   readonly outputCards: readonly FriendlyOutputCard[];
   readonly store: WorkbenchStoreSnapshot;
 }
+
 
 export type WorkbenchEvent =
   | { readonly type: 'sidebar.event'; readonly event: SidebarEvent }

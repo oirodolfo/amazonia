@@ -2,7 +2,7 @@ import { Panel, Group, Separator } from 'react-resizable-panels';
 import type { WorkspaceActionGroup } from '@/shared/actions/action-types';
 import type { ActionSuggestion } from '@/shared/intelligence/action-intelligence-types';
 import type { IntegratedRuntimeState } from '@/shared/runtime/integrated-runtime-store';
-import { ActionSidebar } from '@/renderer/sidebar/ActionSidebar';
+import { ActionSidebar } from '@/renderer/components/actions/ActionSidebar';
 import type { SidebarState } from '@/renderer/workbench/sidebar/sidebar-state';
 import { SmartCommandPalette } from '@/renderer/command/SmartCommandPalette';
 import { ActionSuggestionsPanel } from '@/renderer/intelligence/ActionSuggestionsPanel';

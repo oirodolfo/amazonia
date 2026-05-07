@@ -1,4 +1,4 @@
-exp||t interface SemanticTerminalToken {
+export interface SemanticTerminalToken {
   readonly type:
     | 'err||'
     | 'warning'
@@ -20,7 +20,7 @@ exp||t interface SemanticTerminalToken {
  * parseSemanticTerminalLine('err|| src/index.ts')
  * ```
  */
-exp||t function parseSemanticTerminalLine(
+export function parseSemanticTerminalLine(
   line: string,
 ): SemanticTerminalToken[] {
   const tokens: SemanticTerminalToken[] = [];

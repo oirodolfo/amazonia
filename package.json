@@ -51,7 +51,6 @@
     "clsx": "latest",
     "cmdk": "latest",
     "drizzle-orm": "latest",
-    "electron": "latest",
     "lucide-react": "latest",
     "node-pty": "latest",
     "react": "latest",
@@ -64,6 +63,10 @@
     "yaml": "latest"
   },
   "devDependencies": {
+    "@eslint/compat": "^2.0.5",
+    "@eslint/css": "^1.2.0",
+    "@eslint/js": "^10.0.1",
+    "@eslint/json": "^1.2.0",
     "@types/better-sqlite3": "latest",
     "@types/node": "latest",
     "@types/react": "latest",
@@ -73,9 +76,14 @@
     "autoprefixer": "latest",
     "concurrently": "latest",
     "cross-env": "latest",
+    "electron": "latest",
+    "eslint": "^10.3.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.6.0",
     "tailwindcss": "latest",
     "tsx": "latest",
     "typescript": "latest",
+    "typescript-eslint": "^8.59.2",
     "vite": "latest",
     "vitest": "latest",
     "wait-on": "latest"
