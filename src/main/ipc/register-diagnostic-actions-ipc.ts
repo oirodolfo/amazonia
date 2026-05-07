@@ -1,9 +1,9 @@
-import type { IpcMain } from 'electron';
-import type { DiagnosticLocation } from '@/shared/diagnostics/actionable-diagnostic-types';
+import type {IpcMain} from 'electron';
+import type {DiagnosticLocation} from '@/shared/diagnostics/actionable-diagnostic-types';
 
 export interface RegisterDiagnosticActionsIpcOptions {
-  readonly ipcMain: Pick<IpcMain, 'handle'>;
-  readonly openDiagnosticLocation: (location: DiagnosticLocation | null) => Promise<boolean>;
+    readonly ipcMain: Pick<IpcMain, 'handle'>;
+    readonly openDiagnosticLocation: (location: DiagnosticLocation | null) => Promise<boolean>;
 }
 
 /**
@@ -18,9 +18,9 @@ export interface RegisterDiagnosticActionsIpcOptions {
  * ```
  */
 export function registerDiagnosticActionsIpc(
-  options: RegisterDiagnosticActionsIpcOptions,
+    options: RegisterDiagnosticActionsIpcOptions,
 ): void {
-  options.ipcMain.handle('workbench:diagnostics:open-location', (_event, location: DiagnosticLocation | null) => {
-    return options.openDiagnosticLocation(location);
-  });
+    options.ipcMain.handle('workbench:diagnostics:open-location', (_event, location: DiagnosticLocation | null) => {
+        return options.openDiagnosticLocation(location);
+    });
 }

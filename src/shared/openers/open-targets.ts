@@ -1,12 +1,12 @@
-import type { ParsedOutputLink } from '@/shared/output/output-parser';
+import type {ParsedOutputLink} from '@/shared/output/output-parser';
 
 export type OpenTargetKind = 'browser' | 'editor' | 'unknown';
 
 export interface OpenTarget {
-  readonly kind: OpenTargetKind;
-  readonly value: string;
-  readonly line: number | null;
-  readonly column: number | null;
+    readonly kind: OpenTargetKind;
+    readonly value: string;
+    readonly line: number | null;
+    readonly column: number | null;
 }
 
 /**
@@ -21,28 +21,28 @@ export interface OpenTarget {
  * ```
  */
 export function createOpenTarget(link: ParsedOutputLink): OpenTarget {
-  if (link.type === 'url') {
-    return {
-      kind: 'browser',
-      value: link.value,
-      line: null,
-      column: null,
-    };
-  }
+    if (link.type === 'url') {
+        return {
+            kind: 'browser',
+            value: link.value,
+            line: null,
+            column: null,
+        };
+    }
 
-  if (link.type === 'file') {
-    return {
-      kind: 'editor',
-      value: link.value,
-      line: link.line,
-      column: link.column,
-    };
-  }
+    if (link.type === 'file') {
+        return {
+            kind: 'editor',
+            value: link.value,
+            line: link.line,
+            column: link.column,
+        };
+    }
 
-  return {
-    kind: 'unknown',
-    value: link.value,
-    line: link.line,
-    column: link.column,
-  };
+    return {
+        kind: 'unknown',
+        value: link.value,
+        line: link.line,
+        column: link.column,
+    };
 }

@@ -1,13 +1,19 @@
-export type RunTimelineEventType = 'queued' | 'terminal-created' | 'command-started' | 'output-warning' | 'output-error' | 'command-finished';
+export type RunTimelineEventType =
+    'queued'
+    | 'terminal-created'
+    | 'command-started'
+    | 'output-warning'
+    | 'output-error'
+    | 'command-finished';
 
 export interface RunTimelineEvent {
-  readonly id: string;
-  readonly runId: string;
-  readonly type: RunTimelineEventType;
-  readonly label: string;
-  readonly timestamp: number;
-  readonly durationMs: number | null;
-  readonly metadata: Readonly<Record<string, unknown>>;
+    readonly id: string;
+    readonly runId: string;
+    readonly type: RunTimelineEventType;
+    readonly label: string;
+    readonly timestamp: number;
+    readonly durationMs: number | null;
+    readonly metadata: Readonly<Record<string, unknown>>;
 }
 
 /**
@@ -22,22 +28,22 @@ export interface RunTimelineEvent {
  * ```
  */
 export function createRunTimelineEvent(input: {
-  readonly runId: string;
-  readonly type: RunTimelineEventType;
-  readonly label: string;
-  readonly timestamp?: number;
-  readonly durationMs?: number | null;
-  readonly metadata?: Readonly<Record<string, unknown>>;
+    readonly runId: string;
+    readonly type: RunTimelineEventType;
+    readonly label: string;
+    readonly timestamp?: number;
+    readonly durationMs?: number | null;
+    readonly metadata?: Readonly<Record<string, unknown>>;
 }): RunTimelineEvent {
-  return {
-    id: `timeline_${Date.now()}_${Math.random().toString(36).slice(2)}`,
-    runId: input.runId,
-    type: input.type,
-    label: input.label,
-    timestamp: input.timestamp ?? Date.now(),
-    durationMs: input.durationMs ?? null,
-    metadata: input.metadata ?? {},
-  };
+    return {
+        id: `timeline_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+        runId: input.runId,
+        type: input.type,
+        label: input.label,
+        timestamp: input.timestamp ?? Date.now(),
+        durationMs: input.durationMs ?? null,
+        metadata: input.metadata ?? {},
+    };
 }
 
 /**
@@ -52,9 +58,9 @@ export function createRunTimelineEvent(input: {
  * ```
  */
 export function groupTimelineByRun(events: readonly RunTimelineEvent[]): Readonly<Record<string, readonly RunTimelineEvent[]>> {
-  return events.reduce<Record<string, RunTimelineEvent[]>>((groups, event) => {
-    groups[event.runId] ??= [];
-    groups[event.runId].push(event);
-    return groups;
-  }, {});
+    return events.reduce<Record<string, RunTimelineEvent[]>>((groups, event) => {
+        groups[event.runId] ??= [];
+        groups[event.runId].push(event);
+        return groups;
+    }, {});
 }

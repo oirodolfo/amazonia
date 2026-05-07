@@ -1,24 +1,21 @@
-import { useMemo, useRef, useState } from 'react';
-import type { Terminal } from '@xterm/xterm';
-import {
-  createTerminalAddonController,
-  type TerminalAddonController,
-} from './terminal-addon-controller';
+import {useMemo, useRef, useState} from 'react';
+import type {Terminal} from '@xterm/xterm';
+import {createTerminalAddonController, type TerminalAddonController,} from './terminal-addon-controller';
 import type {
-  TerminalAddonFeatureFlagState,
-  TerminalAddonLoadResult,
+    TerminalAddonFeatureFlagState,
+    TerminalAddonLoadResult,
 } from '@/shared/terminal/addons/terminal-addon-types';
 
 export interface UseXTermAddonControllerInput {
-  readonly flags?: Partial<TerminalAddonFeatureFlagState>;
-  readonly webSocket?: WebSocket | null;
-  readonly openUrl?: (url: string) => void;
+    readonly flags?: Partial<TerminalAddonFeatureFlagState>;
+    readonly webSocket?: WebSocket | null;
+    readonly openUrl?: (url: string) => void;
 }
 
 export interface UseXTermAddonControllerResult {
-  readonly controller: TerminalAddonController | null;
-  readonly results: readonly TerminalAddonLoadResult[];
-  readonly createController: (terminal: Terminal) => TerminalAddonController;
+    readonly controller: TerminalAddonController | null;
+    readonly results: readonly TerminalAddonLoadResult[];
+    readonly createController: (terminal: Terminal) => TerminalAddonController;
 }
 
 /**
@@ -35,31 +32,31 @@ export interface UseXTermAddonControllerResult {
  * ```
  */
 export function useXTermAddonController(
-  input: UseXTermAddonControllerInput = {},
+    input: UseXTermAddonControllerInput = {},
 ): UseXTermAddonControllerResult {
-  const controllerRef = useRef<TerminalAddonController | null>(null);
-  const [results, setResults] = useState<readonly TerminalAddonLoadResult[]>([]);
+    const controllerRef = useRef<TerminalAddonController | null>(null);
+    const [results, setResults] = useState<readonly TerminalAddonLoadResult[]>([]);
 
-  const createController = useMemo(
-    () => (terminal: Terminal) => {
-      const controller = createTerminalAddonController({
-        terminal,
-        flags: input.flags,
-        webSocket: input.webSocket,
-        openUrl: input.openUrl,
-      });
+    const createController = useMemo(
+        () => (terminal: Terminal) => {
+            const controller = createTerminalAddonController({
+                terminal,
+                flags: input.flags,
+                webSocket: input.webSocket,
+                openUrl: input.openUrl,
+            });
 
-      controllerRef.current = controller;
-      setResults(controller.results);
+            controllerRef.current = controller;
+            setResults(controller.results);
 
-      return controller;
-    },
-    [input.flags, input.openUrl, input.webSocket],
-  );
+            return controller;
+        },
+        [input.flags, input.openUrl, input.webSocket],
+    );
 
-  return {
-    controller: controllerRef.current,
-    results,
-    createController,
-  };
+    return {
+        controller: controllerRef.current,
+        results,
+        createController,
+    };
 }

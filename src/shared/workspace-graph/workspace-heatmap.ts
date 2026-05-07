@@ -1,7 +1,7 @@
 export interface WorkspaceHeatmapNode {
-  readonly id: string;
-  readonly weight: number;
-  readonly color: 'cold' | 'warm' | 'hot';
+    readonly id: string;
+    readonly weight: number;
+    readonly color: 'cold' | 'warm' | 'hot';
 }
 
 /**
@@ -16,16 +16,16 @@ export interface WorkspaceHeatmapNode {
  * ```
  */
 export function createWorkspaceHeatmap(
-  weights: readonly { id: string; weight: number }[],
+    weights: readonly { id: string; weight: number }[],
 ): WorkspaceHeatmapNode[] {
-  return weights.map((node) => ({
-    id: node.id,
-    weight: node.weight,
-    color:
-      node.weight > 80
-        ? 'hot'
-        : node.weight > 40
-          ? 'warm'
-          : 'cold',
-  }));
+    return weights.map((node) => ({
+        id: node.id,
+        weight: node.weight,
+        color:
+            node.weight > 80
+                ? 'hot'
+                : node.weight > 40
+                    ? 'warm'
+                    : 'cold',
+    }));
 }

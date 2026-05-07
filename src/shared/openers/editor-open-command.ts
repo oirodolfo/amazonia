@@ -1,8 +1,8 @@
-import type { DiagnosticLocation } from '@/shared/diagnostics/actionable-diagnostic-types';
+import type {DiagnosticLocation} from '@/shared/diagnostics/actionable-diagnostic-types';
 
 export interface EditorOpenCommand {
-  readonly executable: string;
-  readonly args: readonly string[];
+    readonly executable: string;
+    readonly args: readonly string[];
 }
 
 /**
@@ -18,19 +18,19 @@ export interface EditorOpenCommand {
  * ```
  */
 export function createEditorOpenCommand(
-  location: DiagnosticLocation | null,
-  editor = process.env.EDITOR ?? 'code',
+    location: DiagnosticLocation | null,
+    editor = process.env.EDITOR ?? 'code',
 ): EditorOpenCommand | null {
-  if (!location) {
-    return null;
-  }
+    if (!location) {
+        return null;
+    }
 
-  const target = location.line
-    ? `${location.file}:${location.line}:${location.column ?? 1}`
-    : location.file;
+    const target = location.line
+        ? `${location.file}:${location.line}:${location.column ?? 1}`
+        : location.file;
 
-  return {
-    executable: editor,
-    args: ['-g', target],
-  };
+    return {
+        executable: editor,
+        args: ['-g', target],
+    };
 }

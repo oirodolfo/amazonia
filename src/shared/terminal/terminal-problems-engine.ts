@@ -1,12 +1,12 @@
-import type { SemanticTerminalMarker } from '@/shared/terminal/semantic-terminal-os';
+import type {SemanticTerminalMarker} from '@/shared/terminal/semantic-terminal-os';
 
 export interface TerminalProblem {
-  readonly id: string;
-  readonly severity: 'error' | 'warning';
-  readonly title: string;
-  readonly message: string;
-  readonly line: number;
-  readonly sourceMarkerId: string;
+    readonly id: string;
+    readonly severity: 'error' | 'warning';
+    readonly title: string;
+    readonly message: string;
+    readonly line: number;
+    readonly sourceMarkerId: string;
 }
 
 /**
@@ -21,14 +21,14 @@ export interface TerminalProblem {
  * ```
  */
 export function createTerminalProblems(markers: readonly SemanticTerminalMarker[]): TerminalProblem[] {
-  return markers
-    .filter((marker) => marker.type === 'error' || marker.type === 'warning')
-    .map((marker) => ({
-      id: `problem:${marker.id}`,
-      severity: marker.type,
-      title: marker.type === 'error' ? 'Terminal error' : 'Terminal warning',
-      message: marker.value,
-      line: marker.line,
-      sourceMarkerId: marker.id,
-    }));
+    return markers
+        .filter((marker) => marker.type === 'error' || marker.type === 'warning')
+        .map((marker) => ({
+            id: `problem:${marker.id}`,
+            severity: marker.type,
+            title: marker.type === 'error' ? 'Terminal error' : 'Terminal warning',
+            message: marker.value,
+            line: marker.line,
+            sourceMarkerId: marker.id,
+        }));
 }

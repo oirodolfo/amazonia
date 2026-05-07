@@ -28,39 +28,39 @@ type NonNullableValue<T> = T extends Nullish ? never : T;
 type Truthy<T> = T extends Falsy ? never : T;
 
 type EntryOf<T extends object> = {
-  [K in StringKeyOf<T>]: readonly [K, T[K]];
+    [K in StringKeyOf<T>]: readonly [K, T[K]];
 }[StringKeyOf<T>];
 
 type Mutable<T> = {
-  -readonly [K in keyof T]: T[K];
+    -readonly [K in keyof T]: T[K];
 };
 
 type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
+    [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K];
 };
 
 type NativeReplacement = {
-  readonly nativeName: string;
-  readonly helperName: string;
-  readonly message: string;
+    readonly nativeName: string;
+    readonly helperName: string;
+    readonly message: string;
 };
 
 type PluginConfig = {
-  readonly helperModule?: string;
-  readonly diagnosticCategory?: "suggestion" | "warning";
+    readonly helperModule?: string;
+    readonly diagnosticCategory?: "suggestion" | "warning";
 };
 
 type CodemodOptions = {
-  readonly root: string;
-  readonly helperModule: string;
-  readonly write: boolean;
-  readonly dryRun: boolean;
+    readonly root: string;
+    readonly helperModule: string;
+    readonly write: boolean;
+    readonly dryRun: boolean;
 };
 
 type FileResult = {
-  readonly filePath: string;
-  readonly changed: boolean;
-  readonly replacements: readonly string[];
+    readonly filePath: string;
+    readonly changed: boolean;
+    readonly replacements: readonly string[];
 };
 
 /* ================================================================================================
@@ -84,7 +84,7 @@ type FileResult = {
  * // output: keys is Array<"home" | "admin">
  */
 export function objectKeys<const T extends object>(obj: T): Array<StringKeyOf<T>> {
-  return Object.keys(obj) as Array<StringKeyOf<T>>;
+    return Object.keys(obj) as Array<StringKeyOf<T>>;
 }
 
 /**
@@ -103,7 +103,7 @@ export function objectKeys<const T extends object>(obj: T): Array<StringKeyOf<T>
  * // output: values is Array<"DRAFT" | "PUBLISHED">
  */
 export function objectValues<const T extends object>(obj: T): Array<T[StringKeyOf<T>]> {
-  return Object.values(obj) as Array<T[StringKeyOf<T>]>;
+    return Object.values(obj) as Array<T[StringKeyOf<T>]>;
 }
 
 /**
@@ -121,7 +121,7 @@ export function objectValues<const T extends object>(obj: T): Array<T[StringKeyO
  * // output: entries is Array<["id", 1] | ["name", "Rod"]>
  */
 export function objectEntries<const T extends object>(obj: T): Array<EntryOf<T>> {
-  return Object.entries(obj) as Array<EntryOf<T>>;
+    return Object.entries(obj) as Array<EntryOf<T>>;
 }
 
 /**
@@ -139,9 +139,9 @@ export function objectEntries<const T extends object>(obj: T): Array<EntryOf<T>>
  * // output: result is { name: "Rod"; age: 32 }
  */
 export function objectFromEntries<const T extends readonly (readonly [PropertyKey, unknown])[]>(
-  entries: T,
+    entries: T,
 ): { [K in T[number] as K[0]]: K[1] } {
-  return Object.fromEntries(entries) as { [K in T[number] as K[0]]: K[1] };
+    return Object.fromEntries(entries) as { [K in T[number] as K[0]]: K[1] };
 }
 
 /**
@@ -161,7 +161,7 @@ export function objectFromEntries<const T extends readonly (readonly [PropertyKe
  * // output: key is narrowed to "id" | "name"
  */
 export function hasOwn<const T extends object>(obj: T, key: PropertyKey): key is PropertyKeyOf<T> {
-  return Object.hasOwn(obj, key);
+    return Object.hasOwn(obj, key);
 }
 
 /**
@@ -180,16 +180,16 @@ export function hasOwn<const T extends object>(obj: T, key: PropertyKey): key is
  * // output: safe is { id: number; name: string }
  */
 export function pick<const T extends object, const K extends readonly StringKeyOf<T>[]>(
-  obj: T,
-  keys: K,
+    obj: T,
+    keys: K,
 ): Pick<T, K[number]> {
-  const result = {} as Pick<T, K[number]>;
+    const result = {} as Pick<T, K[number]>;
 
-  for (const key of keys) {
-    result[key] = obj[key];
-  }
+    for (const key of keys) {
+        result[key] = obj[key];
+    }
 
-  return result;
+    return result;
 }
 
 /**
@@ -208,19 +208,19 @@ export function pick<const T extends object, const K extends readonly StringKeyO
  * // output: safe is { id: number; name: string }
  */
 export function omit<const T extends object, const K extends readonly StringKeyOf<T>[]>(
-  obj: T,
-  keys: K,
+    obj: T,
+    keys: K,
 ): Omit<T, K[number]> {
-  const blocked = new Set<PropertyKey>(keys);
-  const result = {} as Omit<T, K[number]>;
+    const blocked = new Set<PropertyKey>(keys);
+    const result = {} as Omit<T, K[number]>;
 
-  for (const key of objectKeys(obj)) {
-    if (!blocked.has(key)) {
-      (result as Record<string, unknown>)[key] = obj[key];
+    for (const key of objectKeys(obj)) {
+        if (!blocked.has(key)) {
+            (result as Record<string, unknown>)[key] = obj[key];
+        }
     }
-  }
 
-  return result;
+    return result;
 }
 
 /**
@@ -239,16 +239,16 @@ export function omit<const T extends object, const K extends readonly StringKeyO
  * // output: result is { a: string; b: string }
  */
 export function mapValues<const T extends object, R>(
-  obj: T,
-  mapper: <K extends StringKeyOf<T>>(value: T[K], key: K) => R,
+    obj: T,
+    mapper: <K extends StringKeyOf<T>>(value: T[K], key: K) => R,
 ): { [K in StringKeyOf<T>]: R } {
-  const result = {} as { [K in StringKeyOf<T>]: R };
+    const result = {} as { [K in StringKeyOf<T>]: R };
 
-  for (const key of objectKeys(obj)) {
-    result[key] = mapper(obj[key], key);
-  }
+    for (const key of objectKeys(obj)) {
+        result[key] = mapper(obj[key], key);
+    }
 
-  return result;
+    return result;
 }
 
 /**
@@ -266,16 +266,16 @@ export function mapValues<const T extends object, R>(
  * // output: result is Record<string, string>
  */
 export function mapKeys<const T extends object>(
-  obj: T,
-  mapper: <K extends StringKeyOf<T>>(key: K, value: T[K]) => string,
+    obj: T,
+    mapper: <K extends StringKeyOf<T>>(key: K, value: T[K]) => string,
 ): Record<string, T[StringKeyOf<T>]> {
-  const result: Record<string, T[StringKeyOf<T>]> = {};
+    const result: Record<string, T[StringKeyOf<T>]> = {};
 
-  for (const key of objectKeys(obj)) {
-    result[mapper(key, obj[key])] = obj[key];
-  }
+    for (const key of objectKeys(obj)) {
+        result[mapper(key, obj[key])] = obj[key];
+    }
 
-  return result;
+    return result;
 }
 
 /**
@@ -293,18 +293,18 @@ export function mapKeys<const T extends object>(
  * // output: result is Partial<{ a: number; b: number }>
  */
 export function filterObject<const T extends object>(
-  obj: T,
-  predicate: <K extends StringKeyOf<T>>(value: T[K], key: K) => boolean,
+    obj: T,
+    predicate: <K extends StringKeyOf<T>>(value: T[K], key: K) => boolean,
 ): Partial<T> {
-  const result: Partial<T> = {};
+    const result: Partial<T> = {};
 
-  for (const key of objectKeys(obj)) {
-    if (predicate(obj[key], key)) {
-      result[key] = obj[key];
+    for (const key of objectKeys(obj)) {
+        if (predicate(obj[key], key)) {
+            result[key] = obj[key];
+        }
     }
-  }
 
-  return result;
+    return result;
 }
 
 /**
@@ -323,7 +323,7 @@ export function filterObject<const T extends object>(
  * // output: result is { a: number } & { b: string }
  */
 export function typedAssign<const T extends object, const U extends object>(target: T, source: U): T & U {
-  return Object.assign(target, source);
+    return Object.assign(target, source);
 }
 
 /**
@@ -341,7 +341,7 @@ export function typedAssign<const T extends object, const U extends object>(targ
  * // output: result is Readonly<{ readonly mode: "prod" }>
  */
 export function typedFreeze<const T extends object>(obj: T): Readonly<T> {
-  return Object.freeze(obj);
+    return Object.freeze(obj);
 }
 
 /* ================================================================================================
@@ -363,7 +363,7 @@ export function typedFreeze<const T extends object>(obj: T): Readonly<T> {
  * // output: modes is readonly ["dev", "prod", "test"]
  */
 export function tuple<const T extends readonly unknown[]>(...values: T): T {
-  return values;
+    return values;
 }
 
 /**
@@ -380,7 +380,7 @@ export function tuple<const T extends readonly unknown[]>(...values: T): T {
  * // output: pair is ["x", 1]
  */
 export function mutableTuple<const T extends readonly unknown[]>(...values: T): Mutable<T> {
-  return values as Mutable<T>;
+    return values as Mutable<T>;
 }
 
 /**
@@ -400,7 +400,7 @@ export function mutableTuple<const T extends readonly unknown[]>(...values: T): 
  * // output: value is "admin" | "user"
  */
 export function includes<const T extends readonly unknown[]>(array: T, item: unknown): item is T[number] {
-  return array.includes(item as T[number]);
+    return array.includes(item as T[number]);
 }
 
 /**
@@ -420,7 +420,7 @@ export function includes<const T extends readonly unknown[]>(array: T, item: unk
  * // output: input is "build" | "test"
  */
 export function has<const T extends readonly unknown[]>(array: T, item: unknown): item is T[number] {
-  return includes(array, item);
+    return includes(array, item);
 }
 
 /**
@@ -437,7 +437,7 @@ export function has<const T extends readonly unknown[]>(array: T, item: unknown)
  * // output: result is number[]
  */
 export function isNonNullable<T>(value: T): value is NonNullableValue<T> {
-  return value !== null && value !== undefined;
+    return value !== null && value !== undefined;
 }
 
 /**
@@ -455,7 +455,7 @@ export function isNonNullable<T>(value: T): value is NonNullableValue<T> {
  * // output: clean is Array<"a" | "b">
  */
 export function isTruthy<T>(value: T): value is Truthy<T> {
-  return Boolean(value);
+    return Boolean(value);
 }
 
 /**
@@ -472,7 +472,7 @@ export function isTruthy<T>(value: T): value is Truthy<T> {
  * // output: result is "a" | "b" | undefined
  */
 export function first<const T extends readonly unknown[]>(array: T): T[number] | undefined {
-  return array[0];
+    return array[0];
 }
 
 /**
@@ -490,7 +490,7 @@ export function first<const T extends readonly unknown[]>(array: T): T[number] |
  * // output: result is "a" | "b" | undefined
  */
 export function last<const T extends readonly unknown[]>(array: T): T[number] | undefined {
-  return array.at(-1);
+    return array.at(-1);
 }
 
 /**
@@ -507,7 +507,7 @@ export function last<const T extends readonly unknown[]>(array: T): T[number] | 
  * // output: result is Array<"a" | "b">
  */
 export function unique<const T extends readonly unknown[]>(array: T): Array<T[number]> {
-  return [...new Set(array)] as Array<T[number]>;
+    return [...new Set(array)] as Array<T[number]>;
 }
 
 /**
@@ -525,17 +525,17 @@ export function unique<const T extends readonly unknown[]>(array: T): Array<T[nu
  * // output: [[1, 2], [3]]
  */
 export function chunk<const T extends readonly unknown[]>(array: T, size: number): Array<Array<T[number]>> {
-  if (size <= 0) {
-    throw new RangeError("Chunk size must be greater than zero.");
-  }
+    if (size <= 0) {
+        throw new RangeError("Chunk size must be greater than zero.");
+    }
 
-  const result: Array<Array<T[number]>> = [];
+    const result: Array<Array<T[number]>> = [];
 
-  for (let index = 0; index < array.length; index += size) {
-    result.push(array.slice(index, index + size) as Array<T[number]>);
-  }
+    for (let index = 0; index < array.length; index += size) {
+        result.push(array.slice(index, index + size) as Array<T[number]>);
+    }
 
-  return result;
+    return result;
 }
 
 /**
@@ -553,21 +553,21 @@ export function chunk<const T extends readonly unknown[]>(array: T, size: number
  * // output: [[2, 3], [1]]
  */
 export function partition<const T extends readonly unknown[]>(
-  array: T,
-  predicate: (value: T[number], index: number) => boolean,
+    array: T,
+    predicate: (value: T[number], index: number) => boolean,
 ): [Array<T[number]>, Array<T[number]>] {
-  const yes: Array<T[number]> = [];
-  const no: Array<T[number]> = [];
+    const yes: Array<T[number]> = [];
+    const no: Array<T[number]> = [];
 
-  array.forEach((value, index) => {
-    if (predicate(value, index)) {
-      yes.push(value as T[number]);
-    } else {
-      no.push(value as T[number]);
-    }
-  });
+    array.forEach((value, index) => {
+        if (predicate(value, index)) {
+            yes.push(value as T[number]);
+        } else {
+            no.push(value as T[number]);
+        }
+    });
 
-  return [yes, no];
+    return [yes, no];
 }
 
 /**
@@ -585,18 +585,18 @@ export function partition<const T extends readonly unknown[]>(
  * // output: Record<PropertyKey, string[]>
  */
 export function groupBy<const T extends readonly unknown[], K extends PropertyKey>(
-  array: T,
-  getKey: (value: T[number], index: number) => K,
+    array: T,
+    getKey: (value: T[number], index: number) => K,
 ): Record<K, Array<T[number]>> {
-  const result = {} as Record<K, Array<T[number]>>;
+    const result = {} as Record<K, Array<T[number]>>;
 
-  array.forEach((value, index) => {
-    const key = getKey(value as T[number], index);
-    result[key] ??= [];
-    result[key].push(value as T[number]);
-  });
+    array.forEach((value, index) => {
+        const key = getKey(value as T[number], index);
+        result[key] ??= [];
+        result[key].push(value as T[number]);
+    });
 
-  return result;
+    return result;
 }
 
 /* ================================================================================================
@@ -618,9 +618,9 @@ export function groupBy<const T extends readonly unknown[], K extends PropertyKe
  * // output: Map<"a" | "b", 1 | 2>
  */
 export function typedMap<const T extends readonly (readonly [unknown, unknown])[]>(
-  entries: T,
+    entries: T,
 ): Map<T[number][0], T[number][1]> {
-  return new Map(entries as Iterable<readonly [T[number][0], T[number][1]]>);
+    return new Map(entries as Iterable<readonly [T[number][0], T[number][1]]>);
 }
 
 /**
@@ -639,13 +639,13 @@ export function typedMap<const T extends readonly (readonly [unknown, unknown])[
  * // output: value is number
  */
 export function mapGetOrThrow<K, V>(map: ReadonlyMap<K, V>, key: K): V {
-  const value = map.get(key);
+    const value = map.get(key);
 
-  if (value === undefined && !map.has(key)) {
-    throw new Error(`Missing map key: ${String(key)}`);
-  }
+    if (value === undefined && !map.has(key)) {
+        throw new Error(`Missing map key: ${String(key)}`);
+    }
 
-  return value as V;
+    return value as V;
 }
 
 /**
@@ -665,14 +665,14 @@ export function mapGetOrThrow<K, V>(map: ReadonlyMap<K, V>, key: K): V {
  * // output: value is number
  */
 export function mapGetOrSet<K, V>(map: Map<K, V>, key: K, createValue: () => V): V {
-  if (map.has(key)) {
-    return map.get(key) as V;
-  }
+    if (map.has(key)) {
+        return map.get(key) as V;
+    }
 
-  const value = createValue();
-  map.set(key, value);
+    const value = createValue();
+    map.set(key, value);
 
-  return value;
+    return value;
 }
 
 /**
@@ -689,7 +689,7 @@ export function mapGetOrSet<K, V>(map: Map<K, V>, key: K, createValue: () => V):
  * // output: result is string[]
  */
 export function mapKeysArray<K, V>(map: ReadonlyMap<K, V>): K[] {
-  return [...map.keys()];
+    return [...map.keys()];
 }
 
 /**
@@ -706,7 +706,7 @@ export function mapKeysArray<K, V>(map: ReadonlyMap<K, V>): K[] {
  * // output: result is number[]
  */
 export function mapValuesArray<K, V>(map: ReadonlyMap<K, V>): V[] {
-  return [...map.values()];
+    return [...map.values()];
 }
 
 /**
@@ -724,13 +724,13 @@ export function mapValuesArray<K, V>(map: ReadonlyMap<K, V>): V[] {
  * // output: Map<string, string>
  */
 export function mapMapValues<K, V, R>(map: ReadonlyMap<K, V>, mapper: (value: V, key: K) => R): Map<K, R> {
-  const result = new Map<K, R>();
+    const result = new Map<K, R>();
 
-  for (const [key, value] of map) {
-    result.set(key, mapper(value, key));
-  }
+    for (const [key, value] of map) {
+        result.set(key, mapper(value, key));
+    }
 
-  return result;
+    return result;
 }
 
 /* ================================================================================================
@@ -752,7 +752,7 @@ export function mapMapValues<K, V, R>(map: ReadonlyMap<K, V>, mapper: (value: V,
  * // output: Set<"dev" | "prod">
  */
 export function typedSet<const T extends readonly unknown[]>(values: T): Set<T[number]> {
-  return new Set(values) as Set<T[number]>;
+    return new Set(values) as Set<T[number]>;
 }
 
 /**
@@ -772,7 +772,7 @@ export function typedSet<const T extends readonly unknown[]>(values: T): Set<T[n
  * // output: value is "a" | "b"
  */
 export function setHas<const T>(set: ReadonlySet<T>, item: unknown): item is T {
-  return set.has(item as T);
+    return set.has(item as T);
 }
 
 /**
@@ -790,7 +790,7 @@ export function setHas<const T>(set: ReadonlySet<T>, item: unknown): item is T {
  * // output: Set<string>
  */
 export function setUnion<A, B>(left: ReadonlySet<A>, right: ReadonlySet<B>): Set<A | B> {
-  return new Set<A | B>([...left, ...right]);
+    return new Set<A | B>([...left, ...right]);
 }
 
 /**
@@ -808,7 +808,7 @@ export function setUnion<A, B>(left: ReadonlySet<A>, right: ReadonlySet<B>): Set
  * // output: Set<string>
  */
 export function setIntersection<T>(left: ReadonlySet<T>, right: ReadonlySet<T>): Set<T> {
-  return new Set([...left].filter((value) => right.has(value)));
+    return new Set([...left].filter((value) => right.has(value)));
 }
 
 /**
@@ -826,7 +826,7 @@ export function setIntersection<T>(left: ReadonlySet<T>, right: ReadonlySet<T>):
  * // output: Set<"a">
  */
 export function setDifference<T>(left: ReadonlySet<T>, right: ReadonlySet<T>): Set<T> {
-  return new Set([...left].filter((value) => !right.has(value)));
+    return new Set([...left].filter((value) => !right.has(value)));
 }
 
 /* ================================================================================================
@@ -848,7 +848,7 @@ export function setDifference<T>(left: ReadonlySet<T>, right: ReadonlySet<T>): S
  * // output: result is "x"
  */
 export function identity<const T>(value: T): T {
-  return value;
+    return value;
 }
 
 /**
@@ -866,8 +866,8 @@ export function identity<const T>(value: T): T {
  * // output: result is 1
  */
 export function tap<const T>(value: T, effect: (value: T) => void): T {
-  effect(value);
-  return value;
+    effect(value);
+    return value;
 }
 
 /**
@@ -885,17 +885,17 @@ export function tap<const T>(value: T, effect: (value: T) => void): T {
  * // output: result is { ready: boolean }
  */
 export function once<Args extends readonly unknown[], R>(fn: (...args: Args) => R): (...args: Args) => R {
-  let called = false;
-  let value: R;
+    let called = false;
+    let value: R;
 
-  return (...args: Args): R => {
-    if (!called) {
-      called = true;
-      value = fn(...args);
-    }
+    return (...args: Args): R => {
+        if (!called) {
+            called = true;
+            value = fn(...args);
+        }
 
-    return value;
-  };
+        return value;
+    };
 }
 
 /**
@@ -912,13 +912,13 @@ export function once<Args extends readonly unknown[], R>(fn: (...args: Args) => 
  * // output: result is { user: string }
  */
 export async function promiseAllObject<const T extends Record<string, PromiseLike<unknown> | unknown>>(
-  input: T,
+    input: T,
 ): Promise<{ [K in keyof T]: Awaited<T[K]> }> {
-  const entries = await Promise.all(
-    objectEntries(input).map(async ([key, value]) => [key, await value] as const),
-  );
+    const entries = await Promise.all(
+        objectEntries(input).map(async ([key, value]) => [key, await value] as const),
+    );
 
-  return objectFromEntries(entries) as { [K in keyof T]: Awaited<T[K]> };
+    return objectFromEntries(entries) as { [K in keyof T]: Awaited<T[K]> };
 }
 
 /* ================================================================================================
@@ -941,7 +941,7 @@ export async function promiseAllObject<const T extends Record<string, PromiseLik
  * // output: result is unknown
  */
 export function parseJsonUnknown(input: string): unknown {
-  return JSON.parse(input) as unknown;
+    return JSON.parse(input) as unknown;
 }
 
 /**
@@ -961,13 +961,13 @@ export function parseJsonUnknown(input: string): unknown {
  * // output: result is { name: string }
  */
 export function parseJsonAs<T>(input: string, guard: (value: unknown) => value is T): T {
-  const value = parseJsonUnknown(input);
+    const value = parseJsonUnknown(input);
 
-  if (!guard(value)) {
-    throw new TypeError("Invalid JSON shape.");
-  }
+    if (!guard(value)) {
+        throw new TypeError("Invalid JSON shape.");
+    }
 
-  return value;
+    return value;
 }
 
 /**
@@ -984,7 +984,7 @@ export function parseJsonAs<T>(input: string, guard: (value: unknown) => value i
  * // output: config.mode is "production"
  */
 export function defineConfig<const T extends object>(config: T): T {
-  return config;
+    return config;
 }
 
 /**
@@ -1008,7 +1008,7 @@ export function defineConfig<const T extends object>(config: T): T {
  * // output: adding a new Mode breaks compilation until handled
  */
 export function assertNever(value: never): never {
-  throw new Error(`Unexpected value: ${String(value)}`);
+    throw new Error(`Unexpected value: ${String(value)}`);
 }
 
 /* ================================================================================================
@@ -1017,36 +1017,36 @@ export function assertNever(value: never): never {
  * ============================================================================================== */
 
 const NATIVE_REPLACEMENTS: readonly NativeReplacement[] = [
-  {
-    nativeName: "Object.keys",
-    helperName: "objectKeys",
-    message: "Use objectKeys() to preserve keyof inference instead of widening keys to string[].",
-  },
-  {
-    nativeName: "Object.values",
-    helperName: "objectValues",
-    message: "Use objectValues() to preserve the object's value union.",
-  },
-  {
-    nativeName: "Object.entries",
-    helperName: "objectEntries",
-    message: "Use objectEntries() to preserve key/value tuple relationships.",
-  },
-  {
-    nativeName: "Object.fromEntries",
-    helperName: "objectFromEntries",
-    message: "Use objectFromEntries() to reconstruct a typed object from typed entries.",
-  },
-  {
-    nativeName: "Object.hasOwn",
-    helperName: "hasOwn",
-    message: "Use hasOwn() as a key-narrowing type guard.",
-  },
-  {
-    nativeName: "JSON.parse",
-    helperName: "parseJsonUnknown",
-    message: "Use parseJsonUnknown() to avoid leaking any from JSON.parse().",
-  },
+    {
+        nativeName: "Object.keys",
+        helperName: "objectKeys",
+        message: "Use objectKeys() to preserve keyof inference instead of widening keys to string[].",
+    },
+    {
+        nativeName: "Object.values",
+        helperName: "objectValues",
+        message: "Use objectValues() to preserve the object's value union.",
+    },
+    {
+        nativeName: "Object.entries",
+        helperName: "objectEntries",
+        message: "Use objectEntries() to preserve key/value tuple relationships.",
+    },
+    {
+        nativeName: "Object.fromEntries",
+        helperName: "objectFromEntries",
+        message: "Use objectFromEntries() to reconstruct a typed object from typed entries.",
+    },
+    {
+        nativeName: "Object.hasOwn",
+        helperName: "hasOwn",
+        message: "Use hasOwn() as a key-narrowing type guard.",
+    },
+    {
+        nativeName: "JSON.parse",
+        helperName: "parseJsonUnknown",
+        message: "Use parseJsonUnknown() to avoid leaking any from JSON.parse().",
+    },
 ];
 
 /**
@@ -1063,39 +1063,39 @@ const NATIVE_REPLACEMENTS: readonly NativeReplacement[] = [
  * // output: tsserver loads editor diagnostics and code fixes
  */
 export function initTypedNativeLanguageServicePlugin(mod: {
-  readonly typescript: typeof tsserver;
+    readonly typescript: typeof tsserver;
 }): tsserver.server.PluginModule {
-  const tsModule = mod.typescript;
+    const tsModule = mod.typescript;
 
-  return {
-    create(info) {
-      const config = normalizePluginConfig(info.config);
-      const oldLanguageService = info.languageService;
-      const proxy = Object.create(null) as tsserver.LanguageService;
+    return {
+        create(info) {
+            const config = normalizePluginConfig(info.config);
+            const oldLanguageService = info.languageService;
+            const proxy = Object.create(null) as tsserver.LanguageService;
 
-      for (const key of Object.keys(oldLanguageService) as Array<keyof tsserver.LanguageService>) {
-        const value = oldLanguageService[key];
+            for (const key of Object.keys(oldLanguageService) as Array<keyof tsserver.LanguageService>) {
+                const value = oldLanguageService[key];
 
-        proxy[key] =
-          typeof value === "function"
-            ? ((...args: readonly unknown[]) => Reflect.apply(value, oldLanguageService, args)) as never
-            : value;
-      }
+                proxy[key] =
+                    typeof value === "function"
+                        ? ((...args: readonly unknown[]) => Reflect.apply(value, oldLanguageService, args)) as never
+                        : value;
+            }
 
-      proxy.getSemanticDiagnostics = (fileName) => {
-        const prior = oldLanguageService.getSemanticDiagnostics(fileName);
-        const sourceFile = oldLanguageService.getProgram()?.getSourceFile(fileName);
+            proxy.getSemanticDiagnostics = (fileName) => {
+                const prior = oldLanguageService.getSemanticDiagnostics(fileName);
+                const sourceFile = oldLanguageService.getProgram()?.getSourceFile(fileName);
 
-        if (!sourceFile) {
-          return prior;
-        }
+                if (!sourceFile) {
+                    return prior;
+                }
 
-        return [...prior, ...collectPluginDiagnostics(tsModule, sourceFile, config)];
-      };
+                return [...prior, ...collectPluginDiagnostics(tsModule, sourceFile, config)];
+            };
 
-      return proxy;
-    },
-  };
+            return proxy;
+        },
+    };
 }
 
 /**
@@ -1112,12 +1112,12 @@ export function initTypedNativeLanguageServicePlugin(mod: {
  * // output: config.helperModule === "@/typed-native"
  */
 function normalizePluginConfig(input: unknown): Required<PluginConfig> {
-  const raw = isRecord(input) ? input : {};
+    const raw = isRecord(input) ? input : {};
 
-  return {
-    helperModule: typeof raw.helperModule === "string" ? raw.helperModule : DEFAULT_HELPER_MODULE,
-    diagnosticCategory: raw.diagnosticCategory === "warning" ? "warning" : "suggestion",
-  };
+    return {
+        helperModule: typeof raw.helperModule === "string" ? raw.helperModule : DEFAULT_HELPER_MODULE,
+        diagnosticCategory: raw.diagnosticCategory === "warning" ? "warning" : "suggestion",
+    };
 }
 
 /**
@@ -1136,36 +1136,36 @@ function normalizePluginConfig(input: unknown): Required<PluginConfig> {
  * // output: diagnostics is ts.DiagnosticWithLocation[]
  */
 function collectPluginDiagnostics(
-  tsModule: typeof tsserver,
-  sourceFile: tsserver.SourceFile,
-  config: Required<PluginConfig>,
+    tsModule: typeof tsserver,
+    sourceFile: tsserver.SourceFile,
+    config: Required<PluginConfig>,
 ): tsserver.DiagnosticWithLocation[] {
-  const diagnostics: tsserver.DiagnosticWithLocation[] = [];
+    const diagnostics: tsserver.DiagnosticWithLocation[] = [];
 
-  const visit = (node: tsserver.Node): void => {
-    const replacement = getNativeReplacement(tsModule, node);
+    const visit = (node: tsserver.Node): void => {
+        const replacement = getNativeReplacement(tsModule, node);
 
-    if (replacement && tsModule.isCallExpression(node)) {
-      diagnostics.push({
-        file: sourceFile,
-        start: node.expression.getStart(sourceFile),
-        length: node.expression.getWidth(sourceFile),
-        code: LANGUAGE_PLUGIN_DIAGNOSTIC_CODE,
-        category:
-          config.diagnosticCategory === "warning"
-            ? tsModule.DiagnosticCategory.Warning
-            : tsModule.DiagnosticCategory.Suggestion,
-        messageText: replacement.message,
-        source: LANGUAGE_PLUGIN_NAME,
-      });
-    }
+        if (replacement && tsModule.isCallExpression(node)) {
+            diagnostics.push({
+                file: sourceFile,
+                start: node.expression.getStart(sourceFile),
+                length: node.expression.getWidth(sourceFile),
+                code: LANGUAGE_PLUGIN_DIAGNOSTIC_CODE,
+                category:
+                    config.diagnosticCategory === "warning"
+                        ? tsModule.DiagnosticCategory.Warning
+                        : tsModule.DiagnosticCategory.Suggestion,
+                messageText: replacement.message,
+                source: LANGUAGE_PLUGIN_NAME,
+            });
+        }
 
-    tsModule.forEachChild(node, visit);
-  };
+        tsModule.forEachChild(node, visit);
+    };
 
-  visit(sourceFile);
+    visit(sourceFile);
 
-  return diagnostics;
+    return diagnostics;
 }
 
 /**
@@ -1183,13 +1183,13 @@ function collectPluginDiagnostics(
  * // output: replacement?.helperName could be "objectKeys"
  */
 function getNativeReplacement(tsModule: typeof tsserver, node: tsserver.Node): NativeReplacement | undefined {
-  if (!tsModule.isCallExpression(node) || !tsModule.isPropertyAccessExpression(node.expression)) {
-    return undefined;
-  }
+    if (!tsModule.isCallExpression(node) || !tsModule.isPropertyAccessExpression(node.expression)) {
+        return undefined;
+    }
 
-  const nativeName = node.expression.getText();
+    const nativeName = node.expression.getText();
 
-  return NATIVE_REPLACEMENTS.find((replacement) => replacement.nativeName === nativeName);
+    return NATIVE_REPLACEMENTS.find((replacement) => replacement.nativeName === nativeName);
 }
 
 /* ================================================================================================
@@ -1210,25 +1210,25 @@ function getNativeReplacement(tsModule: typeof tsserver, node: tsserver.Node): N
  * // output: files are scanned and optionally rewritten
  */
 export async function runTypedNativeCodemodCli(): Promise<void> {
-  const options = parseCodemodOptions(process.argv.slice(2));
-  const root = await resolveWorkspaceRoot(options.root);
-  const files = await collectSourceFiles(root);
-  const results: FileResult[] = [];
+    const options = parseCodemodOptions(process.argv.slice(2));
+    const root = await resolveWorkspaceRoot(options.root);
+    const files = await collectSourceFiles(root);
+    const results: FileResult[] = [];
 
-  logInfo(`Root: ${root}`);
-  logInfo(`Helper module: ${options.helperModule}`);
-  logInfo(`Mode: ${options.write ? "write" : "dry-run"}`);
-  logInfo(`Files found: ${files.length}`);
+    logInfo(`Root: ${root}`);
+    logInfo(`Helper module: ${options.helperModule}`);
+    logInfo(`Mode: ${options.write ? "write" : "dry-run"}`);
+    logInfo(`Files found: ${files.length}`);
 
-  for (const filePath of files) {
-    const result = await processSourceFile(filePath, options);
+    for (const filePath of files) {
+        const result = await processSourceFile(filePath, options);
 
-    if (result.changed) {
-      results.push(result);
+        if (result.changed) {
+            results.push(result);
+        }
     }
-  }
 
-  printCodemodSummary(results, options);
+    printCodemodSummary(results, options);
 }
 
 /**
@@ -1245,39 +1245,39 @@ export async function runTypedNativeCodemodCli(): Promise<void> {
  * // output: options.write === true
  */
 function parseCodemodOptions(args: readonly string[]): CodemodOptions {
-  let root = ".";
-  let helperModule = DEFAULT_HELPER_MODULE;
-  let write = false;
-  let dryRun = true;
+    let root = ".";
+    let helperModule = DEFAULT_HELPER_MODULE;
+    let write = false;
+    let dryRun = true;
 
-  for (let index = 0; index < args.length; index += 1) {
-    const arg = args[index];
+    for (let index = 0; index < args.length; index += 1) {
+        const arg = args[index];
 
-    if (arg === "--root") {
-      root = args[index + 1] ?? ".";
-      index += 1;
-      continue;
+        if (arg === "--root") {
+            root = args[index + 1] ?? ".";
+            index += 1;
+            continue;
+        }
+
+        if (arg === "--helper-module") {
+            helperModule = args[index + 1] ?? DEFAULT_HELPER_MODULE;
+            index += 1;
+            continue;
+        }
+
+        if (arg === "--write") {
+            write = true;
+            dryRun = false;
+            continue;
+        }
+
+        if (arg === "--dry-run") {
+            write = false;
+            dryRun = true;
+        }
     }
 
-    if (arg === "--helper-module") {
-      helperModule = args[index + 1] ?? DEFAULT_HELPER_MODULE;
-      index += 1;
-      continue;
-    }
-
-    if (arg === "--write") {
-      write = true;
-      dryRun = false;
-      continue;
-    }
-
-    if (arg === "--dry-run") {
-      write = false;
-      dryRun = true;
-    }
-  }
-
-  return { root, helperModule, write, dryRun };
+    return {root, helperModule, write, dryRun};
 }
 
 /**
@@ -1294,25 +1294,25 @@ function parseCodemodOptions(args: readonly string[]): CodemodOptions {
  * // output: root is an absolute path
  */
 async function resolveWorkspaceRoot(preferredRoot: string): Promise<string> {
-  let current = path.resolve(preferredRoot);
+    let current = path.resolve(preferredRoot);
 
-  while (true) {
-    if (await exists(path.join(current, "pnpm-workspace.yaml"))) {
-      return current;
+    while (true) {
+        if (await exists(path.join(current, "pnpm-workspace.yaml"))) {
+            return current;
+        }
+
+        if (await exists(path.join(current, "package.json"))) {
+            return current;
+        }
+
+        const parent = path.dirname(current);
+
+        if (parent === current) {
+            return path.resolve(preferredRoot);
+        }
+
+        current = parent;
     }
-
-    if (await exists(path.join(current, "package.json"))) {
-      return current;
-    }
-
-    const parent = path.dirname(current);
-
-    if (parent === current) {
-      return path.resolve(preferredRoot);
-    }
-
-    current = parent;
-  }
 }
 
 /**
@@ -1329,17 +1329,17 @@ async function resolveWorkspaceRoot(preferredRoot: string): Promise<string> {
  * // output: files is string[]
  */
 async function collectSourceFiles(root: string): Promise<string[]> {
-  const files: string[] = [];
+    const files: string[] = [];
 
-  for (const directory of DEFAULT_SOURCE_DIRECTORIES) {
-    const absolute = path.join(root, directory);
+    for (const directory of DEFAULT_SOURCE_DIRECTORIES) {
+        const absolute = path.join(root, directory);
 
-    if (await exists(absolute)) {
-      await walkDirectory(absolute, files);
+        if (await exists(absolute)) {
+            await walkDirectory(absolute, files);
+        }
     }
-  }
 
-  return files.sort((left, right) => left.localeCompare(right));
+    return files.sort((left, right) => left.localeCompare(right));
 }
 
 /**
@@ -1357,23 +1357,23 @@ async function collectSourceFiles(root: string): Promise<string[]> {
  * // output: files receives supported source paths
  */
 async function walkDirectory(directory: string, files: string[]): Promise<void> {
-  const entries = await fs.readdir(directory, { withFileTypes: true });
+    const entries = await fs.readdir(directory, {withFileTypes: true});
 
-  for (const entry of entries) {
-    const absolute = path.join(directory, entry.name);
+    for (const entry of entries) {
+        const absolute = path.join(directory, entry.name);
 
-    if (entry.isDirectory()) {
-      if (!IGNORED_DIRECTORIES.has(entry.name)) {
-        await walkDirectory(absolute, files);
-      }
+        if (entry.isDirectory()) {
+            if (!IGNORED_DIRECTORIES.has(entry.name)) {
+                await walkDirectory(absolute, files);
+            }
 
-      continue;
+            continue;
+        }
+
+        if (entry.isFile() && !entry.name.endsWith(".d.ts") && SUPPORTED_EXTENSIONS.has(path.extname(entry.name))) {
+            files.push(absolute);
+        }
     }
-
-    if (entry.isFile() && !entry.name.endsWith(".d.ts") && SUPPORTED_EXTENSIONS.has(path.extname(entry.name))) {
-      files.push(absolute);
-    }
-  }
 }
 
 /**
@@ -1391,38 +1391,38 @@ async function walkDirectory(directory: string, files: string[]): Promise<void> 
  * // output: result.changed tells whether the file would change
  */
 async function processSourceFile(filePath: string, options: CodemodOptions): Promise<FileResult> {
-  const sourceText = await fs.readFile(filePath, "utf8");
-  const sourceFile = ts.createSourceFile(filePath, sourceText, ts.ScriptTarget.Latest, true, getScriptKind(filePath));
+    const sourceText = await fs.readFile(filePath, "utf8");
+    const sourceFile = ts.createSourceFile(filePath, sourceText, ts.ScriptTarget.Latest, true, getScriptKind(filePath));
 
-  if (hasLocalShadowForNativeObjects(sourceFile)) {
-    return { filePath, changed: false, replacements: [] };
-  }
+    if (hasLocalShadowForNativeObjects(sourceFile)) {
+        return {filePath, changed: false, replacements: []};
+    }
 
-  const replacements = new Set<string>();
-  const transformer = createCodemodTransformer(replacements);
-  const result = ts.transform(sourceFile, [transformer]);
-  const transformed = result.transformed[0];
+    const replacements = new Set<string>();
+    const transformer = createCodemodTransformer(replacements);
+    const result = ts.transform(sourceFile, [transformer]);
+    const transformed = result.transformed[0];
 
-  if (!transformed || replacements.size === 0) {
+    if (!transformed || replacements.size === 0) {
+        result.dispose();
+        return {filePath, changed: false, replacements: []};
+    }
+
+    const withImports = ensureNamedImports(transformed, [...replacements], options.helperModule);
+    const printer = ts.createPrinter({newLine: ts.NewLineKind.LineFeed, removeComments: false});
+    const nextText = printer.printFile(withImports);
+
     result.dispose();
-    return { filePath, changed: false, replacements: [] };
-  }
 
-  const withImports = ensureNamedImports(transformed, [...replacements], options.helperModule);
-  const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed, removeComments: false });
-  const nextText = printer.printFile(withImports);
+    if (nextText !== sourceText && options.write) {
+        await fs.writeFile(filePath, nextText, "utf8");
+    }
 
-  result.dispose();
-
-  if (nextText !== sourceText && options.write) {
-    await fs.writeFile(filePath, nextText, "utf8");
-  }
-
-  return {
-    filePath,
-    changed: nextText !== sourceText,
-    replacements: [...replacements].sort(),
-  };
+    return {
+        filePath,
+        changed: nextText !== sourceText,
+        replacements: [...replacements].sort(),
+    };
 }
 
 /**
@@ -1439,28 +1439,28 @@ async function processSourceFile(filePath: string, options: CodemodOptions): Pro
  * // output: transformer rewrites Object.keys(...) to objectKeys(...)
  */
 function createCodemodTransformer(replacements: Set<string>): ts.TransformerFactory<ts.SourceFile> {
-  return (context) => {
-    const visit = (node: ts.Node): ts.Node => {
-      if (ts.isCallExpression(node)) {
-        const rule = getCodemodReplacementRule(node);
+    return (context) => {
+        const visit = (node: ts.Node): ts.Node => {
+            if (ts.isCallExpression(node)) {
+                const rule = getCodemodReplacementRule(node);
 
-        if (rule) {
-          replacements.add(rule.helperName);
+                if (rule) {
+                    replacements.add(rule.helperName);
 
-          return context.factory.updateCallExpression(
-            node,
-            context.factory.createIdentifier(rule.helperName),
-            node.typeArguments,
-            node.arguments,
-          );
-        }
-      }
+                    return context.factory.updateCallExpression(
+                        node,
+                        context.factory.createIdentifier(rule.helperName),
+                        node.typeArguments,
+                        node.arguments,
+                    );
+                }
+            }
 
-      return ts.visitEachChild(node, visit, context);
+            return ts.visitEachChild(node, visit, context);
+        };
+
+        return (file) => ts.visitNode(file, visit) as ts.SourceFile;
     };
-
-    return (file) => ts.visitNode(file, visit) as ts.SourceFile;
-  };
 }
 
 /**
@@ -1477,13 +1477,13 @@ function createCodemodTransformer(replacements: Set<string>): ts.TransformerFact
  * // output: rule?.helperName could be "objectKeys"
  */
 function getCodemodReplacementRule(node: ts.CallExpression): NativeReplacement | undefined {
-  if (!ts.isPropertyAccessExpression(node.expression)) {
-    return undefined;
-  }
+    if (!ts.isPropertyAccessExpression(node.expression)) {
+        return undefined;
+    }
 
-  const nativeName = node.expression.getText();
+    const nativeName = node.expression.getText();
 
-  return NATIVE_REPLACEMENTS.find((rule) => rule.nativeName === nativeName);
+    return NATIVE_REPLACEMENTS.find((rule) => rule.nativeName === nativeName);
 }
 
 /**
@@ -1502,25 +1502,25 @@ function getCodemodReplacementRule(node: ts.CallExpression): NativeReplacement |
  * // output: source file has an objectKeys named import
  */
 function ensureNamedImports(sourceFile: ts.SourceFile, helperNames: readonly string[], helperModule: string): ts.SourceFile {
-  const uniqueHelpers = [...new Set(helperNames)].sort();
+    const uniqueHelpers = [...new Set(helperNames)].sort();
 
-  if (uniqueHelpers.length === 0) {
-    return sourceFile;
-  }
+    if (uniqueHelpers.length === 0) {
+        return sourceFile;
+    }
 
-  const existingImport = sourceFile.statements.find((statement): statement is ts.ImportDeclaration => {
-    return (
-      ts.isImportDeclaration(statement) &&
-      ts.isStringLiteral(statement.moduleSpecifier) &&
-      statement.moduleSpecifier.text === helperModule
-    );
-  });
+    const existingImport = sourceFile.statements.find((statement): statement is ts.ImportDeclaration => {
+        return (
+            ts.isImportDeclaration(statement) &&
+            ts.isStringLiteral(statement.moduleSpecifier) &&
+            statement.moduleSpecifier.text === helperModule
+        );
+    });
 
-  if (existingImport) {
-    return updateExistingHelperImport(sourceFile, existingImport, uniqueHelpers);
-  }
+    if (existingImport) {
+        return updateExistingHelperImport(sourceFile, existingImport, uniqueHelpers);
+    }
 
-  return insertNewHelperImport(sourceFile, uniqueHelpers, helperModule);
+    return insertNewHelperImport(sourceFile, uniqueHelpers, helperModule);
 }
 
 /**
@@ -1539,40 +1539,40 @@ function ensureNamedImports(sourceFile: ts.SourceFile, helperNames: readonly str
  * // output: declaration includes objectKeys
  */
 function updateExistingHelperImport(
-  sourceFile: ts.SourceFile,
-  declaration: ts.ImportDeclaration,
-  helperNames: readonly string[],
+    sourceFile: ts.SourceFile,
+    declaration: ts.ImportDeclaration,
+    helperNames: readonly string[],
 ): ts.SourceFile {
-  const importClause = declaration.importClause;
-  const namedBindings = importClause?.namedBindings;
+    const importClause = declaration.importClause;
+    const namedBindings = importClause?.namedBindings;
 
-  if (!importClause || !namedBindings || !ts.isNamedImports(namedBindings)) {
-    return sourceFile;
-  }
+    if (!importClause || !namedBindings || !ts.isNamedImports(namedBindings)) {
+        return sourceFile;
+    }
 
-  const currentNames = namedBindings.elements.map((element) => element.name.text);
-  const nextNames = [...new Set([...currentNames, ...helperNames])].sort();
+    const currentNames = namedBindings.elements.map((element) => element.name.text);
+    const nextNames = [...new Set([...currentNames, ...helperNames])].sort();
 
-  const nextDeclaration = ts.factory.updateImportDeclaration(
-    declaration,
-    declaration.modifiers,
-    ts.factory.updateImportClause(
-      importClause,
-      importClause.isTypeOnly,
-      importClause.name,
-      ts.factory.updateNamedImports(
-        namedBindings,
-        nextNames.map((name) => ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(name))),
-      ),
-    ),
-    declaration.moduleSpecifier,
-    declaration.attributes,
-  );
+    const nextDeclaration = ts.factory.updateImportDeclaration(
+        declaration,
+        declaration.modifiers,
+        ts.factory.updateImportClause(
+            importClause,
+            importClause.isTypeOnly,
+            importClause.name,
+            ts.factory.updateNamedImports(
+                namedBindings,
+                nextNames.map((name) => ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(name))),
+            ),
+        ),
+        declaration.moduleSpecifier,
+        declaration.attributes,
+    );
 
-  return ts.factory.updateSourceFile(
-    sourceFile,
-    sourceFile.statements.map((statement) => (statement === declaration ? nextDeclaration : statement)),
-  );
+    return ts.factory.updateSourceFile(
+        sourceFile,
+        sourceFile.statements.map((statement) => (statement === declaration ? nextDeclaration : statement)),
+    );
 }
 
 /**
@@ -1591,24 +1591,24 @@ function updateExistingHelperImport(
  * // output: source file has a new named import
  */
 function insertNewHelperImport(sourceFile: ts.SourceFile, helperNames: readonly string[], helperModule: string): ts.SourceFile {
-  const importDeclaration = ts.factory.createImportDeclaration(
-    undefined,
-    ts.factory.createImportClause(
-      false,
-      undefined,
-      ts.factory.createNamedImports(
-        helperNames.map((name) => ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(name))),
-      ),
-    ),
-    ts.factory.createStringLiteral(helperModule),
-    undefined,
-  );
+    const importDeclaration = ts.factory.createImportDeclaration(
+        undefined,
+        ts.factory.createImportClause(
+            false,
+            undefined,
+            ts.factory.createNamedImports(
+                helperNames.map((name) => ts.factory.createImportSpecifier(false, undefined, ts.factory.createIdentifier(name))),
+            ),
+        ),
+        ts.factory.createStringLiteral(helperModule),
+        undefined,
+    );
 
-  const statements = [...sourceFile.statements];
-  const lastImportIndex = statements.findLastIndex(ts.isImportDeclaration);
-  statements.splice(lastImportIndex >= 0 ? lastImportIndex + 1 : 0, 0, importDeclaration);
+    const statements = [...sourceFile.statements];
+    const lastImportIndex = statements.findLastIndex(ts.isImportDeclaration);
+    statements.splice(lastImportIndex >= 0 ? lastImportIndex + 1 : 0, 0, importDeclaration);
 
-  return ts.factory.updateSourceFile(sourceFile, statements);
+    return ts.factory.updateSourceFile(sourceFile, statements);
 }
 
 /**
@@ -1625,35 +1625,35 @@ function insertNewHelperImport(sourceFile: ts.SourceFile, helperNames: readonly 
  * // output: true means skip codemod for this file
  */
 function hasLocalShadowForNativeObjects(sourceFile: ts.SourceFile): boolean {
-  const nativeRoots = new Set(["Object", "Array", "JSON"]);
-  let shadowed = false;
+    const nativeRoots = new Set(["Object", "Array", "JSON"]);
+    let shadowed = false;
 
-  const visit = (node: ts.Node): void => {
-    if (shadowed) {
-      return;
-    }
+    const visit = (node: ts.Node): void => {
+        if (shadowed) {
+            return;
+        }
 
-    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && nativeRoots.has(node.name.text)) {
-      shadowed = true;
-      return;
-    }
+        if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && nativeRoots.has(node.name.text)) {
+            shadowed = true;
+            return;
+        }
 
-    if (ts.isFunctionDeclaration(node) && node.name && nativeRoots.has(node.name.text)) {
-      shadowed = true;
-      return;
-    }
+        if (ts.isFunctionDeclaration(node) && node.name && nativeRoots.has(node.name.text)) {
+            shadowed = true;
+            return;
+        }
 
-    if (ts.isClassDeclaration(node) && node.name && nativeRoots.has(node.name.text)) {
-      shadowed = true;
-      return;
-    }
+        if (ts.isClassDeclaration(node) && node.name && nativeRoots.has(node.name.text)) {
+            shadowed = true;
+            return;
+        }
 
-    ts.forEachChild(node, visit);
-  };
+        ts.forEachChild(node, visit);
+    };
 
-  visit(sourceFile);
+    visit(sourceFile);
 
-  return shadowed;
+    return shadowed;
 }
 
 /**
@@ -1670,7 +1670,7 @@ function hasLocalShadowForNativeObjects(sourceFile: ts.SourceFile): boolean {
  * // output: ts.ScriptKind.TSX
  */
 function getScriptKind(filePath: string): ts.ScriptKind {
-  return filePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+    return filePath.endsWith(".tsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
 }
 
 /**
@@ -1687,12 +1687,12 @@ function getScriptKind(filePath: string): ts.ScriptKind {
  * // output: boolean
  */
 async function exists(targetPath: string): Promise<boolean> {
-  try {
-    await fs.access(targetPath);
-    return true;
-  } catch {
-    return false;
-  }
+    try {
+        await fs.access(targetPath);
+        return true;
+    } catch {
+        return false;
+    }
 }
 
 /**
@@ -1709,7 +1709,7 @@ async function exists(targetPath: string): Promise<boolean> {
  * // output: true
  */
 function isRecord(value: unknown): value is AnyRecord {
-  return typeof value === "object" && value !== null;
+    return typeof value === "object" && value !== null;
 }
 
 /**
@@ -1727,18 +1727,18 @@ function isRecord(value: unknown): value is AnyRecord {
  * // output: summary is printed to stdout
  */
 function printCodemodSummary(results: readonly FileResult[], options: CodemodOptions): void {
-  logInfo("");
-  logInfo("Typed native codemod summary");
-  logInfo(`Changed files: ${results.length}`);
-
-  for (const result of results) {
-    logInfo(`- ${path.relative(process.cwd(), result.filePath)}: ${result.replacements.join(", ")}`);
-  }
-
-  if (options.dryRun) {
     logInfo("");
-    logInfo("Dry-run only. Re-run with --write to update files.");
-  }
+    logInfo("Typed native codemod summary");
+    logInfo(`Changed files: ${results.length}`);
+
+    for (const result of results) {
+        logInfo(`- ${path.relative(process.cwd(), result.filePath)}: ${result.replacements.join(", ")}`);
+    }
+
+    if (options.dryRun) {
+        logInfo("");
+        logInfo("Dry-run only. Re-run with --write to update files.");
+    }
 }
 
 /**
@@ -1755,13 +1755,13 @@ function printCodemodSummary(results: readonly FileResult[], options: CodemodOpt
  * // output: "Done" is printed
  */
 function logInfo(message: string): void {
-  process.stdout.write(`${message}\n`);
+    process.stdout.write(`${message}\n`);
 }
 
 if (process.argv[1] && path.basename(process.argv[1]) === path.basename(import.meta.url.replace("file://", ""))) {
-  void runTypedNativeCodemodCli().catch((error: unknown) => {
-    const message = error instanceof Error ? error.stack ?? error.message : String(error);
-    process.stderr.write(`${message}\n`);
-    process.exitCode = 1;
-  });
+    void runTypedNativeCodemodCli().catch((error: unknown) => {
+        const message = error instanceof Error ? error.stack ?? error.message : String(error);
+        process.stderr.write(`${message}\n`);
+        process.exitCode = 1;
+    });
 }

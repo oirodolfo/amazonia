@@ -1,9 +1,11 @@
-import type { WorkbenchRuntimeApp } from './workbench-runtime-app';
+import type {WorkbenchRuntimeApp} from './workbench-runtime-app';
 
 export interface WorkbenchAutosaveController {
-  schedule(): void;
-  flush(): Promise<void>;
-  dispose(): void;
+    schedule(): void;
+
+    flush(): Promise<void>;
+
+    dispose(): void;
 }
 
 /**
@@ -20,37 +22,37 @@ export interface WorkbenchAutosaveController {
  * ```
  */
 export function createWorkbenchAutosave(
-  app: Pick<WorkbenchRuntimeApp, 'persist'>,
-  delayMs = 250,
+    app: Pick<WorkbenchRuntimeApp, 'persist'>,
+    delayMs = 250,
 ): WorkbenchAutosaveController {
-  let timer: ReturnType<typeof setTimeout> | null = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
 
-  return {
-    schedule() {
-      if (timer) {
-        clearTimeout(timer);
-      }
+    return {
+        schedule() {
+            if (timer) {
+                clearTimeout(timer);
+            }
 
-      timer = setTimeout(() => {
-        timer = null;
-        void app.persist();
-      }, delayMs);
-    },
+            timer = setTimeout(() => {
+                timer = null;
+                void app.persist();
+            }, delayMs);
+        },
 
-    async flush() {
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
+        async flush() {
+            if (timer) {
+                clearTimeout(timer);
+                timer = null;
+            }
 
-      await app.persist();
-    },
+            await app.persist();
+        },
 
-    dispose() {
-      if (timer) {
-        clearTimeout(timer);
-        timer = null;
-      }
-    },
-  };
+        dispose() {
+            if (timer) {
+                clearTimeout(timer);
+                timer = null;
+            }
+        },
+    };
 }

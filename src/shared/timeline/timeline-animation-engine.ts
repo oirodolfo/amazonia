@@ -1,14 +1,14 @@
 export interface TimelineAnimationFrame {
-  readonly id: string;
-  readonly timestamp: number;
-  readonly progress: number;
+    readonly id: string;
+    readonly timestamp: number;
+    readonly progress: number;
 }
 
 export interface TimelinePlaybackState {
-  readonly frames: readonly TimelineAnimationFrame[];
-  readonly currentFrameIndex: number;
-  readonly speed: number;
-  readonly isPlaying: boolean;
+    readonly frames: readonly TimelineAnimationFrame[];
+    readonly currentFrameIndex: number;
+    readonly speed: number;
+    readonly isPlaying: boolean;
 }
 
 /**
@@ -23,14 +23,14 @@ export interface TimelinePlaybackState {
  * ```
  */
 export function createTimelinePlaybackState(
-  frames: readonly TimelineAnimationFrame[],
+    frames: readonly TimelineAnimationFrame[],
 ): TimelinePlaybackState {
-  return {
-    frames,
-    currentFrameIndex: 0,
-    speed: 1,
-    isPlaying: false,
-  };
+    return {
+        frames,
+        currentFrameIndex: 0,
+        speed: 1,
+        isPlaying: false,
+    };
 }
 
 /**
@@ -45,13 +45,13 @@ export function createTimelinePlaybackState(
  * ```
  */
 export function advanceTimelinePlayback(
-  state: TimelinePlaybackState,
+    state: TimelinePlaybackState,
 ): TimelinePlaybackState {
-  return {
-    ...state,
-    currentFrameIndex: Math.min(
-      state.frames.length - 1,
-      state.currentFrameIndex + 1,
-    ),
-  };
+    return {
+        ...state,
+        currentFrameIndex: Math.min(
+            state.frames.length - 1,
+            state.currentFrameIndex + 1,
+        ),
+    };
 }

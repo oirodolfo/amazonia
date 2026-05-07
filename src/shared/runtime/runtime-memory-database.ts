@@ -1,15 +1,17 @@
-import type { RuntimeStoreSnapshot } from './workbench-runtime-store';
+import type {RuntimeStoreSnapshot} from './workbench-runtime-store';
 
 export interface RuntimeMemoryRecord {
-  readonly id: string;
-  readonly snapshot: RuntimeStoreSnapshot;
-  readonly createdAt: number;
+    readonly id: string;
+    readonly snapshot: RuntimeStoreSnapshot;
+    readonly createdAt: number;
 }
 
 export interface RuntimeMemoryDatabase {
-  save(record: RuntimeMemoryRecord): void;
-  list(): readonly RuntimeMemoryRecord[];
-  get(id: string): RuntimeMemoryRecord | null;
+    save(record: RuntimeMemoryRecord): void;
+
+    list(): readonly RuntimeMemoryRecord[];
+
+    get(id: string): RuntimeMemoryRecord | null;
 }
 
 /**
@@ -23,19 +25,19 @@ export interface RuntimeMemoryDatabase {
  * ```
  */
 export function createRuntimeMemoryDatabase(): RuntimeMemoryDatabase {
-  const records: RuntimeMemoryRecord[] = [];
+    const records: RuntimeMemoryRecord[] = [];
 
-  return {
-    save(record) {
-      records.push(record);
-    },
+    return {
+        save(record) {
+            records.push(record);
+        },
 
-    list() {
-      return records;
-    },
+        list() {
+            return records;
+        },
 
-    get(id) {
-      return records.find((record) => record.id === id) ?? null;
-    },
-  };
+        get(id) {
+            return records.find((record) => record.id === id) ?? null;
+        },
+    };
 }

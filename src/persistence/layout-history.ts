@@ -1,12 +1,12 @@
-import type { LayoutState } from '@/shared/types';
+import type {LayoutState} from '@/shared/types';
 
 export interface LayoutHistoryEntry {
-  readonly layout: LayoutState;
-  readonly savedAtIso: string;
-  readonly source: 'resize' | 'restore' | 'reset';
+    readonly layout: LayoutState;
+    readonly savedAtIso: string;
+    readonly source: 'resize' | 'restore' | 'reset';
 }
 
-const DEFAULT_LAYOUT: LayoutState = Object.freeze({ sidebarSize: 22, terminalSize: 52, outputSize: 26 });
+const DEFAULT_LAYOUT: LayoutState = Object.freeze({sidebarSize: 22, terminalSize: 52, outputSize: 26});
 const LAYOUT_TOTAL = 100;
 const MIN_PANEL_SIZE = 8;
 
@@ -22,20 +22,20 @@ const MIN_PANEL_SIZE = 8;
  * ```
  */
 export function normalizeLayoutState(layout: LayoutState | null | undefined): LayoutState {
-  if (layout === null || layout === undefined) return DEFAULT_LAYOUT;
+    if (layout === null || layout === undefined) return DEFAULT_LAYOUT;
 
-  const sidebarSize = sanitizeSize(layout.sidebarSize);
-  const terminalSize = sanitizeSize(layout.terminalSize);
-  const outputSize = sanitizeSize(layout.outputSize);
-  const total = sidebarSize + terminalSize + outputSize;
+    const sidebarSize = sanitizeSize(layout.sidebarSize);
+    const terminalSize = sanitizeSize(layout.terminalSize);
+    const outputSize = sanitizeSize(layout.outputSize);
+    const total = sidebarSize + terminalSize + outputSize;
 
-  if (total <= 0) return DEFAULT_LAYOUT;
+    if (total <= 0) return DEFAULT_LAYOUT;
 
-  return Object.freeze({
-    sidebarSize: roundPanelSize((sidebarSize / total) * LAYOUT_TOTAL),
-    terminalSize: roundPanelSize((terminalSize / total) * LAYOUT_TOTAL),
-    outputSize: roundPanelSize((outputSize / total) * LAYOUT_TOTAL),
-  });
+    return Object.freeze({
+        sidebarSize: roundPanelSize((sidebarSize / total) * LAYOUT_TOTAL),
+        terminalSize: roundPanelSize((terminalSize / total) * LAYOUT_TOTAL),
+        outputSize: roundPanelSize((outputSize / total) * LAYOUT_TOTAL),
+    });
 }
 
 /**
@@ -54,19 +54,23 @@ export function normalizeLayoutState(layout: LayoutState | null | undefined): La
  * ```
  */
 export function appendLayoutHistory(
-  history: readonly LayoutHistoryEntry[],
-  layout: LayoutState,
-  source: LayoutHistoryEntry['source'],
-  limit = 50,
+    history: readonly LayoutHistoryEntry[],
+    layout: LayoutState,
+    source: LayoutHistoryEntry['source'],
+    limit = 50,
 ): readonly LayoutHistoryEntry[] {
-  const entry: LayoutHistoryEntry = Object.freeze({ layout: normalizeLayoutState(layout), source, savedAtIso: new Date().toISOString() });
-  return [entry, ...history].slice(0, Math.max(1, limit));
+    const entry: LayoutHistoryEntry = Object.freeze({
+        layout: normalizeLayoutState(layout),
+        source,
+        savedAtIso: new Date().toISOString()
+    });
+    return [entry, ...history].slice(0, Math.max(1, limit));
 }
 
 function sanitizeSize(value: number): number {
-  return Number.isFinite(value) ? Math.max(MIN_PANEL_SIZE, value) : MIN_PANEL_SIZE;
+    return Number.isFinite(value) ? Math.max(MIN_PANEL_SIZE, value) : MIN_PANEL_SIZE;
 }
 
 function roundPanelSize(value: number): number {
-  return Math.round(value * 100) / 100;
+    return Math.round(value * 100) / 100;
 }

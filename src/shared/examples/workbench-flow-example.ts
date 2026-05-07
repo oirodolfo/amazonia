@@ -1,6 +1,6 @@
-import type { WorkspaceAction } from '@/shared/actions/action-types';
-import { createTerminalActionPlan } from '@/shared/terminal/action-terminal-planner';
-import { createRuntimeMetricSample } from '@/shared/performance/runtime-metrics';
+import type {WorkspaceAction} from '@/shared/actions/action-types';
+import {createTerminalActionPlan} from '@/shared/terminal/action-terminal-planner';
+import {createRuntimeMetricSample} from '@/shared/performance/runtime-metrics';
 
 /**
  * Demonstrates the production flow from action selection to terminal plan.
@@ -14,20 +14,20 @@ import { createRuntimeMetricSample } from '@/shared/performance/runtime-metrics'
  * ```
  */
 export function createWorkbenchFlowExample(action: WorkspaceAction): {
-  readonly plan: ReturnType<typeof createTerminalActionPlan>;
-  readonly metric: ReturnType<typeof createRuntimeMetricSample>;
+    readonly plan: ReturnType<typeof createTerminalActionPlan>;
+    readonly metric: ReturnType<typeof createRuntimeMetricSample>;
 } {
-  return {
-    plan: createTerminalActionPlan(action),
-    metric: createRuntimeMetricSample({
-      id: `flow:${action.id}`,
-      label: `Run ${action.name}`,
-      startedAt: 100,
-      finishedAt: 118,
-      metadata: {
-        packageName: action.packageName,
-        command: action.command,
-      },
-    }),
-  };
+    return {
+        plan: createTerminalActionPlan(action),
+        metric: createRuntimeMetricSample({
+            id: `flow:${action.id}`,
+            label: `Run ${action.name}`,
+            startedAt: 100,
+            finishedAt: 118,
+            metadata: {
+                packageName: action.packageName,
+                command: action.command,
+            },
+        }),
+    };
 }

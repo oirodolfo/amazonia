@@ -1,15 +1,15 @@
-import type { SemanticTerminalSnapshot } from '@/shared/terminal/semantic-terminal-os';
+import type {SemanticTerminalSnapshot} from '@/shared/terminal/semantic-terminal-os';
 
 export interface TerminalReplayFrame {
-  readonly index: number;
-  readonly line: string;
-  readonly markerCount: number;
-  readonly timestamp: number;
+    readonly index: number;
+    readonly line: string;
+    readonly markerCount: number;
+    readonly timestamp: number;
 }
 
 export interface TerminalReplayTimeline {
-  readonly frames: readonly TerminalReplayFrame[];
-  readonly totalMarkers: number;
+    readonly frames: readonly TerminalReplayFrame[];
+    readonly totalMarkers: number;
 }
 
 /**
@@ -25,16 +25,16 @@ export interface TerminalReplayTimeline {
  * ```
  */
 export function createTerminalReplayTimeline(
-  snapshot: SemanticTerminalSnapshot,
-  startedAt: number,
+    snapshot: SemanticTerminalSnapshot,
+    startedAt: number,
 ): TerminalReplayTimeline {
-  return {
-    frames: snapshot.lines.map((line, index) => ({
-      index,
-      line,
-      markerCount: snapshot.markers.filter((marker) => marker.line === index).length,
-      timestamp: startedAt + index,
-    })),
-    totalMarkers: snapshot.markers.length,
-  };
+    return {
+        frames: snapshot.lines.map((line, index) => ({
+            index,
+            line,
+            markerCount: snapshot.markers.filter((marker) => marker.line === index).length,
+            timestamp: startedAt + index,
+        })),
+        totalMarkers: snapshot.markers.length,
+    };
 }

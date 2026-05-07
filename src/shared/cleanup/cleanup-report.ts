@@ -1,14 +1,14 @@
 export interface CleanupDuplicateGroup {
-  readonly hash: string;
-  readonly kept: string;
-  readonly archived: readonly string[];
+    readonly hash: string;
+    readonly kept: string;
+    readonly archived: readonly string[];
 }
 
 export interface CleanupReport {
-  readonly version: string;
-  readonly duplicateGroups: readonly CleanupDuplicateGroup[];
-  readonly removedJunkPatterns: readonly string[];
-  readonly notes: readonly string[];
+    readonly version: string;
+    readonly duplicateGroups: readonly CleanupDuplicateGroup[];
+    readonly removedJunkPatterns: readonly string[];
+    readonly notes: readonly string[];
 }
 
 /**
@@ -28,10 +28,10 @@ export interface CleanupReport {
  * ```
  */
 export function createCleanupReport(input: CleanupReport): CleanupReport {
-  return {
-    version: input.version,
-    duplicateGroups: [...input.duplicateGroups],
-    removedJunkPatterns: [...input.removedJunkPatterns],
-    notes: [...input.notes],
-  };
+    return {
+        version: input.version,
+        duplicateGroups: [...input.duplicateGroups],
+        removedJunkPatterns: [...input.removedJunkPatterns],
+        notes: [...input.notes],
+    };
 }

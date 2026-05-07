@@ -1,8 +1,8 @@
-import type { RunRecord, WorkspaceAction } from '@/shared/types';
+import type {RunRecord, WorkspaceAction} from '@/shared/types';
 
 export interface ActionRunPlan {
-  readonly run: RunRecord;
-  readonly tabTitle: string;
+    readonly run: RunRecord;
+    readonly tabTitle: string;
 }
 
 /**
@@ -19,18 +19,18 @@ export interface ActionRunPlan {
  * ```
  */
 export function createActionRunPlan(action: WorkspaceAction, now: () => Date = () => new Date()): ActionRunPlan {
-  const startedAtIso = now().toISOString();
-  return {
-    run: {
-      id: `${action.id}:${startedAtIso}`,
-      actionId: action.id,
-      command: action.command,
-      cwd: action.cwd,
-      startedAtIso,
-      status: 'running',
-    },
-    tabTitle: `${action.packageName} › ${action.label}`,
-  };
+    const startedAtIso = now().toISOString();
+    return {
+        run: {
+            id: `${action.id}:${startedAtIso}`,
+            actionId: action.id,
+            command: action.command,
+            cwd: action.cwd,
+            startedAtIso,
+            status: 'running',
+        },
+        tabTitle: `${action.packageName} › ${action.label}`,
+    };
 }
 
 /**
@@ -48,12 +48,12 @@ export function createActionRunPlan(action: WorkspaceAction, now: () => Date = (
  * ```
  */
 export function finishRun(run: RunRecord, exitCode: number, endedAt: Date = new Date()): RunRecord {
-  const durationMs = Math.max(0, endedAt.getTime() - new Date(run.startedAtIso).getTime());
-  return {
-    ...run,
-    endedAtIso: endedAt.toISOString(),
-    durationMs,
-    exitCode,
-    status: exitCode === 0 ? 'success' : 'failed',
-  };
+    const durationMs = Math.max(0, endedAt.getTime() - new Date(run.startedAtIso).getTime());
+    return {
+        ...run,
+        endedAtIso: endedAt.toISOString(),
+        durationMs,
+        exitCode,
+        status: exitCode === 0 ? 'success' : 'failed',
+    };
 }

@@ -1,7 +1,7 @@
-import type { DiagnosticSuggestedAction, PinnedDiagnosticCommand } from './actionable-diagnostic-types';
+import type {DiagnosticSuggestedAction, PinnedDiagnosticCommand} from './actionable-diagnostic-types';
 
 export interface PinnedDiagnosticCommandState {
-  readonly commands: readonly PinnedDiagnosticCommand[];
+    readonly commands: readonly PinnedDiagnosticCommand[];
 }
 
 /**
@@ -15,9 +15,9 @@ export interface PinnedDiagnosticCommandState {
  * ```
  */
 export function createPinnedDiagnosticCommandState(): PinnedDiagnosticCommandState {
-  return {
-    commands: [],
-  };
+    return {
+        commands: [],
+    };
 }
 
 /**
@@ -35,29 +35,29 @@ export function createPinnedDiagnosticCommandState(): PinnedDiagnosticCommandSta
  * ```
  */
 export function pinDiagnosticCommand(
-  state: PinnedDiagnosticCommandState,
-  diagnosticId: string,
-  action: DiagnosticSuggestedAction,
-  now: number,
+    state: PinnedDiagnosticCommandState,
+    diagnosticId: string,
+    action: DiagnosticSuggestedAction,
+    now: number,
 ): PinnedDiagnosticCommandState {
-  if (!action.command) {
-    return state;
-  }
+    if (!action.command) {
+        return state;
+    }
 
-  const next: PinnedDiagnosticCommand = {
-    id: `pinned:${diagnosticId}:${action.id}`,
-    diagnosticId,
-    command: action.command,
-    label: action.label,
-    createdAt: now,
-  };
+    const next: PinnedDiagnosticCommand = {
+        id: `pinned:${diagnosticId}:${action.id}`,
+        diagnosticId,
+        command: action.command,
+        label: action.label,
+        createdAt: now,
+    };
 
-  return {
-    commands: [
-      next,
-      ...state.commands.filter((command) => command.id !== next.id),
-    ].slice(0, 50),
-  };
+    return {
+        commands: [
+            next,
+            ...state.commands.filter((command) => command.id !== next.id),
+        ].slice(0, 50),
+    };
 }
 
 /**
@@ -73,10 +73,10 @@ export function pinDiagnosticCommand(
  * ```
  */
 export function unpinDiagnosticCommand(
-  state: PinnedDiagnosticCommandState,
-  commandId: string,
+    state: PinnedDiagnosticCommandState,
+    commandId: string,
 ): PinnedDiagnosticCommandState {
-  return {
-    commands: state.commands.filter((command) => command.id !== commandId),
-  };
+    return {
+        commands: state.commands.filter((command) => command.id !== commandId),
+    };
 }

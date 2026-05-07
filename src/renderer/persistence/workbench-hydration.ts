@@ -1,10 +1,10 @@
-import type { PersistedWorkbenchState } from '@/shared/persistence/persistence-types';
-import { emptyWorkbenchStoreSnapshot, type WorkbenchStoreSnapshot } from '@/shared/persistence/workbench-store';
-import type { TerminalSessionSnapshot } from '@/shared/runtime/runtime-types';
+import type {PersistedWorkbenchState} from '@/shared/persistence/persistence-types';
+import {emptyWorkbenchStoreSnapshot, type WorkbenchStoreSnapshot} from '@/shared/persistence/workbench-store';
+import type {TerminalSessionSnapshot} from '@/shared/runtime/runtime-types';
 
 export interface WorkbenchHydrationPlan {
-  readonly store: WorkbenchStoreSnapshot;
-  readonly terminalSessions: readonly TerminalSessionSnapshot[];
+    readonly store: WorkbenchStoreSnapshot;
+    readonly terminalSessions: readonly TerminalSessionSnapshot[];
 }
 
 /**
@@ -19,14 +19,14 @@ export interface WorkbenchHydrationPlan {
  * ```
  */
 export function createWorkbenchHydrationPlan(state: PersistedWorkbenchState): WorkbenchHydrationPlan {
-  return {
-    store: {
-      ...emptyWorkbenchStoreSnapshot,
-      actionFrequencies: state.actionFrequencies,
-      favoriteActionIds: state.favoriteActionIds,
-      pinnedPackageIds: state.pinnedPackageIds,
-      layout: state.layout,
-    },
-    terminalSessions: state.terminalSessions,
-  };
+    return {
+        store: {
+            ...emptyWorkbenchStoreSnapshot,
+            actionFrequencies: state.actionFrequencies,
+            favoriteActionIds: state.favoriteActionIds,
+            pinnedPackageIds: state.pinnedPackageIds,
+            layout: state.layout,
+        },
+        terminalSessions: state.terminalSessions,
+    };
 }

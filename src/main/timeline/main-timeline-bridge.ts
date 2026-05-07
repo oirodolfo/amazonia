@@ -1,12 +1,15 @@
-import type { WorkbenchRepository } from '@/main/persistence/workbench-repository';
-import type { TerminalDataFrame, TerminalSessionSnapshot } from '@/shared/runtime/runtime-types';
-import { createRunTimelineEvent, type RunTimelineEvent } from '@/shared/timeline/run-timeline';
+import type {WorkbenchRepository} from '@/main/persistence/workbench-repository';
+import type {TerminalDataFrame, TerminalSessionSnapshot} from '@/shared/runtime/runtime-types';
+import {createRunTimelineEvent, type RunTimelineEvent} from '@/shared/timeline/run-timeline';
 
 export interface MainTimelineBridge {
-  readonly events: readonly RunTimelineEvent[];
-  onTerminalData(frame: TerminalDataFrame): void;
-  onTerminalStatus(snapshot: TerminalSessionSnapshot): void;
-  onTerminalExit(snapshot: TerminalSessionSnapshot): void;
+    readonly events: readonly RunTimelineEvent[];
+
+    onTerminalData(frame: TerminalDataFrame): void;
+
+    onTerminalStatus(snapshot: TerminalSessionSnapshot): void;
+
+    onTerminalExit(snapshot: TerminalSessionSnapshot): void;
 }
 
 /**
@@ -21,64 +24,64 @@ export interface MainTimelineBridge {
  * ```
  */
 export function createMainTimelineBridge(repository: WorkbenchRepository): MainTimelineBridge {
-  const events: RunTimelineEvent[] = [];
+    const events: RunTimelineEvent[] = [];
 
-  return {
-    get events() {
-      return events;
-    },
-
-    onTerminalData(frame) {
-      const lower = frame.data.toLowerCase();
-
-      if (lower.includes('error')) {
-        events.push(createRunTimelineEvent({
-          runId: frame.sessionId,
-          type: 'output-error',
-          label: 'Output error detected',
-          metadata: { sample: frame.data.slice(0, 500) },
-        }));
-        return;
-      }
-
-      if (lower.includes('warn')) {
-        events.push(createRunTimelineEvent({
-          runId: frame.sessionId,
-          type: 'output-warning',
-          label: 'Output warning detected',
-          metadata: { sample: frame.data.slice(0, 500) },
-        }));
-      }
-    },
-
-    onTerminalStatus(snapshot) {
-      events.push(createRunTimelineEvent({
-        runId: snapshot.id,
-        type: snapshot.status === 'running' ? 'command-started' : 'terminal-created',
-        label: `Terminal ${snapshot.status}`,
-        metadata: {
-          title: snapshot.title,
-          cwd: snapshot.cwd,
-          command: snapshot.command,
+    return {
+        get events() {
+            return events;
         },
-      }));
 
-      repository.saveTerminalSession(snapshot);
-    },
+        onTerminalData(frame) {
+            const lower = frame.data.toLowerCase();
 
-    onTerminalExit(snapshot) {
-      events.push(createRunTimelineEvent({
-        runId: snapshot.id,
-        type: 'command-finished',
-        label: `Command finished with ${snapshot.exitCode ?? 'unknown'}`,
-        metadata: {
-          title: snapshot.title,
-          command: snapshot.command,
-          exitCode: snapshot.exitCode,
+            if (lower.includes('error')) {
+                events.push(createRunTimelineEvent({
+                    runId: frame.sessionId,
+                    type: 'output-error',
+                    label: 'Output error detected',
+                    metadata: {sample: frame.data.slice(0, 500)},
+                }));
+                return;
+            }
+
+            if (lower.includes('warn')) {
+                events.push(createRunTimelineEvent({
+                    runId: frame.sessionId,
+                    type: 'output-warning',
+                    label: 'Output warning detected',
+                    metadata: {sample: frame.data.slice(0, 500)},
+                }));
+            }
         },
-      }));
 
-      repository.saveTerminalSession(snapshot);
-    },
-  };
+        onTerminalStatus(snapshot) {
+            events.push(createRunTimelineEvent({
+                runId: snapshot.id,
+                type: snapshot.status === 'running' ? 'command-started' : 'terminal-created',
+                label: `Terminal ${snapshot.status}`,
+                metadata: {
+                    title: snapshot.title,
+                    cwd: snapshot.cwd,
+                    command: snapshot.command,
+                },
+            }));
+
+            repository.saveTerminalSession(snapshot);
+        },
+
+        onTerminalExit(snapshot) {
+            events.push(createRunTimelineEvent({
+                runId: snapshot.id,
+                type: 'command-finished',
+                label: `Command finished with ${snapshot.exitCode ?? 'unknown'}`,
+                metadata: {
+                    title: snapshot.title,
+                    command: snapshot.command,
+                    exitCode: snapshot.exitCode,
+                },
+            }));
+
+            repository.saveTerminalSession(snapshot);
+        },
+    };
 }

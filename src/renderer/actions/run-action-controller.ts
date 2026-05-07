@@ -1,20 +1,20 @@
-import type { WorkspaceAction } from '@/shared/actions/action-types';
-import { createLocalAnalyticsEvent } from '@/shared/analytics/local-analytics';
-import { incrementActionFrequency, type WorkbenchStoreSnapshot } from '@/shared/persistence/workbench-store';
-import type { WorkbenchRuntime } from '@/shared/runtime/runtime-types';
-import { createTerminalActionPlan } from '@/shared/terminal/action-terminal-planner';
-import type { WorkbenchTerminalClient } from '@/renderer/terminal/workbench-terminal-client';
+import type {WorkspaceAction} from '@/shared/actions/action-types';
+import {createLocalAnalyticsEvent} from '@/shared/analytics/local-analytics';
+import {incrementActionFrequency, type WorkbenchStoreSnapshot} from '@/shared/persistence/workbench-store';
+import type {WorkbenchRuntime} from '@/shared/runtime/runtime-types';
+import {createTerminalActionPlan} from '@/shared/terminal/action-terminal-planner';
+import type {WorkbenchTerminalClient} from '@/renderer/terminal/workbench-terminal-client';
 
 export interface RunActionControllerInput {
-  readonly action: WorkspaceAction;
-  readonly runtime: WorkbenchRuntime;
-  readonly terminalClient: WorkbenchTerminalClient;
-  readonly store: WorkbenchStoreSnapshot;
+    readonly action: WorkspaceAction;
+    readonly runtime: WorkbenchRuntime;
+    readonly terminalClient: WorkbenchTerminalClient;
+    readonly store: WorkbenchStoreSnapshot;
 }
 
 export interface RunActionControllerResult {
-  readonly nextStore: WorkbenchStoreSnapshot;
-  readonly analyticsEvents: readonly ReturnType<typeof createLocalAnalyticsEvent>[];
+    readonly nextStore: WorkbenchStoreSnapshot;
+    readonly analyticsEvents: readonly ReturnType<typeof createLocalAnalyticsEvent>[];
 }
 
 /**
@@ -29,27 +29,27 @@ export interface RunActionControllerResult {
  * ```
  */
 export async function runWorkbenchAction(
-  input: RunActionControllerInput,
+    input: RunActionControllerInput,
 ): Promise<RunActionControllerResult> {
-  const plan = createTerminalActionPlan(input.action);
+    const plan = createTerminalActionPlan(input.action);
 
-  await input.terminalClient.runAction({
-    actionId: input.action.id,
-    title: plan.sessionTitle,
-    command: plan.command,
-    cwd: plan.cwd,
-    runtime: input.runtime,
-  });
-
-  return {
-    nextStore: incrementActionFrequency(input.store, input.action.id),
-    analyticsEvents: [
-      createLocalAnalyticsEvent('action.clicked', { actionId: input.action.id }),
-      createLocalAnalyticsEvent('action.started', {
+    await input.terminalClient.runAction({
         actionId: input.action.id,
-        command: input.action.command,
-        cwd: input.action.cwd,
-      }),
-    ],
-  };
+        title: plan.sessionTitle,
+        command: plan.command,
+        cwd: plan.cwd,
+        runtime: input.runtime,
+    });
+
+    return {
+        nextStore: incrementActionFrequency(input.store, input.action.id),
+        analyticsEvents: [
+            createLocalAnalyticsEvent('action.clicked', {actionId: input.action.id}),
+            createLocalAnalyticsEvent('action.started', {
+                actionId: input.action.id,
+                command: input.action.command,
+                cwd: input.action.cwd,
+            }),
+        ],
+    };
 }

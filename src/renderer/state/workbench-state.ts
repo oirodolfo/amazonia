@@ -1,17 +1,17 @@
-import type { FriendlyOutputCard, TerminalTab, WorkspaceManifest } from '@/shared/types';
+import type {FriendlyOutputCard, TerminalTab, WorkspaceManifest} from '@/shared/types';
 
 export interface WorkbenchStateSnapshot {
-  readonly workspace: WorkspaceManifest | null;
-  readonly tabs: readonly TerminalTab[];
-  readonly activeTabId: string | null;
-  readonly cards: readonly FriendlyOutputCard[];
+    readonly workspace: WorkspaceManifest | null;
+    readonly tabs: readonly TerminalTab[];
+    readonly activeTabId: string | null;
+    readonly cards: readonly FriendlyOutputCard[];
 }
 
 export interface WorkbenchStatePatch {
-  readonly workspace?: WorkspaceManifest | null;
-  readonly tabs?: readonly TerminalTab[];
-  readonly activeTabId?: string | null;
-  readonly cards?: readonly FriendlyOutputCard[];
+    readonly workspace?: WorkspaceManifest | null;
+    readonly tabs?: readonly TerminalTab[];
+    readonly activeTabId?: string | null;
+    readonly cards?: readonly FriendlyOutputCard[];
 }
 
 /**
@@ -32,12 +32,17 @@ export interface WorkbenchStatePatch {
  * ```
  */
 export function reduceWorkbenchState(current: WorkbenchStateSnapshot, patch: WorkbenchStatePatch): WorkbenchStateSnapshot {
-  return Object.freeze({
-    workspace: patch.workspace === undefined ? current.workspace : patch.workspace,
-    tabs: patch.tabs ?? current.tabs,
-    activeTabId: patch.activeTabId === undefined ? current.activeTabId : patch.activeTabId,
-    cards: patch.cards ?? current.cards,
-  });
+    return Object.freeze({
+        workspace: patch.workspace === undefined ? current.workspace : patch.workspace,
+        tabs: patch.tabs ?? current.tabs,
+        activeTabId: patch.activeTabId === undefined ? current.activeTabId : patch.activeTabId,
+        cards: patch.cards ?? current.cards,
+    });
 }
 
-export const emptyWorkbenchState: WorkbenchStateSnapshot = Object.freeze({ workspace: null, tabs: [], activeTabId: null, cards: [] });
+export const emptyWorkbenchState: WorkbenchStateSnapshot = Object.freeze({
+    workspace: null,
+    tabs: [],
+    activeTabId: null,
+    cards: []
+});

@@ -1,13 +1,13 @@
-import { parseSemanticTerminalLine, type SemanticTerminalToken } from '@/shared/terminal/semantic-terminal-parser';
-import { createTerminalSections, type TerminalSection } from '@/shared/terminal/terminal-section-folding';
+import {parseSemanticTerminalLine, type SemanticTerminalToken} from '@/shared/terminal/semantic-terminal-parser';
+import {createTerminalSections, type TerminalSection} from '@/shared/terminal/terminal-section-folding';
 
 export interface TerminalStreamFrame {
-  readonly sessionId: string;
-  readonly raw: string;
-  readonly receivedAt: number;
-  readonly lines: readonly string[];
-  readonly tokens: readonly SemanticTerminalToken[];
-  readonly sections: readonly TerminalSection[];
+    readonly sessionId: string;
+    readonly raw: string;
+    readonly receivedAt: number;
+    readonly lines: readonly string[];
+    readonly tokens: readonly SemanticTerminalToken[];
+    readonly sections: readonly TerminalSection[];
 }
 
 /**
@@ -22,22 +22,22 @@ export interface TerminalStreamFrame {
  * ```
  */
 export function createTerminalStreamFrame(input: {
-  readonly sessionId: string;
-  readonly raw: string;
-  readonly receivedAt: number;
+    readonly sessionId: string;
+    readonly raw: string;
+    readonly receivedAt: number;
 }): TerminalStreamFrame {
-  const lines = input.raw.split(/\r?\n/).filter((line) => line.length > 0);
-  const tokens = lines.flatMap((line) => parseSemanticTerminalLine(line));
-  const sections = createTerminalSections(lines);
+    const lines = input.raw.split(/\r?\n/).filter((line) => line.length > 0);
+    const tokens = lines.flatMap((line) => parseSemanticTerminalLine(line));
+    const sections = createTerminalSections(lines);
 
-  return {
-    sessionId: input.sessionId,
-    raw: input.raw,
-    receivedAt: input.receivedAt,
-    lines,
-    tokens,
-    sections,
-  };
+    return {
+        sessionId: input.sessionId,
+        raw: input.raw,
+        receivedAt: input.receivedAt,
+        lines,
+        tokens,
+        sections,
+    };
 }
 
 /**
@@ -54,9 +54,9 @@ export function createTerminalStreamFrame(input: {
  * ```
  */
 export function appendTerminalStreamFrame(
-  frames: readonly TerminalStreamFrame[],
-  next: TerminalStreamFrame,
-  maxFrames = 500,
+    frames: readonly TerminalStreamFrame[],
+    next: TerminalStreamFrame,
+    maxFrames = 500,
 ): TerminalStreamFrame[] {
-  return [...frames, next].slice(-maxFrames);
+    return [...frames, next].slice(-maxFrames);
 }

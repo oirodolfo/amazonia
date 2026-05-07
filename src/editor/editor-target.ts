@@ -1,21 +1,21 @@
 export type EditorKind = 'vscode' | 'cursor' | 'windsurf' | 'default';
 
 export interface EditorTarget {
-  readonly path: string;
-  readonly line?: number;
-  readonly column?: number;
+    readonly path: string;
+    readonly line?: number;
+    readonly column?: number;
 }
 
 export interface EditorCommandPlan {
-  readonly editor: EditorKind;
-  readonly command: string;
-  readonly args: readonly string[];
+    readonly editor: EditorKind;
+    readonly command: string;
+    readonly args: readonly string[];
 }
 
 const EDITOR_COMMANDS: Readonly<Record<Exclude<EditorKind, 'default'>, string>> = {
-  vscode: 'code',
-  cursor: 'cursor',
-  windsurf: 'windsurf',
+    vscode: 'code',
+    cursor: 'cursor',
+    windsurf: 'windsurf',
 };
 
 /**
@@ -30,15 +30,15 @@ const EDITOR_COMMANDS: Readonly<Record<Exclude<EditorKind, 'default'>, string>> 
  * ```
  */
 export function parseEditorTarget(value: string): EditorTarget | null {
-  const trimmed = value.trim();
-  if (trimmed.length === 0) return null;
-  const match = /^(?<path>.+?)(?::(?<line>\d+))?(?::(?<column>\d+))?$/.exec(trimmed);
-  if (match?.groups === undefined) return { path: trimmed };
-  return {
-    path: match.groups.path,
-    line: match.groups.line === undefined ? undefined : Number(match.groups.line),
-    column: match.groups.column === undefined ? undefined : Number(match.groups.column),
-  };
+    const trimmed = value.trim();
+    if (trimmed.length === 0) return null;
+    const match = /^(?<path>.+?)(?::(?<line>\d+))?(?::(?<column>\d+))?$/.exec(trimmed);
+    if (match?.groups === undefined) return {path: trimmed};
+    return {
+        path: match.groups.path,
+        line: match.groups.line === undefined ? undefined : Number(match.groups.line),
+        column: match.groups.column === undefined ? undefined : Number(match.groups.column),
+    };
 }
 
 /**
@@ -54,7 +54,7 @@ export function parseEditorTarget(value: string): EditorTarget | null {
  * ```
  */
 export function createEditorCommandPlan(target: EditorTarget, editor: EditorKind = 'default'): EditorCommandPlan {
-  const location = target.line === undefined ? target.path : `${target.path}:${target.line}:${target.column ?? 1}`;
-  if (editor === 'default') return { editor, command: location, args: [] };
-  return { editor, command: EDITOR_COMMANDS[editor], args: ['-g', location] };
+    const location = target.line === undefined ? target.path : `${target.path}:${target.line}:${target.column ?? 1}`;
+    if (editor === 'default') return {editor, command: location, args: []};
+    return {editor, command: EDITOR_COMMANDS[editor], args: ['-g', location]};
 }

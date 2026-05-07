@@ -1,9 +1,9 @@
-import type { TerminalSessionSnapshot } from '@/terminal/orchestrator';
+import type {TerminalSessionSnapshot} from '@/terminal/orchestrator';
 
 export interface TerminalReconnectDecision {
-  readonly shouldReconnect: boolean;
-  readonly reason: 'running-session' | 'recent-crash' | 'idle-session' | 'already-finished' | 'too-old';
-  readonly priority: number;
+    readonly shouldReconnect: boolean;
+    readonly reason: 'running-session' | 'recent-crash' | 'idle-session' | 'already-finished' | 'too-old';
+    readonly priority: number;
 }
 
 const RECENT_CRASH_WINDOW_MS = 30_000;
@@ -23,14 +23,18 @@ const STALE_SESSION_WINDOW_MS = 1000 * 60 * 60 * 8;
  * ```
  */
 export function decideTerminalReconnect(session: TerminalSessionSnapshot, nowMs = Date.now()): TerminalReconnectDecision {
-  const lastActivityMs = Date.parse(session.lastActivityAtIso);
-  const ageMs = Number.isFinite(lastActivityMs) ? nowMs - lastActivityMs : Number.POSITIVE_INFINITY;
+    const lastActivityMs = Date.parse(session.lastActivityAtIso);
+    const ageMs = Number.isFinite(lastActivityMs) ? nowMs - lastActivityMs : Number.POSITIVE_INFINITY;
 
-  if (ageMs > STALE_SESSION_WINDOW_MS) return { shouldReconnect: false, reason: 'too-old', priority: 0 };
-  if (session.status === 'running') return { shouldReconnect: true, reason: 'running-session', priority: 100 };
-  if (session.status === 'crashed' && ageMs <= RECENT_CRASH_WINDOW_MS) return { shouldReconnect: true, reason: 'recent-crash', priority: 60 };
-  if (session.status === 'idle') return { shouldReconnect: true, reason: 'idle-session', priority: 30 };
-  return { shouldReconnect: false, reason: 'already-finished', priority: 0 };
+    if (ageMs > STALE_SESSION_WINDOW_MS) return {shouldReconnect: false, reason: 'too-old', priority: 0};
+    if (session.status === 'running') return {shouldReconnect: true, reason: 'running-session', priority: 100};
+    if (session.status === 'crashed' && ageMs <= RECENT_CRASH_WINDOW_MS) return {
+        shouldReconnect: true,
+        reason: 'recent-crash',
+        priority: 60
+    };
+    if (session.status === 'idle') return {shouldReconnect: true, reason: 'idle-session', priority: 30};
+    return {shouldReconnect: false, reason: 'already-finished', priority: 0};
 }
 
 /**
@@ -47,11 +51,11 @@ export function decideTerminalReconnect(session: TerminalSessionSnapshot, nowMs 
  * ```
  */
 export function createReconnectQueue(
-  sessions: readonly TerminalSessionSnapshot[],
-  nowMs = Date.now(),
+    sessions: readonly TerminalSessionSnapshot[],
+    nowMs = Date.now(),
 ): readonly { readonly session: TerminalSessionSnapshot; readonly decision: TerminalReconnectDecision }[] {
-  return sessions
-    .map((session) => ({ session, decision: decideTerminalReconnect(session, nowMs) }))
-    .filter((item) => item.decision.shouldReconnect)
-    .sort((left, right) => right.decision.priority - left.decision.priority || right.session.lastActivityAtIso.localeCompare(left.session.lastActivityAtIso));
+    return sessions
+        .map((session) => ({session, decision: decideTerminalReconnect(session, nowMs)}))
+        .filter((item) => item.decision.shouldReconnect)
+        .sort((left, right) => right.decision.priority - left.decision.priority || right.session.lastActivityAtIso.localeCompare(left.session.lastActivityAtIso));
 }

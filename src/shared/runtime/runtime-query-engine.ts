@@ -1,5 +1,5 @@
 export interface RuntimeQueryResult<T> {
-  readonly items: readonly T[];
+    readonly items: readonly T[];
 }
 
 /**
@@ -14,9 +14,9 @@ export interface RuntimeQueryResult<T> {
  * ```
  */
 export function createRuntimeQueryResult<T>(
-  items: readonly T[],
+    items: readonly T[],
 ): RuntimeQueryResult<T> {
-  return {
-    items,
-  };
+    return {
+        items,
+    };
 }

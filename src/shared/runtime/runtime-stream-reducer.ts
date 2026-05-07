@@ -1,11 +1,11 @@
 export interface RuntimeStreamChunk {
-  readonly id: string;
-  readonly text: string;
-  readonly createdAt: number;
+    readonly id: string;
+    readonly text: string;
+    readonly createdAt: number;
 }
 
 export interface RuntimeStreamState {
-  readonly chunks: readonly RuntimeStreamChunk[];
+    readonly chunks: readonly RuntimeStreamChunk[];
 }
 
 const MAX_STREAM_CHUNKS = 1500;
@@ -21,9 +21,9 @@ const MAX_STREAM_CHUNKS = 1500;
  * ```
  */
 export function createRuntimeStreamState(): RuntimeStreamState {
-  return {
-    chunks: [],
-  };
+    return {
+        chunks: [],
+    };
 }
 
 /**
@@ -39,10 +39,10 @@ export function createRuntimeStreamState(): RuntimeStreamState {
  * ```
  */
 export function appendRuntimeStreamChunk(
-  state: RuntimeStreamState,
-  chunk: RuntimeStreamChunk,
+    state: RuntimeStreamState,
+    chunk: RuntimeStreamChunk,
 ): RuntimeStreamState {
-  return {
-    chunks: [...state.chunks, chunk].slice(-MAX_STREAM_CHUNKS),
-  };
+    return {
+        chunks: [...state.chunks, chunk].slice(-MAX_STREAM_CHUNKS),
+    };
 }

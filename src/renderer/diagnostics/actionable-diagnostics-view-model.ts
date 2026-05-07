@@ -1,18 +1,15 @@
 import {
-  createPinnedDiagnosticCommandState,
-  pinDiagnosticCommand,
-  unpinDiagnosticCommand,
-  type PinnedDiagnosticCommandState,
+    createPinnedDiagnosticCommandState,
+    pinDiagnosticCommand,
+    type PinnedDiagnosticCommandState,
+    unpinDiagnosticCommand,
 } from '@/shared/diagnostics/pinned-diagnostic-commands';
-import { createActionableDiagnostics } from '@/shared/diagnostics/actionable-diagnostics-engine';
-import type {
-  ActionableDiagnostic,
-  DiagnosticSuggestedAction,
-} from '@/shared/diagnostics/actionable-diagnostic-types';
+import {createActionableDiagnostics} from '@/shared/diagnostics/actionable-diagnostics-engine';
+import type {ActionableDiagnostic, DiagnosticSuggestedAction,} from '@/shared/diagnostics/actionable-diagnostic-types';
 
 export interface ActionableDiagnosticsViewModel {
-  readonly diagnostics: readonly ActionableDiagnostic[];
-  readonly pinned: PinnedDiagnosticCommandState;
+    readonly diagnostics: readonly ActionableDiagnostic[];
+    readonly pinned: PinnedDiagnosticCommandState;
 }
 
 /**
@@ -27,12 +24,12 @@ export interface ActionableDiagnosticsViewModel {
  * ```
  */
 export function createActionableDiagnosticsViewModel(
-  lines: readonly string[],
+    lines: readonly string[],
 ): ActionableDiagnosticsViewModel {
-  return {
-    diagnostics: createActionableDiagnostics(lines),
-    pinned: createPinnedDiagnosticCommandState(),
-  };
+    return {
+        diagnostics: createActionableDiagnostics(lines),
+        pinned: createPinnedDiagnosticCommandState(),
+    };
 }
 
 /**
@@ -50,15 +47,15 @@ export function createActionableDiagnosticsViewModel(
  * ```
  */
 export function pinDiagnosticAction(
-  model: ActionableDiagnosticsViewModel,
-  diagnostic: ActionableDiagnostic,
-  action: DiagnosticSuggestedAction,
-  now: number,
+    model: ActionableDiagnosticsViewModel,
+    diagnostic: ActionableDiagnostic,
+    action: DiagnosticSuggestedAction,
+    now: number,
 ): ActionableDiagnosticsViewModel {
-  return {
-    ...model,
-    pinned: pinDiagnosticCommand(model.pinned, diagnostic.id, action, now),
-  };
+    return {
+        ...model,
+        pinned: pinDiagnosticCommand(model.pinned, diagnostic.id, action, now),
+    };
 }
 
 /**
@@ -74,11 +71,11 @@ export function pinDiagnosticAction(
  * ```
  */
 export function unpinDiagnosticAction(
-  model: ActionableDiagnosticsViewModel,
-  commandId: string,
+    model: ActionableDiagnosticsViewModel,
+    commandId: string,
 ): ActionableDiagnosticsViewModel {
-  return {
-    ...model,
-    pinned: unpinDiagnosticCommand(model.pinned, commandId),
-  };
+    return {
+        ...model,
+        pinned: unpinDiagnosticCommand(model.pinned, commandId),
+    };
 }

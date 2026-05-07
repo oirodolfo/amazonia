@@ -1,9 +1,9 @@
-import type { TerminalTab } from '@/shared/types';
-import type { TerminalOrchestrator, TerminalSessionSnapshot } from './orchestrator';
+import type {TerminalTab} from '@/shared/types';
+import type {TerminalOrchestrator, TerminalSessionSnapshot} from './orchestrator';
 
 export interface RecoveredTerminalSession {
-  readonly snapshot: TerminalSessionSnapshot;
-  readonly shouldRespawn: boolean;
+    readonly snapshot: TerminalSessionSnapshot;
+    readonly shouldRespawn: boolean;
 }
 
 /**
@@ -24,17 +24,17 @@ export interface RecoveredTerminalSession {
  * ```
  */
 export function recoverTerminalSessions(orchestrator: TerminalOrchestrator, tabs: readonly TerminalTab[]): readonly RecoveredTerminalSession[] {
-  return tabs.map((tab) => {
-    const wasRunning = tab.status === 'running';
-    const snapshot = orchestrator.create({
-      id: tab.id,
-      title: tab.title,
-      cwd: tab.cwd,
-      command: tab.command,
-      createdAtIso: tab.createdAtIso,
-      status: wasRunning ? 'suspended' : tab.status,
-    });
+    return tabs.map((tab) => {
+        const wasRunning = tab.status === 'running';
+        const snapshot = orchestrator.create({
+            id: tab.id,
+            title: tab.title,
+            cwd: tab.cwd,
+            command: tab.command,
+            createdAtIso: tab.createdAtIso,
+            status: wasRunning ? 'suspended' : tab.status,
+        });
 
-    return Object.freeze({ snapshot, shouldRespawn: wasRunning });
-  });
+        return Object.freeze({snapshot, shouldRespawn: wasRunning});
+    });
 }

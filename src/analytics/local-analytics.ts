@@ -1,47 +1,53 @@
-export type AnalyticsEventName = 'workspace.opened' | 'action.started' | 'action.finished' | 'layout.changed' | 'command_palette.used';
+export type AnalyticsEventName =
+    'workspace.opened'
+    | 'action.started'
+    | 'action.finished'
+    | 'layout.changed'
+    | 'command_palette.used';
 
 export interface AnalyticsEvent {
-  readonly name: AnalyticsEventName;
-  readonly payload: Readonly<Record<string, string | number | boolean | null>>;
-  readonly createdAtIso: string;
+    readonly name: AnalyticsEventName;
+    readonly payload: Readonly<Record<string, string | number | boolean | null>>;
+    readonly createdAtIso: string;
 }
 
 export interface AnalyticsSink {
-  track(event: AnalyticsEvent): void;
-  list(): readonly AnalyticsEvent[];
+    track(event: AnalyticsEvent): void;
+
+    list(): readonly AnalyticsEvent[];
 }
 
 export class MemoryAnalyticsSink implements AnalyticsSink {
-  private readonly events: AnalyticsEvent[] = [];
+    private readonly events: AnalyticsEvent[] = [];
 
-  /**
-   * Stores one local analytics event without sending anything outside the machine.
-   *
-   * @param event - Event metadata to keep in local history.
-   * @returns Nothing.
-   *
-   * @example
-   * ```ts
-   * sink.track({ name: 'action.started', payload: { actionId: 'build' }, createdAtIso: new Date().toISOString() });
-   * ```
-   */
-  track(event: AnalyticsEvent): void {
-    this.events.push(event);
-  }
+    /**
+     * Stores one local analytics event without sending anything outside the machine.
+     *
+     * @param event - Event metadata to keep in local history.
+     * @returns Nothing.
+     *
+     * @example
+     * ```ts
+     * sink.track({ name: 'action.started', payload: { actionId: 'build' }, createdAtIso: new Date().toISOString() });
+     * ```
+     */
+    track(event: AnalyticsEvent): void {
+        this.events.push(event);
+    }
 
-  /**
-   * Returns a snapshot of captured local analytics events.
-   *
-   * @returns Immutable event list.
-   *
-   * @example
-   * ```ts
-   * const count = sink.list().length;
-   * ```
-   */
-  list(): readonly AnalyticsEvent[] {
-    return [...this.events];
-  }
+    /**
+     * Returns a snapshot of captured local analytics events.
+     *
+     * @returns Immutable event list.
+     *
+     * @example
+     * ```ts
+     * const count = sink.list().length;
+     * ```
+     */
+    list(): readonly AnalyticsEvent[] {
+        return [...this.events];
+    }
 }
 
 /**
@@ -57,8 +63,8 @@ export class MemoryAnalyticsSink implements AnalyticsSink {
  * ```
  */
 export function createAnalyticsEvent(
-  name: AnalyticsEventName,
-  payload: Readonly<Record<string, string | number | boolean | null>> = {},
+    name: AnalyticsEventName,
+    payload: Readonly<Record<string, string | number | boolean | null>> = {},
 ): AnalyticsEvent {
-  return { name, payload, createdAtIso: new Date().toISOString() };
+    return {name, payload, createdAtIso: new Date().toISOString()};
 }

@@ -1,33 +1,33 @@
-import type { RunRecord } from '@/shared/types';
+import type {RunRecord} from '@/shared/types';
 
 export type TimelineEventKind = 'terminal' | 'action' | 'parser' | 'workspace' | 'persistence';
 
 export interface TimelineEventInput {
-  readonly id: string;
-  readonly kind: TimelineEventKind;
-  readonly label: string;
-  readonly startedAtMs: number;
-  readonly endedAtMs?: number;
-  readonly parentId?: string;
-  readonly metadata?: Readonly<Record<string, string | number | boolean>>;
+    readonly id: string;
+    readonly kind: TimelineEventKind;
+    readonly label: string;
+    readonly startedAtMs: number;
+    readonly endedAtMs?: number;
+    readonly parentId?: string;
+    readonly metadata?: Readonly<Record<string, string | number | boolean>>;
 }
 
 export interface TimelineEvent extends TimelineEventInput {
-  readonly durationMs: number;
-  readonly status: 'running' | 'success' | 'failed';
+    readonly durationMs: number;
+    readonly status: 'running' | 'success' | 'failed';
 }
 
 export interface TimelineLane {
-  readonly kind: TimelineEventKind;
-  readonly events: readonly TimelineEvent[];
-  readonly totalDurationMs: number;
+    readonly kind: TimelineEventKind;
+    readonly events: readonly TimelineEvent[];
+    readonly totalDurationMs: number;
 }
 
 export interface TimelineSnapshot {
-  readonly lanes: readonly TimelineLane[];
-  readonly totalDurationMs: number;
-  readonly startedAtMs: number;
-  readonly endedAtMs: number;
+    readonly lanes: readonly TimelineLane[];
+    readonly totalDurationMs: number;
+    readonly startedAtMs: number;
+    readonly endedAtMs: number;
 }
 
 const TIMELINE_ORDER: readonly TimelineEventKind[] = ['workspace', 'action', 'terminal', 'parser', 'persistence'];
@@ -49,12 +49,12 @@ const TIMELINE_ORDER: readonly TimelineEventKind[] = ['workspace', 'action', 'te
  * ```
  */
 export function createDevtoolsTimeline(events: readonly TimelineEventInput[]): TimelineSnapshot {
-  const normalized = events.map(normalizeEvent).sort((left, right) => left.startedAtMs - right.startedAtMs || left.label.localeCompare(right.label));
-  const startedAtMs = normalized.at(0)?.startedAtMs ?? 0;
-  const endedAtMs = Math.max(startedAtMs, ...normalized.map((event) => event.endedAtMs ?? event.startedAtMs));
-  const lanes = TIMELINE_ORDER.map((kind) => toLane(kind, normalized)).filter((lane) => lane.events.length > 0);
+    const normalized = events.map(normalizeEvent).sort((left, right) => left.startedAtMs - right.startedAtMs || left.label.localeCompare(right.label));
+    const startedAtMs = normalized.at(0)?.startedAtMs ?? 0;
+    const endedAtMs = Math.max(startedAtMs, ...normalized.map((event) => event.endedAtMs ?? event.startedAtMs));
+    const lanes = TIMELINE_ORDER.map((kind) => toLane(kind, normalized)).filter((lane) => lane.events.length > 0);
 
-  return Object.freeze({ lanes, totalDurationMs: endedAtMs - startedAtMs, startedAtMs, endedAtMs });
+    return Object.freeze({lanes, totalDurationMs: endedAtMs - startedAtMs, startedAtMs, endedAtMs});
 }
 
 /**
@@ -70,37 +70,37 @@ export function createDevtoolsTimeline(events: readonly TimelineEventInput[]): T
  * ```
  */
 export function runsToTimelineEvents(runs: readonly RunRecord[]): readonly TimelineEventInput[] {
-  return runs.map((run) => ({
-    id: run.id,
-    kind: 'action',
-    label: run.command,
-    startedAtMs: Date.parse(run.startedAtIso),
-    endedAtMs: run.endedAtIso === undefined ? undefined : Date.parse(run.endedAtIso),
-    metadata: {
-      cwd: run.cwd,
-      status: run.status,
-      exitCode: run.exitCode ?? -1,
-      durationMs: run.durationMs ?? 0,
-    },
-  }));
+    return runs.map((run) => ({
+        id: run.id,
+        kind: 'action',
+        label: run.command,
+        startedAtMs: Date.parse(run.startedAtIso),
+        endedAtMs: run.endedAtIso === undefined ? undefined : Date.parse(run.endedAtIso),
+        metadata: {
+            cwd: run.cwd,
+            status: run.status,
+            exitCode: run.exitCode ?? -1,
+            durationMs: run.durationMs ?? 0,
+        },
+    }));
 }
 
 function normalizeEvent(input: TimelineEventInput): TimelineEvent {
-  const endedAtMs = input.endedAtMs ?? input.startedAtMs;
-  const durationMs = Math.max(0, endedAtMs - input.startedAtMs);
-  const status = input.endedAtMs === undefined ? 'running' : hasFailure(input) ? 'failed' : 'success';
-  return Object.freeze({ ...input, durationMs, status });
+    const endedAtMs = input.endedAtMs ?? input.startedAtMs;
+    const durationMs = Math.max(0, endedAtMs - input.startedAtMs);
+    const status = input.endedAtMs === undefined ? 'running' : hasFailure(input) ? 'failed' : 'success';
+    return Object.freeze({...input, durationMs, status});
 }
 
 function toLane(kind: TimelineEventKind, events: readonly TimelineEvent[]): TimelineLane {
-  const laneEvents = events.filter((event) => event.kind === kind);
-  return Object.freeze({
-    kind,
-    events: laneEvents,
-    totalDurationMs: laneEvents.reduce((total, event) => total + event.durationMs, 0),
-  });
+    const laneEvents = events.filter((event) => event.kind === kind);
+    return Object.freeze({
+        kind,
+        events: laneEvents,
+        totalDurationMs: laneEvents.reduce((total, event) => total + event.durationMs, 0),
+    });
 }
 
 function hasFailure(input: TimelineEventInput): boolean {
-  return input.metadata?.status === 'failed' || (input.metadata?.exitCode !== undefined && Number(input.metadata.exitCode) > 0);
+    return input.metadata?.status === 'failed' || (input.metadata?.exitCode !== undefined && Number(input.metadata.exitCode) > 0);
 }

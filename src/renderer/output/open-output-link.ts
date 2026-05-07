@@ -1,8 +1,8 @@
-import { createOpenTarget } from '@/shared/openers/open-targets';
-import type { ParsedOutputLink } from '@/shared/output/output-parser';
+import {createOpenTarget} from '@/shared/openers/open-targets';
+import type {ParsedOutputLink} from '@/shared/output/output-parser';
 
 export interface OutputLinkOpener {
-  openTarget(target: ReturnType<typeof createOpenTarget>): Promise<boolean>;
+    openTarget(target: ReturnType<typeof createOpenTarget>): Promise<boolean>;
 }
 
 /**
@@ -18,8 +18,8 @@ export interface OutputLinkOpener {
  * ```
  */
 export async function openFriendlyOutputLink(
-  opener: OutputLinkOpener,
-  link: ParsedOutputLink,
+    opener: OutputLinkOpener,
+    link: ParsedOutputLink,
 ): Promise<boolean> {
-  return opener.openTarget(createOpenTarget(link));
+    return opener.openTarget(createOpenTarget(link));
 }

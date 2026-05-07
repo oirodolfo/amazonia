@@ -1,11 +1,26 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "noEmit": false,
-    "outDir": "dist-electron",
+    "lib": [
+      "ES2022",
+      "DOM"
+    ],
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "lib": ["ES2022", "DOM"]
+    "noEmit": false,
+    "outDir": "dist-electron"
   },
-  "include": ["src/main", "src/preload", "src/server", "src/shared", "src/workspace", "src/terminal", "src/persistence", "src/features", "src/analytics", "src/output", "src/runs"]
+  "extends": "./tsconfig.json",
+  "include": [
+    "src/main",
+    "src/preload",
+    "src/server",
+    "src/shared",
+    "src/workspace",
+    "src/terminal",
+    "src/persistence",
+    "src/features",
+    "src/analytics",
+    "src/output",
+    "src/runs"
+  ]
 }

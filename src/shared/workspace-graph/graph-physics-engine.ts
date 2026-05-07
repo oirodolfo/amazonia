@@ -1,18 +1,18 @@
 export interface GraphPhysicsVector {
-  readonly x: number;
-  readonly y: number;
+    readonly x: number;
+    readonly y: number;
 }
 
 export interface GraphPhysicsEngineNode {
-  readonly id: string;
-  readonly position: GraphPhysicsVector;
-  readonly velocity: GraphPhysicsVector;
-  readonly mass: number;
+    readonly id: string;
+    readonly position: GraphPhysicsVector;
+    readonly velocity: GraphPhysicsVector;
+    readonly mass: number;
 }
 
 export interface GraphPhysicsSimulationFrame {
-  readonly nodes: readonly GraphPhysicsEngineNode[];
-  readonly tick: number;
+    readonly nodes: readonly GraphPhysicsEngineNode[];
+    readonly tick: number;
 }
 
 /**
@@ -27,16 +27,16 @@ export interface GraphPhysicsSimulationFrame {
  * ```
  */
 export function advanceGraphPhysicsSimulation(
-  frame: GraphPhysicsSimulationFrame,
+    frame: GraphPhysicsSimulationFrame,
 ): GraphPhysicsSimulationFrame {
-  return {
-    tick: frame.tick + 1,
-    nodes: frame.nodes.map((node) => ({
-      ...node,
-      position: {
-        x: node.position.x + node.velocity.x,
-        y: node.position.y + node.velocity.y,
-      },
-    })),
-  };
+    return {
+        tick: frame.tick + 1,
+        nodes: frame.nodes.map((node) => ({
+            ...node,
+            position: {
+                x: node.position.x + node.velocity.x,
+                y: node.position.y + node.velocity.y,
+            },
+        })),
+    };
 }

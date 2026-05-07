@@ -1,6 +1,6 @@
 export interface PreservedFolderViolation {
-  readonly path: string;
-  readonly reason: string;
+    readonly path: string;
+    readonly reason: string;
 }
 
 /**
@@ -15,12 +15,12 @@ export interface PreservedFolderViolation {
  * ```
  */
 export function detectPreservedFolderViolations(
-  paths: readonly string[],
+    paths: readonly string[],
 ): PreservedFolderViolation[] {
-  return paths
-    .filter((path) => path.split(/[\\/]/u).some((part) => /^preserved-v\d+$/iu.test(part)))
-    .map((path) => ({
-      path,
-      reason: 'Legacy preserved folders must be migrated into src/tests/docs or removed before release.',
-    }));
+    return paths
+        .filter((path) => path.split(/[\\/]/u).some((part) => /^preserved-v\d+$/iu.test(part)))
+        .map((path) => ({
+            path,
+            reason: 'Legacy preserved folders must be migrated into src/tests/docs or removed before release.',
+        }));
 }

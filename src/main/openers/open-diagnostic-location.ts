@@ -1,6 +1,6 @@
-import { execFile } from 'node:child_process';
-import type { DiagnosticLocation } from '@/shared/diagnostics/actionable-diagnostic-types';
-import { createEditorOpenCommand } from '@/shared/openers/editor-open-command';
+import {execFile} from 'node:child_process';
+import type {DiagnosticLocation} from '@/shared/diagnostics/actionable-diagnostic-types';
+import {createEditorOpenCommand} from '@/shared/openers/editor-open-command';
 
 /**
  * Opens a diagnostic location in the default editor.
@@ -14,24 +14,24 @@ import { createEditorOpenCommand } from '@/shared/openers/editor-open-command';
  * ```
  */
 export async function openDiagnosticLocation(
-  location: DiagnosticLocation | null,
+    location: DiagnosticLocation | null,
 ): Promise<boolean> {
-  const command = createEditorOpenCommand(location);
+    const command = createEditorOpenCommand(location);
 
-  if (!command) {
-    return false;
-  }
+    if (!command) {
+        return false;
+    }
 
-  await new Promise<void>((resolve, reject) => {
-    execFile(command.executable, command.args, (error) => {
-      if (error) {
-        reject(error);
-        return;
-      }
+    await new Promise<void>((resolve, reject) => {
+        execFile(command.executable, command.args, (error) => {
+            if (error) {
+                reject(error);
+                return;
+            }
 
-      resolve();
+            resolve();
+        });
     });
-  });
 
-  return true;
+    return true;
 }

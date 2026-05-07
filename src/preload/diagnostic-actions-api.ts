@@ -1,8 +1,8 @@
-import type { DiagnosticLocation } from '@/shared/diagnostics/actionable-diagnostic-types';
-import type { IpcRendererLike } from './workbench-full-api';
+import type {DiagnosticLocation} from '@/shared/diagnostics/actionable-diagnostic-types';
+import type {IpcRendererLike} from './workbench-full-api';
 
 export interface DiagnosticActionsApi {
-  openLocation(location: DiagnosticLocation | null): Promise<boolean>;
+    openLocation(location: DiagnosticLocation | null): Promise<boolean>;
 }
 
 /**
@@ -17,9 +17,9 @@ export interface DiagnosticActionsApi {
  * ```
  */
 export function createDiagnosticActionsApi(
-  ipcRenderer: IpcRendererLike,
+    ipcRenderer: IpcRendererLike,
 ): DiagnosticActionsApi {
-  return {
-    openLocation: (location) => ipcRenderer.invoke('workbench:diagnostics:open-location', location) as Promise<boolean>,
-  };
+    return {
+        openLocation: (location) => ipcRenderer.invoke('workbench:diagnostics:open-location', location) as Promise<boolean>,
+    };
 }

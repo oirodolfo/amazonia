@@ -1,15 +1,15 @@
 export interface GraphPhysicsNode {
-  readonly id: string;
-  readonly x: number;
-  readonly y: number;
-  readonly weight: number;
+    readonly id: string;
+    readonly x: number;
+    readonly y: number;
+    readonly weight: number;
 }
 
 export interface GraphPhysicsLayout {
-  readonly nodes: readonly GraphPhysicsNode[];
-  readonly zoom: number;
-  readonly panX: number;
-  readonly panY: number;
+    readonly nodes: readonly GraphPhysicsNode[];
+    readonly zoom: number;
+    readonly panX: number;
+    readonly panY: number;
 }
 
 /**
@@ -24,12 +24,12 @@ export interface GraphPhysicsLayout {
  * ```
  */
 export function createGraphPhysicsLayout(
-  nodes: readonly GraphPhysicsNode[],
+    nodes: readonly GraphPhysicsNode[],
 ): GraphPhysicsLayout {
-  return {
-    nodes,
-    zoom: 1,
-    panX: 0,
-    panY: 0,
-  };
+    return {
+        nodes,
+        zoom: 1,
+        panX: 0,
+        panY: 0,
+    };
 }

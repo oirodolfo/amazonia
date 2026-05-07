@@ -1,8 +1,8 @@
-import type { TerminalSessionSnapshot } from '@/shared/runtime/runtime-types';
+import type {TerminalSessionSnapshot} from '@/shared/runtime/runtime-types';
 
 export interface RestoredTerminalTab {
-  readonly session: TerminalSessionSnapshot;
-  readonly shouldReconnect: boolean;
+    readonly session: TerminalSessionSnapshot;
+    readonly shouldReconnect: boolean;
 }
 
 /**
@@ -17,8 +17,8 @@ export interface RestoredTerminalTab {
  * ```
  */
 export function planTerminalTabRestore(sessions: readonly TerminalSessionSnapshot[]): RestoredTerminalTab[] {
-  return sessions.map((session) => ({
-    session,
-    shouldReconnect: session.status === 'running' || session.status === 'connecting',
-  }));
+    return sessions.map((session) => ({
+        session,
+        shouldReconnect: session.status === 'running' || session.status === 'connecting',
+    }));
 }

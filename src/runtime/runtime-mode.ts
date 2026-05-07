@@ -1,10 +1,10 @@
 export type WorkbenchRuntimeKind = 'electron' | 'web';
 
 export interface RuntimeCapabilities {
-  readonly kind: WorkbenchRuntimeKind;
-  readonly supportsNativePty: boolean;
-  readonly supportsNativeFileOpen: boolean;
-  readonly transport: 'ipc' | 'websocket';
+    readonly kind: WorkbenchRuntimeKind;
+    readonly supportsNativePty: boolean;
+    readonly supportsNativeFileOpen: boolean;
+    readonly transport: 'ipc' | 'websocket';
 }
 
 /**
@@ -24,9 +24,9 @@ export interface RuntimeCapabilities {
  * ```
  */
 export function resolveRuntimeCapabilities(hasElectronBridge: boolean): RuntimeCapabilities {
-  if (hasElectronBridge) {
-    return { kind: 'electron', supportsNativePty: true, supportsNativeFileOpen: true, transport: 'ipc' };
-  }
+    if (hasElectronBridge) {
+        return {kind: 'electron', supportsNativePty: true, supportsNativeFileOpen: true, transport: 'ipc'};
+    }
 
-  return { kind: 'web', supportsNativePty: false, supportsNativeFileOpen: false, transport: 'websocket' };
+    return {kind: 'web', supportsNativePty: false, supportsNativeFileOpen: false, transport: 'websocket'};
 }

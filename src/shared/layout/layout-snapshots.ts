@@ -1,13 +1,13 @@
 export interface LayoutSnapshot {
-  readonly id: string;
-  readonly name: string;
-  readonly panels: readonly number[];
-  readonly createdAt: number;
+    readonly id: string;
+    readonly name: string;
+    readonly panels: readonly number[];
+    readonly createdAt: number;
 }
 
 export interface LayoutSnapshotState {
-  readonly activeSnapshotId: string | null;
-  readonly snapshots: readonly LayoutSnapshot[];
+    readonly activeSnapshotId: string | null;
+    readonly snapshots: readonly LayoutSnapshot[];
 }
 
 /**
@@ -25,14 +25,14 @@ export interface LayoutSnapshotState {
  * ```
  */
 export function saveLayoutSnapshot(state: LayoutSnapshotState, name: string, panels: readonly number[], maxSnapshots = 20): LayoutSnapshotState {
-  const snapshot: LayoutSnapshot = {
-    id: `layout_${Date.now()}_${Math.random().toString(36).slice(2)}`,
-    name,
-    panels,
-    createdAt: Date.now(),
-  };
+    const snapshot: LayoutSnapshot = {
+        id: `layout_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+        name,
+        panels,
+        createdAt: Date.now(),
+    };
 
-  return { activeSnapshotId: snapshot.id, snapshots: [snapshot, ...state.snapshots].slice(0, maxSnapshots) };
+    return {activeSnapshotId: snapshot.id, snapshots: [snapshot, ...state.snapshots].slice(0, maxSnapshots)};
 }
 
 /**
@@ -48,5 +48,5 @@ export function saveLayoutSnapshot(state: LayoutSnapshotState, name: string, pan
  * ```
  */
 export function restoreLayoutSnapshot(state: LayoutSnapshotState, snapshotId: string): LayoutSnapshot | null {
-  return state.snapshots.find((snapshot) => snapshot.id === snapshotId) ?? null;
+    return state.snapshots.find((snapshot) => snapshot.id === snapshotId) ?? null;
 }

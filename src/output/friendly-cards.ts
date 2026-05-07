@@ -1,6 +1,6 @@
-import type { FriendlyOutputCard, RunRecord } from '@/shared/types';
-import { parseOutputLinks } from './link-parser';
-import { parseToolOutput } from './suite-parsers';
+import type {FriendlyOutputCard, RunRecord} from '@/shared/types';
+import {parseOutputLinks} from './link-parser';
+import {parseToolOutput} from './suite-parsers';
 
 /**
  * Builds a richer friendly output card from terminal output and run metadata.
@@ -15,19 +15,19 @@ import { parseToolOutput } from './suite-parsers';
  * ```
  */
 export function createFriendlyOutputCard(run: RunRecord, chunks: readonly string[]): FriendlyOutputCard {
-  const raw = chunks.join('');
-  const parsed = parseToolOutput(raw);
-  const links = parseOutputLinks(raw, run.cwd).map((link) => link.raw);
+    const raw = chunks.join('');
+    const parsed = parseToolOutput(raw);
+    const links = parseOutputLinks(raw, run.cwd).map((link) => link.raw);
 
-  return {
-    id: `card-${run.id}`,
-    runId: run.id,
-    command: run.command,
-    cwd: run.cwd,
-    status: run.status,
-    durationMs: run.durationMs,
-    exitCode: run.exitCode,
-    diagnostics: parsed.diagnostics,
-    links,
-  };
+    return {
+        id: `card-${run.id}`,
+        runId: run.id,
+        command: run.command,
+        cwd: run.cwd,
+        status: run.status,
+        durationMs: run.durationMs,
+        exitCode: run.exitCode,
+        diagnostics: parsed.diagnostics,
+        links,
+    };
 }

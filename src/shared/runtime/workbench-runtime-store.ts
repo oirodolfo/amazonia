@@ -1,20 +1,23 @@
 export interface RuntimeStoreEvent {
-  readonly id: string;
-  readonly type: string;
-  readonly timestamp: number;
-  readonly payload: Readonly<Record<string, unknown>>;
+    readonly id: string;
+    readonly type: string;
+    readonly timestamp: number;
+    readonly payload: Readonly<Record<string, unknown>>;
 }
 
 export interface RuntimeStoreSnapshot {
-  readonly events: readonly RuntimeStoreEvent[];
-  readonly createdAt: number;
+    readonly events: readonly RuntimeStoreEvent[];
+    readonly createdAt: number;
 }
 
 export interface WorkbenchRuntimeStore {
-  readonly events: readonly RuntimeStoreEvent[];
-  publish(event: RuntimeStoreEvent): void;
-  snapshot(): RuntimeStoreSnapshot;
-  clear(): void;
+    readonly events: readonly RuntimeStoreEvent[];
+
+    publish(event: RuntimeStoreEvent): void;
+
+    snapshot(): RuntimeStoreSnapshot;
+
+    clear(): void;
 }
 
 /**
@@ -28,26 +31,26 @@ export interface WorkbenchRuntimeStore {
  * ```
  */
 export function createWorkbenchRuntimeStore(): WorkbenchRuntimeStore {
-  const events: RuntimeStoreEvent[] = [];
+    const events: RuntimeStoreEvent[] = [];
 
-  return {
-    get events() {
-      return events;
-    },
+    return {
+        get events() {
+            return events;
+        },
 
-    publish(event) {
-      events.push(event);
-    },
+        publish(event) {
+            events.push(event);
+        },
 
-    snapshot() {
-      return {
-        events: [...events],
-        createdAt: Date.now(),
-      };
-    },
+        snapshot() {
+            return {
+                events: [...events],
+                createdAt: Date.now(),
+            };
+        },
 
-    clear() {
-      events.length = 0;
-    },
-  };
+        clear() {
+            events.length = 0;
+        },
+    };
 }

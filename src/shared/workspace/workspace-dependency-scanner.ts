@@ -1,10 +1,10 @@
 export interface WorkspaceDependencyNode {
-  readonly id: string;
-  readonly dependencies: readonly string[];
+    readonly id: string;
+    readonly dependencies: readonly string[];
 }
 
 export interface WorkspaceDependencyGraph {
-  readonly nodes: readonly WorkspaceDependencyNode[];
+    readonly nodes: readonly WorkspaceDependencyNode[];
 }
 
 /**
@@ -19,15 +19,15 @@ export interface WorkspaceDependencyGraph {
  * ```
  */
 export function createWorkspaceDependencyGraph(
-  manifests: readonly {
-    name: string;
-    dependencies?: Readonly<Record<string, string>>;
-  }[],
+    manifests: readonly {
+        name: string;
+        dependencies?: Readonly<Record<string, string>>;
+    }[],
 ): WorkspaceDependencyGraph {
-  return {
-    nodes: manifests.map((manifest) => ({
-      id: manifest.name,
-      dependencies: Object.keys(manifest.dependencies ?? {}),
-    })),
-  };
+    return {
+        nodes: manifests.map((manifest) => ({
+            id: manifest.name,
+            dependencies: Object.keys(manifest.dependencies ?? {}),
+        })),
+    };
 }

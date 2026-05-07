@@ -1,17 +1,17 @@
 export interface RuntimeMetricSample {
-  readonly id: string;
-  readonly label: string;
-  readonly startedAt: number;
-  readonly finishedAt: number;
-  readonly durationMs: number;
-  readonly metadata: Readonly<Record<string, unknown>>;
+    readonly id: string;
+    readonly label: string;
+    readonly startedAt: number;
+    readonly finishedAt: number;
+    readonly durationMs: number;
+    readonly metadata: Readonly<Record<string, unknown>>;
 }
 
 export interface RuntimeMetricSummary {
-  readonly count: number;
-  readonly totalMs: number;
-  readonly averageMs: number;
-  readonly slowest: RuntimeMetricSample | null;
+    readonly count: number;
+    readonly totalMs: number;
+    readonly averageMs: number;
+    readonly slowest: RuntimeMetricSample | null;
 }
 
 /**
@@ -26,20 +26,20 @@ export interface RuntimeMetricSummary {
  * ```
  */
 export function createRuntimeMetricSample(input: {
-  readonly id: string;
-  readonly label: string;
-  readonly startedAt: number;
-  readonly finishedAt: number;
-  readonly metadata?: Readonly<Record<string, unknown>>;
+    readonly id: string;
+    readonly label: string;
+    readonly startedAt: number;
+    readonly finishedAt: number;
+    readonly metadata?: Readonly<Record<string, unknown>>;
 }): RuntimeMetricSample {
-  return {
-    id: input.id,
-    label: input.label,
-    startedAt: input.startedAt,
-    finishedAt: input.finishedAt,
-    durationMs: Math.max(0, input.finishedAt - input.startedAt),
-    metadata: input.metadata ?? {},
-  };
+    return {
+        id: input.id,
+        label: input.label,
+        startedAt: input.startedAt,
+        finishedAt: input.finishedAt,
+        durationMs: Math.max(0, input.finishedAt - input.startedAt),
+        metadata: input.metadata ?? {},
+    };
 }
 
 /**
@@ -54,13 +54,13 @@ export function createRuntimeMetricSample(input: {
  * ```
  */
 export function summarizeRuntimeMetrics(samples: readonly RuntimeMetricSample[]): RuntimeMetricSummary {
-  const totalMs = samples.reduce((total, sample) => total + sample.durationMs, 0);
-  const slowest = [...samples].sort((left, right) => right.durationMs - left.durationMs)[0] ?? null;
+    const totalMs = samples.reduce((total, sample) => total + sample.durationMs, 0);
+    const slowest = [...samples].sort((left, right) => right.durationMs - left.durationMs)[0] ?? null;
 
-  return {
-    count: samples.length,
-    totalMs,
-    averageMs: samples.length === 0 ? 0 : totalMs / samples.length,
-    slowest,
-  };
+    return {
+        count: samples.length,
+        totalMs,
+        averageMs: samples.length === 0 ? 0 : totalMs / samples.length,
+        slowest,
+    };
 }

@@ -1,28 +1,28 @@
 export type WorkbenchFeatureFlag =
-  | 'enableTerminal'
-  | 'enableWebSocketTerminal'
-  | 'enableElectronTerminal'
-  | 'enableCommandPalette'
-  | 'enableFriendlyOutput'
-  | 'enableTimeline'
-  | 'enableActionGraph'
-  | 'enableSQLitePersistence'
-  | 'enableLayoutRestore'
-  | 'enableActionFrequency';
+    | 'enableTerminal'
+    | 'enableWebSocketTerminal'
+    | 'enableElectronTerminal'
+    | 'enableCommandPalette'
+    | 'enableFriendlyOutput'
+    | 'enableTimeline'
+    | 'enableActionGraph'
+    | 'enableSQLitePersistence'
+    | 'enableLayoutRestore'
+    | 'enableActionFrequency';
 
 export type FeatureFlagMap = Readonly<Record<WorkbenchFeatureFlag, boolean>>;
 
 export const defaultFeatureFlags: FeatureFlagMap = {
-  enableTerminal: true,
-  enableWebSocketTerminal: true,
-  enableElectronTerminal: true,
-  enableCommandPalette: true,
-  enableFriendlyOutput: true,
-  enableTimeline: true,
-  enableActionGraph: true,
-  enableSQLitePersistence: true,
-  enableLayoutRestore: true,
-  enableActionFrequency: true,
+    enableTerminal: true,
+    enableWebSocketTerminal: true,
+    enableElectronTerminal: true,
+    enableCommandPalette: true,
+    enableFriendlyOutput: true,
+    enableTimeline: true,
+    enableActionGraph: true,
+    enableSQLitePersistence: true,
+    enableLayoutRestore: true,
+    enableActionFrequency: true,
 };
 
 /**
@@ -39,7 +39,7 @@ export const defaultFeatureFlags: FeatureFlagMap = {
  * ```
  */
 export function isFeatureEnabled(flags: FeatureFlagMap, flag: WorkbenchFeatureFlag): boolean {
-  return flags[flag] === true;
+    return flags[flag] === true;
 }
 
 /**
@@ -54,8 +54,8 @@ export function isFeatureEnabled(flags: FeatureFlagMap, flag: WorkbenchFeatureFl
  * ```
  */
 export function createFeatureFlags(overrides: Partial<FeatureFlagMap> = {}): FeatureFlagMap {
-  return {
-    ...defaultFeatureFlags,
-    ...overrides,
-  };
+    return {
+        ...defaultFeatureFlags,
+        ...overrides,
+    };
 }

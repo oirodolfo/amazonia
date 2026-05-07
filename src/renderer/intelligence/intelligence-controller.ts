@@ -1,9 +1,9 @@
-import type { WorkbenchState } from '@/renderer/workbench/workbench-state';
-import { createIntelligenceViewModel } from './intelligence-view-model';
+import type {WorkbenchState} from '@/renderer/workbench/workbench-state';
+import {createIntelligenceViewModel} from './intelligence-view-model';
 
 export interface IntelligenceControllerResult {
-  readonly rankedActionIds: readonly string[];
-  readonly topSuggestionIds: readonly string[];
+    readonly rankedActionIds: readonly string[];
+    readonly topSuggestionIds: readonly string[];
 }
 
 /**
@@ -19,19 +19,19 @@ export interface IntelligenceControllerResult {
  * ```
  */
 export function createIntelligenceControllerResult(
-  state: WorkbenchState,
-  currentCwd: string,
+    state: WorkbenchState,
+    currentCwd: string,
 ): IntelligenceControllerResult {
-  const model = createIntelligenceViewModel({
-    actions: state.actions,
-    store: state.store,
-    currentCwd,
-    currentPackageId: state.sidebar.selectedPackageId,
-    query: state.sidebar.query,
-  });
+    const model = createIntelligenceViewModel({
+        actions: state.actions,
+        store: state.store,
+        currentCwd,
+        currentPackageId: state.sidebar.selectedPackageId,
+        query: state.sidebar.query,
+    });
 
-  return {
-    rankedActionIds: model.rankedActions.map((item) => item.action.id),
-    topSuggestionIds: model.suggestions.map((item) => item.actionId),
-  };
+    return {
+        rankedActionIds: model.rankedActions.map((item) => item.action.id),
+        topSuggestionIds: model.suggestions.map((item) => item.actionId),
+    };
 }

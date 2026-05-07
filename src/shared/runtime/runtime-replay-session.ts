@@ -1,10 +1,10 @@
-import type { RuntimeReplayFrame } from './runtime-replay-engine';
+import type {RuntimeReplayFrame} from './runtime-replay-engine';
 
 export interface RuntimeReplaySession {
-  readonly id: string;
-  readonly frames: readonly RuntimeReplayFrame[];
-  readonly currentFrameIndex: number;
-  readonly isPlaying: boolean;
+    readonly id: string;
+    readonly frames: readonly RuntimeReplayFrame[];
+    readonly currentFrameIndex: number;
+    readonly isPlaying: boolean;
 }
 
 /**
@@ -19,5 +19,5 @@ export interface RuntimeReplaySession {
  * ```
  */
 export function createRuntimeReplaySession(input: RuntimeReplaySession): RuntimeReplaySession {
-  return input;
+    return input;
 }

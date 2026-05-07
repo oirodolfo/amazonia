@@ -1,7 +1,4 @@
-import type {
-  RuntimeCommandLifecycle,
-  RuntimeWorkspaceGraph,
-} from './runtime-intelligence-types';
+import type {RuntimeCommandLifecycle, RuntimeWorkspaceGraph,} from './runtime-intelligence-types';
 
 /**
  * Builds a lightweight runtime graph from command lifecycles.
@@ -15,40 +12,40 @@ import type {
  * ```
  */
 export function createRuntimeWorkspaceGraph(
-  lifecycles: readonly RuntimeCommandLifecycle[],
+    lifecycles: readonly RuntimeCommandLifecycle[],
 ): RuntimeWorkspaceGraph {
-  const nodes = [];
-  const edges = [];
+    const nodes = [];
+    const edges = [];
 
-  for (const lifecycle of lifecycles) {
-    nodes.push({
-      id: lifecycle.id,
-      type: 'command',
-      label: lifecycle.command,
-      weight: lifecycle.diagnostics.length + 1,
-    });
+    for (const lifecycle of lifecycles) {
+        nodes.push({
+            id: lifecycle.id,
+            type: 'command',
+            label: lifecycle.command,
+            weight: lifecycle.diagnostics.length + 1,
+        });
 
-    for (const diagnostic of lifecycle.diagnostics) {
-      const diagnosticId = `${lifecycle.id}:${diagnostic.id}`;
+        for (const diagnostic of lifecycle.diagnostics) {
+            const diagnosticId = `${lifecycle.id}:${diagnostic.id}`;
 
-      nodes.push({
-        id: diagnosticId,
-        type: 'diagnostic',
-        label: diagnostic.message,
-        weight: diagnostic.severity === 'error' ? 10 : 4,
-      });
+            nodes.push({
+                id: diagnosticId,
+                type: 'diagnostic',
+                label: diagnostic.message,
+                weight: diagnostic.severity === 'error' ? 10 : 4,
+            });
 
-      edges.push({
-        id: `edge:${lifecycle.id}:${diagnosticId}`,
-        from: lifecycle.id,
-        to: diagnosticId,
-        label: diagnostic.severity,
-      });
+            edges.push({
+                id: `edge:${lifecycle.id}:${diagnosticId}`,
+                from: lifecycle.id,
+                to: diagnosticId,
+                label: diagnostic.severity,
+            });
+        }
     }
-  }
 
-  return {
-    nodes,
-    edges,
-  };
+    return {
+        nodes,
+        edges,
+    };
 }

@@ -1,7 +1,4 @@
-import type {
-  RuntimeCommandLifecycle,
-  RuntimeDiagnosticMarker,
-} from './runtime-intelligence-types';
+import type {RuntimeCommandLifecycle, RuntimeDiagnosticMarker,} from './runtime-intelligence-types';
 
 /**
  * Creates a runtime command lifecycle state.
@@ -15,22 +12,22 @@ import type {
  * ```
  */
 export function createRuntimeCommandLifecycle(input: {
-  readonly command: string;
-  readonly cwd: string;
-  readonly startedAt: number;
+    readonly command: string;
+    readonly cwd: string;
+    readonly startedAt: number;
 }): RuntimeCommandLifecycle {
-  return {
-    id: `runtime:${input.startedAt}:${input.command}`,
-    command: input.command,
-    cwd: input.cwd,
-    startedAt: input.startedAt,
-    finishedAt: null,
-    exitCode: null,
-    durationMs: null,
-    stdoutLines: [],
-    stderrLines: [],
-    diagnostics: [],
-  };
+    return {
+        id: `runtime:${input.startedAt}:${input.command}`,
+        command: input.command,
+        cwd: input.cwd,
+        startedAt: input.startedAt,
+        finishedAt: null,
+        exitCode: null,
+        durationMs: null,
+        stdoutLines: [],
+        stderrLines: [],
+        diagnostics: [],
+    };
 }
 
 /**
@@ -46,21 +43,21 @@ export function createRuntimeCommandLifecycle(input: {
  * ```
  */
 export function appendRuntimeOutput(
-  lifecycle: RuntimeCommandLifecycle,
-  input: {
-    readonly stream: 'stdout' | 'stderr';
-    readonly lines: readonly string[];
-  },
+    lifecycle: RuntimeCommandLifecycle,
+    input: {
+        readonly stream: 'stdout' | 'stderr';
+        readonly lines: readonly string[];
+    },
 ): RuntimeCommandLifecycle {
-  return {
-    ...lifecycle,
-    stdoutLines: input.stream === 'stdout'
-      ? [...lifecycle.stdoutLines, ...input.lines].slice(-5000)
-      : lifecycle.stdoutLines,
-    stderrLines: input.stream === 'stderr'
-      ? [...lifecycle.stderrLines, ...input.lines].slice(-5000)
-      : lifecycle.stderrLines,
-  };
+    return {
+        ...lifecycle,
+        stdoutLines: input.stream === 'stdout'
+            ? [...lifecycle.stdoutLines, ...input.lines].slice(-5000)
+            : lifecycle.stdoutLines,
+        stderrLines: input.stream === 'stderr'
+            ? [...lifecycle.stderrLines, ...input.lines].slice(-5000)
+            : lifecycle.stderrLines,
+    };
 }
 
 /**
@@ -76,13 +73,13 @@ export function appendRuntimeOutput(
  * ```
  */
 export function attachRuntimeDiagnostics(
-  lifecycle: RuntimeCommandLifecycle,
-  diagnostics: readonly RuntimeDiagnosticMarker[],
+    lifecycle: RuntimeCommandLifecycle,
+    diagnostics: readonly RuntimeDiagnosticMarker[],
 ): RuntimeCommandLifecycle {
-  return {
-    ...lifecycle,
-    diagnostics,
-  };
+    return {
+        ...lifecycle,
+        diagnostics,
+    };
 }
 
 /**
@@ -98,16 +95,16 @@ export function attachRuntimeDiagnostics(
  * ```
  */
 export function finishRuntimeLifecycle(
-  lifecycle: RuntimeCommandLifecycle,
-  input: {
-    readonly exitCode: number;
-    readonly finishedAt: number;
-  },
+    lifecycle: RuntimeCommandLifecycle,
+    input: {
+        readonly exitCode: number;
+        readonly finishedAt: number;
+    },
 ): RuntimeCommandLifecycle {
-  return {
-    ...lifecycle,
-    exitCode: input.exitCode,
-    finishedAt: input.finishedAt,
-    durationMs: Math.max(0, input.finishedAt - lifecycle.startedAt),
-  };
+    return {
+        ...lifecycle,
+        exitCode: input.exitCode,
+        finishedAt: input.finishedAt,
+        durationMs: Math.max(0, input.finishedAt - lifecycle.startedAt),
+    };
 }

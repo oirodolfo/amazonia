@@ -1,12 +1,12 @@
-import type { WorkspaceAction } from '@/shared/types';
+import type {WorkspaceAction} from '@/shared/types';
 
 export interface TerminalCommandPlan {
-  readonly tabId: string;
-  readonly title: string;
-  readonly command: string;
-  readonly cwd: string;
-  readonly cols: number;
-  readonly rows: number;
+    readonly tabId: string;
+    readonly title: string;
+    readonly command: string;
+    readonly cwd: string;
+    readonly cols: number;
+    readonly rows: number;
 }
 
 const DEFAULT_COLUMNS = 120;
@@ -31,18 +31,18 @@ const MAX_TITLE_LENGTH = 32;
  * ```
  */
 export function createTerminalCommandPlan(action: WorkspaceAction, nowIso = new Date().toISOString()): TerminalCommandPlan {
-  const suffix = nowIso.replaceAll(/\D/gu, '').slice(8, 14);
-  return {
-    tabId: `${action.id}:${suffix}`,
-    title: shortenTitle(`${action.packageName} › ${action.label}`),
-    command: action.command,
-    cwd: action.cwd,
-    cols: DEFAULT_COLUMNS,
-    rows: DEFAULT_ROWS,
-  };
+    const suffix = nowIso.replaceAll(/\D/gu, '').slice(8, 14);
+    return {
+        tabId: `${action.id}:${suffix}`,
+        title: shortenTitle(`${action.packageName} › ${action.label}`),
+        command: action.command,
+        cwd: action.cwd,
+        cols: DEFAULT_COLUMNS,
+        rows: DEFAULT_ROWS,
+    };
 }
 
 function shortenTitle(title: string): string {
-  if (title.length <= MAX_TITLE_LENGTH) return title;
-  return `${title.slice(0, MAX_TITLE_LENGTH - 1)}…`;
+    if (title.length <= MAX_TITLE_LENGTH) return title;
+    return `${title.slice(0, MAX_TITLE_LENGTH - 1)}…`;
 }

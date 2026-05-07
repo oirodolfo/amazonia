@@ -1,5 +1,5 @@
-import type { ActionableDiagnostic } from './actionable-diagnostic-types';
-import { mapCommonErrorToDiagnostic } from './common-error-patterns';
+import type {ActionableDiagnostic} from './actionable-diagnostic-types';
+import {mapCommonErrorToDiagnostic} from './common-error-patterns';
 
 /**
  * Maps output lines into actionable diagnostics and removes duplicate ids.
@@ -13,21 +13,21 @@ import { mapCommonErrorToDiagnostic } from './common-error-patterns';
  * ```
  */
 export function createActionableDiagnostics(
-  lines: readonly string[],
+    lines: readonly string[],
 ): ActionableDiagnostic[] {
-  const seen = new Set<string>();
-  const diagnostics: ActionableDiagnostic[] = [];
+    const seen = new Set<string>();
+    const diagnostics: ActionableDiagnostic[] = [];
 
-  for (const line of lines) {
-    const diagnostic = mapCommonErrorToDiagnostic(line);
+    for (const line of lines) {
+        const diagnostic = mapCommonErrorToDiagnostic(line);
 
-    if (!diagnostic || seen.has(diagnostic.id)) {
-      continue;
+        if (!diagnostic || seen.has(diagnostic.id)) {
+            continue;
+        }
+
+        seen.add(diagnostic.id);
+        diagnostics.push(diagnostic);
     }
 
-    seen.add(diagnostic.id);
-    diagnostics.push(diagnostic);
-  }
-
-  return diagnostics;
+    return diagnostics;
 }

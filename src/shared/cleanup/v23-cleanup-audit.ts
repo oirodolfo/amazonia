@@ -1,17 +1,17 @@
 export interface CleanupAuditIssue {
-  readonly id: string;
-  readonly severity: 'info' | 'warning' | 'error';
-  readonly title: string;
-  readonly path: string;
-  readonly recommendation: string;
+    readonly id: string;
+    readonly severity: 'info' | 'warning' | 'error';
+    readonly title: string;
+    readonly path: string;
+    readonly recommendation: string;
 }
 
 export interface CleanupAuditReport {
-  readonly version: string;
-  readonly generatedAt: number;
-  readonly issues: readonly CleanupAuditIssue[];
-  readonly removedJunk: readonly string[];
-  readonly duplicateGroups: readonly (readonly string[])[];
+    readonly version: string;
+    readonly generatedAt: number;
+    readonly issues: readonly CleanupAuditIssue[];
+    readonly removedJunk: readonly string[];
+    readonly duplicateGroups: readonly (readonly string[])[];
 }
 
 /**
@@ -32,13 +32,13 @@ export interface CleanupAuditReport {
  * ```
  */
 export function createCleanupAuditReport(input: CleanupAuditReport): CleanupAuditReport {
-  return {
-    version: input.version,
-    generatedAt: input.generatedAt,
-    issues: [...input.issues],
-    removedJunk: [...input.removedJunk],
-    duplicateGroups: input.duplicateGroups.map((group) => [...group]),
-  };
+    return {
+        version: input.version,
+        generatedAt: input.generatedAt,
+        issues: [...input.issues],
+        removedJunk: [...input.removedJunk],
+        duplicateGroups: input.duplicateGroups.map((group) => [...group]),
+    };
 }
 
 /**
@@ -54,8 +54,8 @@ export function createCleanupAuditReport(input: CleanupAuditReport): CleanupAudi
  * ```
  */
 export function selectCleanupIssuesBySeverity(
-  report: CleanupAuditReport,
-  severity: CleanupAuditIssue['severity'],
+    report: CleanupAuditReport,
+    severity: CleanupAuditIssue['severity'],
 ): CleanupAuditIssue[] {
-  return report.issues.filter((issue) => issue.severity === severity);
+    return report.issues.filter((issue) => issue.severity === severity);
 }

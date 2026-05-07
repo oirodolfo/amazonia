@@ -1,17 +1,17 @@
 import {
-  appendWarpCommandOutput,
-  createWarpCommandBlockState,
-  finishWarpCommandBlock,
-  startWarpCommandBlock,
-  type WarpCommandBlockState,
+    appendWarpCommandOutput,
+    createWarpCommandBlockState,
+    finishWarpCommandBlock,
+    startWarpCommandBlock,
+    type WarpCommandBlockState,
 } from '@/shared/terminal/warp-command-blocks';
-import type { TerminalDataFrame, TerminalSessionSnapshot } from '@/shared/runtime/runtime-types';
+import type {TerminalDataFrame, TerminalSessionSnapshot} from '@/shared/runtime/runtime-types';
 
 export interface WarpTerminalViewModel {
-  readonly session: TerminalSessionSnapshot;
-  readonly blocks: WarpCommandBlockState;
-  readonly searchQuery: string;
-  readonly matchedLineCount: number;
+    readonly session: TerminalSessionSnapshot;
+    readonly blocks: WarpCommandBlockState;
+    readonly searchQuery: string;
+    readonly matchedLineCount: number;
 }
 
 /**
@@ -21,12 +21,12 @@ export interface WarpTerminalViewModel {
  * @returns Terminal view model.
  */
 export function createWarpTerminalViewModel(session: TerminalSessionSnapshot): WarpTerminalViewModel {
-  return {
-    session,
-    blocks: createWarpCommandBlockState(),
-    searchQuery: '',
-    matchedLineCount: 0,
-  };
+    return {
+        session,
+        blocks: createWarpCommandBlockState(),
+        searchQuery: '',
+        matchedLineCount: 0,
+    };
 }
 
 /**
@@ -37,15 +37,15 @@ export function createWarpTerminalViewModel(session: TerminalSessionSnapshot): W
  * @returns Updated model.
  */
 export function startWarpTerminalCommand(model: WarpTerminalViewModel, command: string): WarpTerminalViewModel {
-  return {
-    ...model,
-    blocks: startWarpCommandBlock(model.blocks, {
-      sessionId: model.session.id,
-      command,
-      cwd: model.session.cwd,
-      startedAt: Date.now(),
-    }),
-  };
+    return {
+        ...model,
+        blocks: startWarpCommandBlock(model.blocks, {
+            sessionId: model.session.id,
+            command,
+            cwd: model.session.cwd,
+            startedAt: Date.now(),
+        }),
+    };
 }
 
 /**
@@ -56,11 +56,11 @@ export function startWarpTerminalCommand(model: WarpTerminalViewModel, command: 
  * @returns Updated model.
  */
 export function applyWarpTerminalData(model: WarpTerminalViewModel, frame: TerminalDataFrame): WarpTerminalViewModel {
-  if (frame.sessionId !== model.session.id) return model;
-  return {
-    ...model,
-    blocks: appendWarpCommandOutput(model.blocks, { sessionId: frame.sessionId, raw: frame.data }),
-  };
+    if (frame.sessionId !== model.session.id) return model;
+    return {
+        ...model,
+        blocks: appendWarpCommandOutput(model.blocks, {sessionId: frame.sessionId, raw: frame.data}),
+    };
 }
 
 /**
@@ -71,11 +71,11 @@ export function applyWarpTerminalData(model: WarpTerminalViewModel, frame: Termi
  * @returns Updated model.
  */
 export function searchWarpTerminal(model: WarpTerminalViewModel, query: string): WarpTerminalViewModel {
-  const normalized = query.trim().toLowerCase();
-  const matchedLineCount = normalized
-    ? model.blocks.blocks.flatMap((block) => block.rawLines).filter((line) => line.toLowerCase().includes(normalized)).length
-    : 0;
-  return { ...model, searchQuery: query, matchedLineCount };
+    const normalized = query.trim().toLowerCase();
+    const matchedLineCount = normalized
+        ? model.blocks.blocks.flatMap((block) => block.rawLines).filter((line) => line.toLowerCase().includes(normalized)).length
+        : 0;
+    return {...model, searchQuery: query, matchedLineCount};
 }
 
 /**
@@ -86,14 +86,14 @@ export function searchWarpTerminal(model: WarpTerminalViewModel, query: string):
  * @returns Updated model.
  */
 export function finishWarpTerminalSession(model: WarpTerminalViewModel, snapshot: TerminalSessionSnapshot): WarpTerminalViewModel {
-  if (snapshot.id !== model.session.id) return model;
-  return {
-    ...model,
-    session: snapshot,
-    blocks: finishWarpCommandBlock(model.blocks, {
-      sessionId: snapshot.id,
-      exitCode: snapshot.exitCode,
-      finishedAt: snapshot.updatedAt,
-    }),
-  };
+    if (snapshot.id !== model.session.id) return model;
+    return {
+        ...model,
+        session: snapshot,
+        blocks: finishWarpCommandBlock(model.blocks, {
+            sessionId: snapshot.id,
+            exitCode: snapshot.exitCode,
+            finishedAt: snapshot.updatedAt,
+        }),
+    };
 }
