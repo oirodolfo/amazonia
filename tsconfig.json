@@ -15,10 +15,15 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+        "plugins": [
+          {
+            "name": "./tools/typed-native-language-service-plugin.ts",
+            "helperModule": "@/typed-native"
+          }
+        ]
   },
   "include": ["src", "tests", "scripts"]
 }

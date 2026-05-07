@@ -19,7 +19,7 @@ export interface PremiumCardProps {
  * <PremiumCard tone="forest" title="Timeline">...</PremiumCard>
  * ```
  */
-export function PremiumCard(props: PremiumCardProps): JSX.Element {
+export function PremiumCard(props: PremiumCardProps): React.Element {
   const tone = getPremiumSurfaceTokens(props.tone ?? 'forest');
   return (
     <section className={cx('rounded-[1.75rem] border p-4 backdrop-blur-xl transition duration-300', tone.panel, tone.border, tone.glow, props.className)}>

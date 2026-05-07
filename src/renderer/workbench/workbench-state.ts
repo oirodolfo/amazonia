@@ -1,9 +1,8 @@
 import type { WorkspaceAction, WorkspaceActionGroup } from '@/shared/action-types';
-import type { ParsedOutputSummary } from '@/shared/output/output-parser';
-import type { WorkbenchStoreSnapshot } from '@/shared/persistence/workbench-store';
-import type { TerminalSessionSnapshot } from '@/shared/runtime/integrated-runtime-types';
+import type { WorkbenchStoreSnapshot } from '@/shared/persistence/persistence-types';
+import type { TerminalSessionSnapshot } from '@/shared/runtime/runtime-types';
 import { emptyTerminalTabsState, terminalTabsReducer, type TerminalTabsState } from '@/renderer/terminal/terminal-tabs-state';
-import { defaultSidebarState, sidebarReducer, type SidebarEvent, type SidebarState } from '@/renderer/workbench/workbench-state';
+import { defaultSidebarState, sidebarReducer, type SidebarEvent, type SidebarState } from '@/renderer/components/actions/ActionSidebar';
 
 export interface FriendlyOutputCard {
   readonly id: string;

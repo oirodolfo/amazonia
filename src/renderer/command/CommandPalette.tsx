@@ -20,7 +20,7 @@ export interface CommandPaletteProps {
  * <CommandPalette open={open} actions={actions} onRunAction={runAction} />
  * ```
  */
-export function CommandPalette(props: CommandPaletteProps): JSX.Element | null {
+export function CommandPalette(props: CommandPaletteProps): React.Element | null {
   if (!props.open) return null;
 
   return (

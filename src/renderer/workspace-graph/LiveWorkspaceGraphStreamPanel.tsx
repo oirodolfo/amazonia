@@ -19,7 +19,7 @@ export interface LiveWorkspaceGraphStreamPanelProps {
  * <LiveWorkspaceGraphStreamPanel graph={graph} eventCount={3} />
  * ```
  */
-export function LiveWorkspaceGraphStreamPanel(props: LiveWorkspaceGraphStreamPanelProps): JSX.Element {
+export function LiveWorkspaceGraphStreamPanel(props: LiveWorkspaceGraphStreamPanelProps): React.Element {
   return (
     <PremiumCard tone="violet" eyebrow="Live Graph" title="Workspace Stream">
       <div className="mb-4 flex flex-wrap gap-2">

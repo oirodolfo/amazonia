@@ -21,7 +21,7 @@ export interface SmartCommandPaletteProps {
  * <SmartCommandPalette open={open} rankedActions={rankedActions} suggestions={suggestions} />
  * ```
  */
-export function SmartCommandPalette(props: SmartCommandPaletteProps): JSX.Element | null {
+export function SmartCommandPalette(props: SmartCommandPaletteProps): React.Element | null {
   if (!props.open) {
     return null;
   }

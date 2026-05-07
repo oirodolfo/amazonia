@@ -17,7 +17,7 @@ export interface ActionGraphPanelProps {
  * <ActionGraphPanel groups={groups} onRunAction={runAction} />
  * ```
  */
-export function ActionGraphPanel(props: ActionGraphPanelProps): JSX.Element {
+export function ActionGraphPanel(props: ActionGraphPanelProps): React.Element {
   const graph = buildActionGraph(props.groups);
   const actionNodes = graph.nodes.filter((node) => node.kind === 'action');
 

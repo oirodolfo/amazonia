@@ -3,7 +3,7 @@ import type { WorkspaceActionGroup } from '@/shared/actions/action-types';
 import type { ActionSuggestion } from '@/shared/intelligence/action-intelligence-types';
 import type { IntegratedRuntimeState } from '@/shared/runtime/integrated-runtime-store';
 import { ActionSidebar } from '@/renderer/sidebar/ActionSidebar';
-import type { SidebarState } from '@/renderer/sidebar/sidebar-state';
+import type { SidebarState } from '@/renderer/workbench/sidebar/sidebar-state';
 import { SmartCommandPalette } from '@/renderer/command/SmartCommandPalette';
 import { ActionSuggestionsPanel } from '@/renderer/intelligence/ActionSuggestionsPanel';
 import { RealTerminalSurface } from '@/renderer/terminal/RealTerminalSurface';
@@ -42,7 +42,7 @@ export interface IntegratedWorkbenchShellProps {
  * <IntegratedWorkbenchShell runtimeState={state} actionGroups={groups} />
  * ```
  */
-export function IntegratedWorkbenchShell(props: IntegratedWorkbenchShellProps): JSX.Element {
+export function IntegratedWorkbenchShell(props: IntegratedWorkbenchShellProps): React.Element {
   const activeSessionId = props.activeSessionId ?? Object.keys(props.runtimeState.terminalFrames)[0] ?? null;
   const activeFrames = activeSessionId ? props.runtimeState.terminalFrames[activeSessionId] ?? [] : [];
   const timingSamples = props.timelineEvents.map((event) => event.durationMs ?? 0).filter((value) => value > 0);

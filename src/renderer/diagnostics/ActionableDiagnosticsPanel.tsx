@@ -23,7 +23,7 @@ export interface ActionableDiagnosticsPanelProps {
  */
 export function ActionableDiagnosticsPanel(
   props: ActionableDiagnosticsPanelProps,
-): JSX.Element {
+): React.Element {
   return (
     <section className="overflow-hidden rounded-[1.5rem] border border-red-400/10 bg-[#141414]">
       <header className="border-b border-white/5 px-5 py-4">

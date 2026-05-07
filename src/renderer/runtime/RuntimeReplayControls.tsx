@@ -20,7 +20,7 @@ export interface RuntimeReplayControlsProps {
  */
 export function RuntimeReplayControls(
   props: RuntimeReplayControlsProps,
-): JSX.Element {
+): React.Element {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-emerald-400/10 bg-black/40 p-3">
       <button

@@ -18,7 +18,7 @@ export interface RuntimeCockpitPanelProps {
  * <RuntimeCockpitPanel snapshot={snapshot} />
  * ```
  */
-export function RuntimeCockpitPanel(props: RuntimeCockpitPanelProps): JSX.Element {
+export function RuntimeCockpitPanel(props: RuntimeCockpitPanelProps): React.Element {
   const replay = replayRuntimeSnapshot(props.snapshot);
 
   return (

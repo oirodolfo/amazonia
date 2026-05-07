@@ -1,15 +1,15 @@
 import { Panel, Group, Separator } from 'react-resizable-panels';
-import type { WorkspaceActionGroup } from '@/shared/actions/action-types';
+import type { WorkspaceAction } from '@/shared';
 import type { FriendlyOutputCard as FriendlyOutputCardModel } from './workbench-state';
 import { ActionSidebar } from '@/renderer/components/actions/ActionSidebar';
-import type { SidebarState } from '@/renderer/workbench/workbench-state';
+import type { SidebarState } from '@/renderer/sidebar/sidebar-state';
 import type { TerminalTabsState } from '@/renderer/terminal/terminal-tabs-state';
 import { TerminalTabsBar } from '@/renderer/terminal/TerminalTabsBar';
 import { XtermTerminalView } from '@/renderer/terminal/XtermTerminalView';
 import { FriendlyOutputCard } from '@/renderer/output/FriendlyOutputCard';
 
 export interface WorkbenchShellProps {
-  readonly actionGroups: readonly WorkspaceActionGroup[];
+  readonly actionGroups: readonly WorkspaceAction[];
   readonly sidebarState: SidebarState;
   readonly terminalTabs: TerminalTabsState;
   readonly outputCards: readonly FriendlyOutputCardModel[];
@@ -33,7 +33,7 @@ export interface WorkbenchShellProps {
  * <WorkbenchShell actionGroups={groups} terminalTabs={tabs} outputCards={cards} />
  * ```
  */
-export function WorkbenchShell(props: WorkbenchShellProps): JSX.Element {
+export function WorkbenchShell(props: WorkbenchShellProps): React.ReactElement {
   const activeSession = props.terminalTabs.sessions.find((session) => session.id === props.terminalTabs.activeSessionId);
 
   return (

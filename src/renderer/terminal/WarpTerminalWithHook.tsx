@@ -23,7 +23,7 @@ export interface WarpTerminalWithHookProps {
  * <WarpTerminalWithHook onInput={writeToPty} />
  * ```
  */
-export function WarpTerminalWithHook(props: WarpTerminalWithHookProps): JSX.Element {
+export function WarpTerminalWithHook(props: WarpTerminalWithHookProps): React.Element {
   const [draft, setDraft] = useState('');
   const terminalRef = useRef<Terminal | null>(null);
   const addonController = useXTermAddonController({

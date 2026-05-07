@@ -17,7 +17,7 @@ export interface PinnedCommandsPanelProps {
  * <PinnedCommandsPanel commands={commands} />
  * ```
  */
-export function PinnedCommandsPanel(props: PinnedCommandsPanelProps): JSX.Element {
+export function PinnedCommandsPanel(props: PinnedCommandsPanelProps): React.Element {
   return (
     <section className="rounded-[1.5rem] border border-emerald-400/10 bg-[#141414] p-4">
       <h2 className="mb-3 text-xs uppercase tracking-[0.24em] text-emerald-300/70">

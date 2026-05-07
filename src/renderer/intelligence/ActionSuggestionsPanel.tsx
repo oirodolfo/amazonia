@@ -17,7 +17,7 @@ export interface ActionSuggestionsPanelProps {
  * <ActionSuggestionsPanel suggestions={suggestions} onRunAction={runAction} />
  * ```
  */
-export function ActionSuggestionsPanel(props: ActionSuggestionsPanelProps): JSX.Element | null {
+export function ActionSuggestionsPanel(props: ActionSuggestionsPanelProps): React.Element | null {
   if (props.suggestions.length === 0) {
     return null;
   }

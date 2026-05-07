@@ -15,7 +15,7 @@ export interface FriendlyOutputCardProps {
  * <FriendlyOutputCard card={card} />
  * ```
  */
-export function FriendlyOutputCard(props: FriendlyOutputCardProps): JSX.Element {
+export function FriendlyOutputCard(props: FriendlyOutputCardProps): React.Element {
   const { card } = props;
 
   return (

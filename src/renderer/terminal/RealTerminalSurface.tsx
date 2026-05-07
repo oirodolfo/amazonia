@@ -24,7 +24,7 @@ export interface RealTerminalSurfaceProps {
  * <RealTerminalSurface sessionId="term" frames={frames} onInput={write} onResize={resize} />
  * ```
  */
-export function RealTerminalSurface(props: RealTerminalSurfaceProps): JSX.Element {
+export function RealTerminalSurface(props: RealTerminalSurfaceProps): React.Element {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const terminalRef = useRef<Terminal | null>(null);
   const writtenFrameCountRef = useRef(0);

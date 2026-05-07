@@ -21,7 +21,7 @@ export interface XtermTerminalViewProps {
  * <XtermTerminalView sessionId={session.id} onInput={write} onResize={resize} />
  * ```
  */
-export function XtermTerminalView(props: XtermTerminalViewProps): JSX.Element {
+export function XtermTerminalView(props: XtermTerminalViewProps): React.Element {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const terminalRef = useRef<Terminal | null>(null);
 

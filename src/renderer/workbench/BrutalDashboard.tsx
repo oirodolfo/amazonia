@@ -26,7 +26,7 @@ export interface BrutalDashboardProps {
  * <BrutalDashboard groups={groups} timelineEvents={events} suggestions={suggestions} />
  * ```
  */
-export function BrutalDashboard(props: BrutalDashboardProps): JSX.Element {
+export function BrutalDashboard(props: BrutalDashboardProps): React.Element {
   const actionCount = props.groups.reduce((total, group) => total + group.actions.length, 0);
   return (
     <div className="min-h-screen bg-[#020605] p-5 text-zinc-100">

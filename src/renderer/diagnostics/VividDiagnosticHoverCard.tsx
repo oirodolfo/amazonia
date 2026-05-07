@@ -17,7 +17,7 @@ export interface VividDiagnosticHoverCardProps {
  * <VividDiagnosticHoverCard diagnostic={diagnostic} />
  * ```
  */
-export function VividDiagnosticHoverCard(props: VividDiagnosticHoverCardProps): JSX.Element {
+export function VividDiagnosticHoverCard(props: VividDiagnosticHoverCardProps): React.Element {
   const { diagnostic } = props;
 
   return (

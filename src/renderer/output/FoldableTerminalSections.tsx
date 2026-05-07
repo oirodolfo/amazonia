@@ -17,7 +17,7 @@ export interface FoldableTerminalSectionsProps {
  * <FoldableTerminalSections lines={lines} />
  * ```
  */
-export function FoldableTerminalSections(props: FoldableTerminalSectionsProps): JSX.Element {
+export function FoldableTerminalSections(props: FoldableTerminalSectionsProps): React.Element {
   const sections = useMemo(() => createTerminalSections(props.lines), [props.lines]);
   const [foldedIds, setFoldedIds] = useState<string[]>(() => sections.filter((section) => section.defaultCollapsed).map((section) => section.id));
 

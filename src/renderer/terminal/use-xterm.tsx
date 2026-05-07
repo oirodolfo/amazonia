@@ -208,7 +208,7 @@ export function XTerm({
   onTerminalReady,
   options,
   ...props
-}: XTermProps): JSX.Element {
+}: XTermProps): React.Element {
   const { ref } = useXTerm({
     addons,
     autoFocus,

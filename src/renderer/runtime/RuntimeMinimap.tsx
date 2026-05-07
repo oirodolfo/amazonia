@@ -15,7 +15,7 @@ export interface RuntimeMinimapProps {
  * <RuntimeMinimap diagnostics={diagnostics} />
  * ```
  */
-export function RuntimeMinimap(props: RuntimeMinimapProps): JSX.Element {
+export function RuntimeMinimap(props: RuntimeMinimapProps): React.Element {
   return (
     <div className="flex h-full w-5 flex-col items-center gap-[2px] rounded-full bg-black/30 p-1">
       {props.diagnostics.slice(0, 120).map((diagnostic) => (
