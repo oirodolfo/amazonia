@@ -1,0 +1,13 @@
+{
+  "baseZip": "curupira-labs-amazonia-v33-warp-ui-cleanup.zip",
+  "version": "v34.0.0-actionable-diagnostics",
+  "focus": [
+    "common error mapping",
+    "node/typescript/npm/shell diagnostics",
+    "pin command",
+    "run again",
+    "open editor at line",
+    "diagnostic IPC"
+  ],
+  "fileCount": 457
+}

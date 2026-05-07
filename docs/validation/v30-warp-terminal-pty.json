@@ -1,0 +1,13 @@
+{
+  "baseZip": "curupira-labs-amazonia-v29-workspace-runtime-platform.zip",
+  "version": "v30.0.0-warp-terminal-pty",
+  "focus": [
+    "pty integration",
+    "warp command blocks",
+    "xterm surface",
+    "terminal search",
+    "ipc bridge",
+    "preload api"
+  ],
+  "fileCount": 429
+}

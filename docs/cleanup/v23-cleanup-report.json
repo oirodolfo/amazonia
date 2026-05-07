@@ -1,0 +1,427 @@
+{
+  "baseZip": "curupira-labs-amazonia-v22-vivid-hover-folding-graph-timeline.zip",
+  "version": "v23-clean-production-ready",
+  "removedJunk": [],
+  "duplicateGroups": [
+    [
+      "index.html",
+      "amazonia-v9-real/index.html"
+    ],
+    [
+      "postcss.config.js",
+      "amazonia-v9-real/postcss.config.js"
+    ],
+    [
+      "tailwind.config.ts",
+      "amazonia-v9-real/tailwind.config.ts"
+    ],
+    [
+      "tsconfig.electron.json",
+      "amazonia-v9-real/tsconfig.electron.json"
+    ],
+    [
+      "tsconfig.json",
+      "amazonia-v9-real/tsconfig.json"
+    ],
+    [
+      "vite.config.ts",
+      "amazonia-v9-real/vite.config.ts"
+    ],
+    [
+      "vitest.config.ts",
+      "amazonia-v9-real/vitest.config.ts"
+    ],
+    [
+      "scripts/scan-repository.ts",
+      "amazonia-v9-real/scripts/scan-repository.ts"
+    ],
+    [
+      "scripts/validate-artifact.ts",
+      "amazonia-v9-real/scripts/validate-artifact.ts"
+    ],
+    [
+      "tests/action-graph.test.ts",
+      "amazonia-v9-real/tests/action-graph.test.ts"
+    ],
+    [
+      "tests/action-index.test.ts",
+      "amazonia-v9-real/tests/action-index.test.ts"
+    ],
+    [
+      "tests/action-runner.test.ts",
+      "amazonia-v9-real/tests/action-runner.test.ts"
+    ],
+    [
+      "tests/action-suggestions.test.ts",
+      "amazonia-v9-real/tests/action-suggestions.test.ts"
+    ],
+    [
+      "tests/devtools-timeline.test.ts",
+      "amazonia-v9-real/tests/devtools-timeline.test.ts"
+    ],
+    [
+      "tests/editor-target.test.ts",
+      "amazonia-v9-real/tests/editor-target.test.ts"
+    ],
+    [
+      "tests/layout-history.test.ts",
+      "amazonia-v9-real/tests/layout-history.test.ts"
+    ],
+    [
+      "tests/link-parser.test.ts",
+      "amazonia-v9-real/tests/link-parser.test.ts"
+    ],
+    [
+      "tests/output-parser.test.ts",
+      "amazonia-v9-real/tests/output-parser.test.ts"
+    ],
+    [
+      "tests/output-suite-parsers.test.ts",
+      "amazonia-v9-real/tests/output-suite-parsers.test.ts"
+    ],
+    [
+      "tests/persistence-repositories.test.ts",
+      "amazonia-v9-real/tests/persistence-repositories.test.ts"
+    ],
+    [
+      "tests/reconnect-policy.test.ts",
+      "amazonia-v9-real/tests/reconnect-policy.test.ts"
+    ],
+    [
+      "tests/run-diagnostics.test.ts",
+      "amazonia-v9-real/tests/run-diagnostics.test.ts"
+    ],
+    [
+      "tests/session-recovery.test.ts",
+      "amazonia-v9-real/tests/session-recovery.test.ts"
+    ],
+    [
+      "tests/terminal-orchestrator.test.ts",
+      "amazonia-v9-real/tests/terminal-orchestrator.test.ts"
+    ],
+    [
+      "tests/workspace-scanner.test.ts",
+      "amazonia-v9-real/tests/workspace-scanner.test.ts"
+    ],
+    [
+      "src/analytics/local-analytics.ts",
+      "amazonia-v9-real/src/analytics/local-analytics.ts"
+    ],
+    [
+      "src/editor/editor-target.ts",
+      "amazonia-v9-real/src/editor/editor-target.ts"
+    ],
+    [
+      "src/editor/index.ts",
+      "amazonia-v9-real/src/editor/index.ts"
+    ],
+    [
+      "src/features/feature-flags.ts",
+      "amazonia-v9-real/src/features/feature-flags.ts"
+    ],
+    [
+      "src/intelligence/action-suggestions.ts",
+      "amazonia-v9-real/src/intelligence/action-suggestions.ts"
+    ],
+    [
+      "src/intelligence/index.ts",
+      "amazonia-v9-real/src/intelligence/index.ts"
+    ],
+    [
+      "src/main/main.ts",
+      "amazonia-v9-real/src/main/main.ts"
+    ],
+    [
+      "src/output/friendly-cards.ts",
+      "amazonia-v9-real/src/output/friendly-cards.ts"
+    ],
+    [
+      "src/output/index.ts",
+      "amazonia-v9-real/src/output/index.ts"
+    ],
+    [
+      "src/output/link-parser.ts",
+      "amazonia-v9-real/src/output/link-parser.ts"
+    ],
+    [
+      "src/output/parser.ts",
+      "amazonia-v9-real/src/output/parser.ts"
+    ],
+    [
+      "src/output/suite-parsers.ts",
+      "amazonia-v9-real/src/output/suite-parsers.ts"
+    ],
+    [
+      "src/persistence/database.ts",
+      "amazonia-v9-real/src/persistence/database.ts"
+    ],
+    [
+      "src/persistence/index.ts",
+      "amazonia-v9-real/src/persistence/index.ts"
+    ],
+    [
+      "src/persistence/layout-history.ts",
+      "amazonia-v9-real/src/persistence/layout-history.ts"
+    ],
+    [
+      "src/persistence/repositories.ts",
+      "amazonia-v9-real/src/persistence/repositories.ts"
+    ],
+    [
+      "src/persistence/schema.ts",
+      "amazonia-v9-real/src/persistence/schema.ts"
+    ],
+    [
+      "src/preload/preload.ts",
+      "amazonia-v9-real/src/preload/preload.ts"
+    ],
+    [
+      "src/renderer/main.tsx",
+      "amazonia-v9-real/src/renderer/main.tsx"
+    ],
+    [
+      "src/renderer/styles.css",
+      "amazonia-v9-real/src/renderer/styles.css"
+    ],
+    [
+      "src/runs/action-runner.ts",
+      "amazonia-v9-real/src/runs/action-runner.ts"
+    ],
+    [
+      "src/runs/index.ts",
+      "amazonia-v9-real/src/runs/index.ts"
+    ],
+    [
+      "src/runs/run-diagnostics.ts",
+      "amazonia-v9-real/src/runs/run-diagnostics.ts"
+    ],
+    [
+      "src/shared/index.ts",
+      "amazonia-v9-real/src/shared/index.ts"
+    ],
+    [
+      "src/shared/protocol.ts",
+      "amazonia-v9-real/src/shared/protocol.ts"
+    ]
+  ],
+  "duplicateGroupCount": 74,
+  "singleFileDirectories": [
+    {
+      "directory": "src/analytics",
+      "file": "local-analytics.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/features",
+      "file": "feature-flags.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/main/bootstrap",
+      "file": "workbench-bootstrap.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/main/openers",
+      "file": "open-target.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/main/terminal",
+      "file": "node-pty-terminal-manager.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/main/timeline",
+      "file": "main-timeline-bridge.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/action-graph",
+      "file": "ActionGraphPanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/actions",
+      "file": "run-action-controller.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/diagnostics",
+      "file": "VividDiagnosticHoverCard.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/lib",
+      "file": "utils.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/persistence",
+      "file": "workbench-hydration.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/state",
+      "file": "workbench-state.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/action-graph",
+      "file": "action-graph-model.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/cleanup",
+      "file": "cleanup-report.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/feature-flags",
+      "file": "feature-flags.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/layout",
+      "file": "layout-snapshots.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/merge",
+      "file": "merge-policy.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/openers",
+      "file": "open-targets.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/persistence",
+      "file": "persistence-types.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/runtime",
+      "file": "runtime-types.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/terminal",
+      "file": "terminal-section-folding.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/shared/ui",
+      "file": "premium-theme.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/components/command",
+      "file": "CommandPalette.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/components/graph",
+      "file": "ActionGraphPanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/components/inspector",
+      "file": "RunInspectorPanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/components/intelligence",
+      "file": "SuggestedActionsPanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/components/layout",
+      "file": "WorkbenchLayout.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "src/renderer/components/timeline",
+      "file": "DevtoolsTimelinePanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/analytics",
+      "file": "local-analytics.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/features",
+      "file": "feature-flags.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/main",
+      "file": "main.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/preload",
+      "file": "preload.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/server",
+      "file": "web-server.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/i18n",
+      "file": "messages.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/lib",
+      "file": "utils.ts",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/components/command",
+      "file": "CommandPalette.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/components/graph",
+      "file": "ActionGraphPanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/components/inspector",
+      "file": "RunInspectorPanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/components/intelligence",
+      "file": "SuggestedActionsPanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/components/layout",
+      "file": "WorkbenchLayout.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/components/terminal",
+      "file": "TerminalPane.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    },
+    {
+      "directory": "amazonia-v9-real/src/renderer/components/timeline",
+      "file": "DevtoolsTimelinePanel.tsx",
+      "recommendation": "Candidate for codemod-backed move to parent with import rewrite."
+    }
+  ],
+  "singleFileDirectoryCount": 42,
+  "policy": [
+    "Preserve functionality first.",
+    "Report duplicate and single-file-folder candidates.",
+    "Avoid destructive source moves without codemod import rewriting.",
+    "Update tests, README and CHANGELOG."
+  ]
+}

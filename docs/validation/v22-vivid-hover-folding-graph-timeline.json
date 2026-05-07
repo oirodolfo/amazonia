@@ -1,0 +1,12 @@
+{
+  "baseZip": "curupira-labs-amazonia-v21-live-runtime-diagnostics.zip",
+  "version": "v22.0.0-vivid-hover-folding-graph-timeline",
+  "focus": [
+    "vivid hover card",
+    "terminal sections folding",
+    "live workspace graph stream",
+    "timeline stream sync",
+    "tests"
+  ],
+  "fileCountBeforeZip": 361
+}

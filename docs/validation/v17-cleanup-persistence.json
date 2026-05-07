@@ -1,0 +1,15 @@
+{
+  "baseZip": "curupira-labs-amazonia-v14-v15-v16.zip",
+  "version": "v17-cleanup-persistence",
+  "focus": [
+    "duplicate cleanup",
+    "feature flags consolidation",
+    "SQLite Drizzle persistence",
+    "hydration",
+    "clickable open targets",
+    "tests"
+  ],
+  "archivedExactDuplicates": [],
+  "archivedExactDuplicateCount": 0,
+  "fileCountBefore": 291
+}

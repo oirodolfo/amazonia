@@ -1,0 +1,12 @@
+{
+  "baseZip": "curupira-labs-amazonia-v36-xterm-addons.zip",
+  "version": "v37.0.0-xterm-hook",
+  "focus": [
+    "useXTerm hook",
+    "XTerm component",
+    "stable listeners",
+    "addon hook",
+    "hook-backed warp shell"
+  ],
+  "fileCount": 480
+}

@@ -1,0 +1,11 @@
+{
+  "baseZip": "curupira-labs-amazonia-v28-real-integration.zip",
+  "version": "v29.0.0-workspace-runtime-platform",
+  "focus": [
+    "runtime event bus",
+    "graph physics engine",
+    "replay controller",
+    "plugin runtime",
+    "workspace dependency scanner"
+  ]
+}

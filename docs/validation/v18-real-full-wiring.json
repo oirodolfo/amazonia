@@ -1,0 +1,18 @@
+{
+  "baseZip": "curupira-labs-amazonia-v17-cleanup-persistence.zip",
+  "version": "v18.0.0-real-full-wiring",
+  "basePolicy": "incremental over v17 cleanup/persistence",
+  "focus": [
+    "electron bootstrap",
+    "persistence ipc",
+    "opener ipc",
+    "full preload api",
+    "renderer hydration",
+    "autosave",
+    "timeline events",
+    "websocket reconnect buffering",
+    "web terminal server",
+    "tests"
+  ],
+  "fileCountBeforeManifest": 322
+}

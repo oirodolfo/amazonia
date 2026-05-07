@@ -1,0 +1,10 @@
+{
+  "baseZip": "curupira-labs-amazonia-v25-runtime-memory-replay-graph.zip",
+  "version": "v26-live-runtime-brain",
+  "focus": [
+    "drizzle schema",
+    "runtime intelligence v2",
+    "semantic parser",
+    "runtime brain"
+  ]
+}

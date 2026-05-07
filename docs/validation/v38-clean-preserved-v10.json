@@ -1,0 +1,9 @@
+{
+  "baseZip": "curupira-labs-amazonia-v37-xterm-hook.zip",
+  "version": "v38.0.0-clean-preserved-v10",
+  "preservedDirsRemoved": 1,
+  "removedFiles": 81,
+  "remainingPreservedPaths": [],
+  "fileCount": 403,
+  "testCount": 86
+}

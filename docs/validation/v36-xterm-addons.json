@@ -1,0 +1,12 @@
+{
+  "baseZip": "curupira-labs-amazonia-v35-runtime-intelligence.zip",
+  "version": "v36.0.0-xterm-addons",
+  "focus": [
+    "xterm addons",
+    "addon registry",
+    "feature flags",
+    "fit/search/serialize/web-links/webgl",
+    "addon status panel"
+  ],
+  "fileCount": 474
+}

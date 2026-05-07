@@ -1,0 +1,17 @@
+{
+  "baseZip": "curupira-labs-amazonia-v13-brutal.zip",
+  "version": "v14-v15-v16",
+  "basePolicy": "incremental over v13-brutal",
+  "focus": [
+    "v14 ui wiring",
+    "sidebar to terminal controller",
+    "friendly output cards",
+    "v15 command palette",
+    "layout snapshots",
+    "terminal restore",
+    "v16 run timeline",
+    "v16 action graph",
+    "tests"
+  ],
+  "fileCountBeforeManifest": 290
+}

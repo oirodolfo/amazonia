@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 220 20% 3%;
+  --foreground: 150 20% 92%;
+  --card: 220 18% 5%;
+  --card-foreground: 150 20% 92%;
+  --primary: 153 70% 50%;
+  --primary-foreground: 160 80% 7%;
+  --secondary: 160 20% 12%;
+  --secondary-foreground: 150 20% 92%;
+  --muted: 220 15% 12%;
+  --muted-foreground: 220 8% 62%;
+  --accent: 160 45% 18%;
+  --accent-foreground: 150 20% 92%;
+  --border: 160 20% 18%;
+  --input: 160 20% 18%;
+  --ring: 153 70% 50%;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { background: #05070a; }

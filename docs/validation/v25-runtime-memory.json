@@ -1,0 +1,10 @@
+{
+  "baseZip": "curupira-labs-amazonia-v24-runtime-cockpit.zip",
+  "version": "v25-runtime-memory-replay-graph",
+  "focus": [
+    "runtime memory",
+    "runtime replay",
+    "graph physics",
+    "runtime intelligence"
+  ]
+}

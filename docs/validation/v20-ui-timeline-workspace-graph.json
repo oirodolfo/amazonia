@@ -1,0 +1,14 @@
+{
+  "baseZip": "curupira-labs-amazonia-v19-brutal-intelligence-ui-ranking.zip",
+  "version": "v20.0.0-ui-timeline-workspace-graph",
+  "basePolicy": "incremental over v19 brutal intelligence",
+  "focus": [
+    "premium ui",
+    "real timeline",
+    "workspace graph",
+    "dashboard shell",
+    "i18n",
+    "tests"
+  ],
+  "fileCountBeforeManifest": 348
+}

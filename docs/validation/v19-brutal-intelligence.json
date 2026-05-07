@@ -1,0 +1,17 @@
+{
+  "baseZip": "curupira-labs-amazonia-v19-intelligence-seed.zip",
+  "version": "v19.0.0-brutal-intelligence",
+  "basePolicy": "incremental over v19 seed when available, otherwise v18",
+  "focus": [
+    "frequency ranking",
+    "recency ranking",
+    "context ranking",
+    "query ranking",
+    "success failure scoring",
+    "smart command palette",
+    "suggested actions panel",
+    "i18n",
+    "tests"
+  ],
+  "fileCountBeforeManifest": 334
+}

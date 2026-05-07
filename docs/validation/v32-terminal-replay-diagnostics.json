@@ -1,0 +1,9 @@
+{
+  "version": "v32.0.0-terminal-replay-diagnostics",
+  "focus": [
+    "terminal problems",
+    "semantic replay",
+    "scrollback store",
+    "diagnostic panels"
+  ]
+}

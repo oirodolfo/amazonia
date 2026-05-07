@@ -1,0 +1,18 @@
+{
+  "baseZip": "curupira-labs-amazonia-v12-merged-v9-v11.zip",
+  "version": "v13.0.0-brutal",
+  "basePolicy": "incremental over merged v9+v11",
+  "focus": [
+    "action to terminal bridge",
+    "node-pty manager",
+    "secure electron ipc",
+    "websocket terminal bridge",
+    "runtime terminal client",
+    "xterm view",
+    "terminal tabs",
+    "usage persistence",
+    "local analytics",
+    "tests"
+  ],
+  "fileCountBeforeManifest": 271
+}
