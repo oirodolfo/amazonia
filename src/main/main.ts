@@ -1,8 +1,8 @@
 import path from 'node:path';
+import {createRequire} from 'node:module';
 import {app, BrowserWindow, dialog, ipcMain, shell} from 'electron';
 import {scanWorkspace} from '@/workspace';
 import {PtyHost} from '@/terminal/pty-host';
-import {createWorkbenchDatabase} from '@/persistence/database';
 import type {
     LayoutState,
     RunRecord,
@@ -10,8 +10,18 @@ import type {
     TerminalResizeMessage,
     TerminalSpawnRequest
 } from '@/shared/types';
+import {createFallbackWorkbenchDatabase} from '@/main/persistence/workbench-database-fallback';
 
-const database = createWorkbenchDatabase(path.join(app.getPath('userData'), 'curupira-workbench.sqlite'));
+type WorkbenchDatabaseLike = {
+    readLayout(): LayoutState;
+    writeLayout(layout: LayoutState): void;
+    recordRun(run: RunRecord): void;
+    incrementActionWeight(actionId: string): void;
+    readActionWeights(): Readonly<Record<string, number>>;
+};
+
+const databasePath = path.join(app.getPath('userData'), 'curupira-workbench.sqlite');
+const database: WorkbenchDatabaseLike = await openWorkbenchDatabaseOrFallback(databasePath);
 let mainWindow: BrowserWindow | null = null;
 
 const ptyHost = new PtyHost({
@@ -72,3 +82,17 @@ ipcMain.handle('runs:record', (_event, run: RunRecord) => {
 });
 ipcMain.handle('native:openExternal', (_event, target: string) => shell.openExternal(target));
 ipcMain.handle('native:openPath', (_event, target: string) => shell.openPath(target));
+
+async function openWorkbenchDatabaseOrFallback(dbPath: string): Promise<WorkbenchDatabaseLike> {
+    const require = createRequire(import.meta.url);
+    try {
+        // Ensure native module can be loaded under Electron's Node ABI.
+        require('better-sqlite3');
+        const module = await import('@/persistence/database');
+        return module.createWorkbenchDatabase(dbPath);
+    } catch (error) {
+        // TODO(persistence): Replace fallback with a native-free SQLite driver, or document required build tools for better-sqlite3.
+        console.warn('[workbench] SQLite native module unavailable; using in-memory fallback.', error);
+        return createFallbackWorkbenchDatabase();
+    }
+}
