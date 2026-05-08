@@ -1,4 +1,3 @@
-export * from './pty-host';
 export * from './orchestrator';
 export * from './session-recovery';
 export * from './reconnect-policy';
