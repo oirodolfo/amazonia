@@ -21,7 +21,7 @@ export function createWorkbenchFlowExample(action: WorkspaceAction): {
         plan: createTerminalActionPlan(action),
         metric: createRuntimeMetricSample({
             id: `flow:${action.id}`,
-            label: `Run ${action.name}`,
+            label: `Run ${action.label}`,
             startedAt: 100,
             finishedAt: 118,
             metadata: {

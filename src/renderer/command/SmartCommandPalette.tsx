@@ -1,4 +1,4 @@
-import {Command} from '@cmdk/react';
+import {Command} from 'cmdk';
 import type {ActionSuggestion, RankedWorkspaceAction} from '@/shared/intelligence/action-intelligence-types';
 
 export interface SmartCommandPaletteProps {
@@ -21,7 +21,7 @@ export interface SmartCommandPaletteProps {
  * <SmartCommandPalette open={open} rankedActions={rankedActions} suggestions={suggestions} />
  * ```
  */
-export function SmartCommandPalette(props: SmartCommandPaletteProps): React.Element | null {
+export function SmartCommandPalette(props: SmartCommandPaletteProps): React.ReactElement | null {
     if (!props.open) {
         return null;
     }
@@ -31,7 +31,7 @@ export function SmartCommandPalette(props: SmartCommandPaletteProps): React.Elem
              onClick={() => props.onOpenChange(false)}>
             <Command
                 className="mx-auto max-w-4xl overflow-hidden rounded-[2rem] border border-emerald-400/20 bg-zinc-950 shadow-2xl shadow-emerald-950/50"
-                onClick={(event) => event.stopPropagation()}
+                onClick={(event: React.MouseEvent) => event.stopPropagation()}
             >
                 <Command.Input
                     className="w-full border-b border-emerald-400/10 bg-transparent px-6 py-5 text-base text-zinc-100 outline-none placeholder:text-zinc-500"
@@ -73,7 +73,7 @@ export function SmartCommandPalette(props: SmartCommandPaletteProps): React.Elem
                         {props.rankedActions.map((ranked) => (
                             <Command.Item
                                 key={ranked.action.id}
-                                value={`${ranked.action.packageName} ${ranked.action.name} ${ranked.action.command} ${ranked.reasons.join(' ')}`}
+                                value={`${ranked.action.packageName} ${ranked.action.label} ${ranked.action.command} ${ranked.reasons.join(' ')}`}
                                 className="flex cursor-pointer items-center justify-between rounded-2xl px-4 py-3 text-sm text-zinc-300 aria-selected:bg-emerald-400/10 aria-selected:text-emerald-50"
                                 onSelect={() => {
                                     props.onRunAction(ranked.action.id);
@@ -81,7 +81,7 @@ export function SmartCommandPalette(props: SmartCommandPaletteProps): React.Elem
                                 }}
                             >
                 <span>
-                  <span className="block font-medium">{ranked.action.name}</span>
+                  <span className="block font-medium">{ranked.action.label}</span>
                   <span className="block text-xs text-zinc-500">{ranked.action.packageName}</span>
                 </span>
                                 <span className="rounded-xl border border-zinc-700 px-2 py-1 text-[11px] text-zinc-400">

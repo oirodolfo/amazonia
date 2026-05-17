@@ -3,27 +3,24 @@ import { runWorkbenchAction } from '../src/renderer/actions/run-action-controlle
 import { emptyWorkbenchStoreSnapshot } from '../src/shared/persistence/workbench-store';
 import type { WorkspaceAction } from '../src/shared/actions/action-types';
 import type { WorkbenchTerminalClient } from '../src/renderer/terminal/workbench-terminal-client';
+import type { TerminalSessionSnapshot } from '../src/shared/runtime/runtime-types';
 
 const action: WorkspaceAction = {
   id: 'action-1',
   packageId: 'pkg-1',
   packageName: '@curupira-labs/pkg',
-  packagePath: 'packages/pkg',
-  name: 'dev',
+  label: 'dev',
   command: 'pnpm dev',
   cwd: '/repo/packages/pkg',
   kind: 'script',
-  tool: 'package-json',
-  frequency: 0,
-  isFavorite: false,
-  searchText: 'dev pnpm dev',
+  weight: 1,
 };
 
 describe('runWorkbenchAction', () => {
   it('runs the action and increments usage frequency', async () => {
     const terminalClient: WorkbenchTerminalClient = {
       runtime: 'electron',
-      runAction: vi.fn(async () => ({
+      runAction: vi.fn(async (): Promise<TerminalSessionSnapshot> => ({
         id: 'term-1',
         title: 'dev',
         cwd: '/repo',

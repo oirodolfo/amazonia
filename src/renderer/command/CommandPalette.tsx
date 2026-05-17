@@ -1,4 +1,4 @@
-import {Command} from '@cmdk/react';
+import {Command} from 'cmdk';
 import type {WorkspaceAction} from '@/shared/actions/action-types';
 
 export interface CommandPaletteProps {
@@ -20,7 +20,7 @@ export interface CommandPaletteProps {
  * <CommandPalette open={open} actions={actions} onRunAction={runAction} />
  * ```
  */
-export function CommandPalette(props: CommandPaletteProps): React.Element | null {
+export function CommandPalette(props: CommandPaletteProps): React.ReactElement | null {
     if (!props.open) return null;
 
     return (
@@ -28,7 +28,7 @@ export function CommandPalette(props: CommandPaletteProps): React.Element | null
              onClick={() => props.onOpenChange(false)}>
             <Command
                 className="mx-auto max-w-3xl overflow-hidden rounded-3xl border border-emerald-400/20 bg-zinc-950 shadow-2xl shadow-emerald-950/40"
-                onClick={(event) => event.stopPropagation()}>
+                onClick={(event: React.MouseEvent) => event.stopPropagation()}>
                 <Command.Input
                     className="w-full border-b border-emerald-400/10 bg-transparent px-5 py-4 text-sm text-zinc-100 outline-none placeholder:text-zinc-500"
                     placeholder={props.t('command.placeholder')}/>
@@ -38,16 +38,16 @@ export function CommandPalette(props: CommandPaletteProps): React.Element | null
                     <Command.Group heading={props.t('command.actions')} className="text-xs text-zinc-500">
                         {props.actions.map((action) => (
                             <Command.Item key={action.id}
-                                          value={`${action.packageName} ${action.name} ${action.command}`}
+                                          value={`${action.packageName} ${action.label} ${action.command}`}
                                           className="flex cursor-pointer items-center justify-between rounded-2xl px-4 py-3 text-sm text-zinc-300 aria-selected:bg-emerald-400/10 aria-selected:text-emerald-50"
                                           onSelect={() => {
                                               props.onRunAction(action.id);
                                               props.onOpenChange(false);
                                           }}>
-                                <span><span className="block font-medium">{action.name}</span><span
+                                <span><span className="block font-medium">{action.label}</span><span
                                     className="block text-xs text-zinc-500">{action.packageName}</span></span>
                                 <span
-                                    className="rounded-lg border border-emerald-400/10 px-2 py-1 text-[10px] uppercase tracking-wider text-emerald-300">{action.tool}</span>
+                                    className="rounded-lg border border-emerald-400/10 px-2 py-1 text-[10px] uppercase tracking-wider text-emerald-300">{action.kind}</span>
                             </Command.Item>
                         ))}
                     </Command.Group>

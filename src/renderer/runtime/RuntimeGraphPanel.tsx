@@ -17,7 +17,7 @@ export interface RuntimeGraphPanelProps {
  * <RuntimeGraphPanel graph={graph} />
  * ```
  */
-export function RuntimeGraphPanel(props: RuntimeGraphPanelProps): React.Element {
+export function RuntimeGraphPanel(props: RuntimeGraphPanelProps): React.ReactElement {
     return (
         <section className="rounded-[1.5rem] border border-emerald-400/10 bg-[#141414] p-4">
             <h2 className="mb-4 text-xs uppercase tracking-[0.24em] text-emerald-300/70">

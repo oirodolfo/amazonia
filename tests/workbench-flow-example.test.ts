@@ -6,15 +6,11 @@ const action: WorkspaceAction = {
   id: 'dev',
   packageId: 'pkg',
   packageName: '@curupira-labs/demo',
-  packagePath: '.',
-  name: 'dev',
+  label: 'dev',
   command: 'pnpm dev',
   cwd: '/repo',
   kind: 'script',
-  tool: 'package-json',
-  frequency: 0,
-  isFavorite: false,
-  searchText: 'dev pnpm dev',
+  weight: 0,
 };
 
 describe('workbench flow example', () => {

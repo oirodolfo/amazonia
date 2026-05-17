@@ -45,12 +45,12 @@ export function buildWorkspaceGraph(options: BuildWorkspaceGraphOptions): Worksp
         for (const action of group.actions) {
             nodes.set(action.id, {
                 id: action.id,
-                label: action.name,
+                label: action.label,
                 kind: 'action',
-                weight: Math.max(1, action.frequency),
-                metadata: {command: action.command, cwd: action.cwd, tool: action.tool, kind: action.kind}
+                weight: Math.max(1, action.weight),
+                metadata: {command: action.command, cwd: action.cwd, tool: action.kind, kind: action.kind}
             });
-            addEdge(edges, group.packageId, action.id, 'runs', action.tool, Math.max(1, action.frequency));
+            addEdge(edges, group.packageId, action.id, 'runs', action.kind, Math.max(1, action.weight));
         }
     }
     return {

@@ -36,8 +36,8 @@ export function buildActionGraph(groups: readonly WorkspaceActionGroup[]): Actio
         nodes.push({id: group.packageId, label: group.packageName, kind: 'package'});
 
         for (const action of group.actions) {
-            nodes.push({id: action.id, label: action.name, kind: 'action'});
-            edges.push({from: group.packageId, to: action.id, label: action.tool});
+            nodes.push({id: action.id, label: action.label, kind: 'action'});
+            edges.push({from: group.packageId, to: action.id, label: action.kind});
         }
     }
 

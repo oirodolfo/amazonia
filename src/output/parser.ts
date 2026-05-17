@@ -1,7 +1,6 @@
 import type {FriendlyOutputCard, OutputDiagnostic, RunRecord} from '@/shared/types';
 import {parseOutputLinks} from './link-parser';
 
-const URL_PATTERN = /https?:\/\/[^\s)]+/gu;
 const FILE_PATTERN = /(?<file>(?:[A-Za-z]:)?[^\s:]+\.(?:ts|tsx|js|jsx|json|md|css|scss|html|go|rs|py))(?::(?<line>\d+))?(?::(?<column>\d+))?/gu;
 const WARNING_PATTERN = /\b(warn|warning|deprecated)\b/iu;
 const ERROR_PATTERN = /\b(error|failed|exception|enoent|typeerror|syntaxerror)\b/iu;

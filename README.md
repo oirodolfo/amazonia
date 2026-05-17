@@ -54,12 +54,16 @@ pnpm dev:full
 7. Friendly Output shows status, duration, exit code, diagnostics and links.
 8. Use `Ctrl+K` to search packages and actions.
 
-## 🧪 Tests
+## 🧪 Tests & validation
 
 ```bash
-pnpm test
+pnpm validate   # typecheck + vitest
 pnpm typecheck
+pnpm test
+pnpm build
 ```
+
+The repository root `tsc` uses `strict`, `noUnusedLocals`, and `noUnusedParameters`. Renderer code relies on `src/vite-env.d.ts` for `import.meta` and CSS side-effect modules. The large typed-native helper mirror under `src/utils/` is excluded from that compile graph on purpose (see `tsconfig.json`).
 
 ## 🧱 Architecture
 

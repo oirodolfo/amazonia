@@ -34,7 +34,9 @@ export async function scanWorkspace(rootPath: string): Promise<WorkspaceManifest
     const packageManager = detectPackageManager(rootPackage.packageManager, normalizedRoot);
     const packageDirs = await discoverPackageDirs(normalizedRoot, rootPackage, hasPnpmWorkspace);
     const packages = await Promise.all(packageDirs.map((packagePath) => toWorkspacePackage(normalizedRoot, packagePath)));
-    const sortedPackages = packages.filter(Boolean).sort((left, right) => left.relativePath.localeCompare(right.relativePath)) as WorkspacePackage[];
+    const sortedPackages = packages
+        .filter((pkg): pkg is WorkspacePackage => Boolean(pkg))
+        .sort((left, right) => left.relativePath.localeCompare(right.relativePath));
     const actions = buildActions(sortedPackages, {packageManager, hasTurbo, hasNx});
 
     return {
@@ -83,8 +85,14 @@ async function discoverPackageDirs(rootPath: string, rootPackage: PackageJsonFil
 }
 
 function getWorkspacePatterns(rootPackage: PackageJsonFile): readonly string[] {
-    if (Array.isArray(rootPackage.workspaces)) return rootPackage.workspaces;
-    return rootPackage.workspaces?.packages ?? [];
+    const workspaces = rootPackage.workspaces;
+    if (Array.isArray(workspaces)) {
+        return workspaces;
+    }
+    if (workspaces && typeof workspaces === 'object' && 'packages' in workspaces) {
+        return workspaces.packages ?? [];
+    }
+    return [];
 }
 
 async function findPackageJsonDirs(directory: string): Promise<string[]> {

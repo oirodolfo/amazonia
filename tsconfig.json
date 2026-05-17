@@ -28,11 +28,12 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "target": "ES2022",
     "types": [
       "node",
-      "React",
-      "JSX"
+      "vite/client"
     ],
     "useDefineForClassFields": true
   },
@@ -40,5 +41,8 @@
     "src",
     "tests",
     "scripts"
+  ],
+  "exclude": [
+    "src/utils"
   ]
 }

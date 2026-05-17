@@ -2,7 +2,7 @@ import {Group, Panel, Separator} from 'react-resizable-panels';
 import type {WorkspaceActionGroup} from '@/shared/actions/action-types';
 import type {ActionSuggestion, RankedWorkspaceAction} from '@/shared/intelligence/action-intelligence-types';
 import type {IntegratedRuntimeState} from '@/shared/runtime/integrated-runtime-store';
-import {ActionSidebar} from '@/renderer/components/actions/ActionSidebar';
+import {GroupedActionSidebar} from '@/renderer/components/actions/GroupedActionSidebar';
 import type {SidebarState} from '@/renderer/workbench/sidebar/sidebar-state';
 import {SmartCommandPalette} from '@/renderer/command/SmartCommandPalette';
 import {ActionSuggestionsPanel} from '@/renderer/intelligence/ActionSuggestionsPanel';
@@ -41,7 +41,7 @@ export interface IntegratedWorkbenchShellProps {
  * <IntegratedWorkbenchShell runtimeState={state} actionGroups={groups} />
  * ```
  */
-export function IntegratedWorkbenchShell(props: IntegratedWorkbenchShellProps): React.Element {
+export function IntegratedWorkbenchShell(props: IntegratedWorkbenchShellProps): React.ReactElement {
     const activeSessionId = props.activeSessionId ?? Object.keys(props.runtimeState.terminalFrames)[0] ?? null;
     const activeFrames = activeSessionId ? props.runtimeState.terminalFrames[activeSessionId] ?? [] : [];
     const timingSamples = props.timelineEvents.map((event) => event.durationMs ?? 0).filter((value) => value > 0);
@@ -62,7 +62,7 @@ export function IntegratedWorkbenchShell(props: IntegratedWorkbenchShellProps): 
             />
 
             <div className="relative h-full">
-                <Group direction="horizontal">
+                <Group orientation="horizontal">
                     <Panel minSize={18} defaultSize={22}>
                         <div
                             className="flex h-full flex-col gap-3 border-r border-emerald-400/10 bg-zinc-950/70 p-3 backdrop-blur-xl">
@@ -74,7 +74,7 @@ export function IntegratedWorkbenchShell(props: IntegratedWorkbenchShellProps): 
 
                             <div
                                 className="min-h-0 flex-1 overflow-hidden rounded-[1.5rem] border border-emerald-400/10">
-                                <ActionSidebar
+                                <GroupedActionSidebar
                                     groups={props.actionGroups}
                                     state={props.sidebarState}
                                     onRunAction={props.onRunAction}

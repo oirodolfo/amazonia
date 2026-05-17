@@ -62,7 +62,7 @@ export function createUsageSignals(
             action.id,
             {
                 actionId: action.id,
-                frequency: store.actionFrequencies[action.id] ?? action.frequency ?? 0,
+                frequency: store.actionFrequencies[action.id] ?? action.weight ?? 0,
                 lastUsedAt: extractLastUsedAt(store.layout, action.id),
                 successCount: extractCount(store.layout, `success:${action.id}`),
                 failureCount: extractCount(store.layout, `failure:${action.id}`),

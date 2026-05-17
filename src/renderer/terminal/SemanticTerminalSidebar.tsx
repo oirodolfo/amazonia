@@ -12,7 +12,7 @@ export interface SemanticTerminalSidebarProps {
  */
 export function SemanticTerminalSidebar(
     props: SemanticTerminalSidebarProps,
-): React.Element {
+): React.ReactElement {
     return (
         <aside
             className="flex h-full flex-col overflow-hidden rounded-[1.5rem] border border-emerald-400/10 bg-black/30">

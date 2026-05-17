@@ -17,32 +17,32 @@ export interface OpenTarget {
  *
  * @example
  * ```ts
- * createOpenTarget({ type: 'url', value: 'https://example.com', line: null, column: null })
+ * createOpenTarget({ kind: 'url', target: 'https://example.com', raw: 'https://example.com' })
  * ```
  */
 export function createOpenTarget(link: ParsedOutputLink): OpenTarget {
-    if (link.type === 'url') {
+    if (link.kind === 'url') {
         return {
             kind: 'browser',
-            value: link.value,
+            value: link.target,
             line: null,
             column: null,
         };
     }
 
-    if (link.type === 'file') {
+    if (link.kind === 'file' || link.kind === 'directory') {
         return {
             kind: 'editor',
-            value: link.value,
-            line: link.line,
-            column: link.column,
+            value: link.target,
+            line: link.line ?? null,
+            column: link.column ?? null,
         };
     }
 
     return {
         kind: 'unknown',
-        value: link.value,
-        line: link.line,
-        column: link.column,
+        value: link.target,
+        line: link.line ?? null,
+        column: link.column ?? null,
     };
 }

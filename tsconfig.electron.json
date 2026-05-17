@@ -4,9 +4,10 @@
       "ES2022",
       "DOM"
     ],
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "noEmit": false,
+    "rootDir": "src",
     "outDir": "dist-electron"
   },
   "extends": "./tsconfig.json",

@@ -27,7 +27,7 @@ export function createIntelligenceControllerResult(
         store: state.store,
         currentCwd,
         currentPackageId: state.sidebar.selectedPackageId,
-        query: state.sidebar.query,
+        query: state.sidebar.searchQuery,
     });
 
     return {

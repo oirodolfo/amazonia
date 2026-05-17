@@ -17,7 +17,7 @@ export interface TerminalAddonStatusPanelProps {
  */
 export function TerminalAddonStatusPanel(
     props: TerminalAddonStatusPanelProps,
-): React.Element {
+): React.ReactElement {
     return (
         <section className="rounded-[1.5rem] border border-white/10 bg-[#141414] p-4">
             <h2 className="mb-3 text-xs uppercase tracking-[0.24em] text-zinc-500">

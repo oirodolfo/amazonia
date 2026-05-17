@@ -7,28 +7,25 @@ function action(input: Partial<WorkspaceAction>): WorkspaceAction {
     id: input.id ?? 'a',
     packageId: input.packageId ?? 'pkg',
     packageName: input.packageName ?? '@pkg/demo',
-    packagePath: input.packagePath ?? '.',
-    name: input.name ?? 'dev',
+    label: input.label ?? 'dev',
     command: input.command ?? 'pnpm dev',
     cwd: input.cwd ?? '/repo',
     kind: input.kind ?? 'script',
-    tool: input.tool ?? 'package-json',
-    frequency: input.frequency ?? 0,
-    isFavorite: input.isFavorite ?? false,
-    searchText: input.searchText ?? `${input.name ?? 'dev'} ${input.command ?? 'pnpm dev'} @pkg/demo`,
+    weight: input.weight ?? 0,
+    description: input.description,
   };
 }
 
 describe('action intelligence', () => {
   it('infers action intent', () => {
-    expect(inferActionIntent(action({ name: 'test', command: 'vitest run' }))).toBe('test');
-    expect(inferActionIntent(action({ name: 'build', command: 'vite build' }))).toBe('build');
+    expect(inferActionIntent(action({ label: 'test', command: 'vitest run' }))).toBe('test');
+    expect(inferActionIntent(action({ label: 'build', command: 'vite build' }))).toBe('build');
   });
 
   it('ranks actions by frequency and recency', () => {
     const now = 1000 * 60 * 60 * 24 * 10;
     const ranked = rankWorkspaceAction(
-      action({ id: 'dev', name: 'dev' }),
+      action({ id: 'dev', label: 'dev' }),
       { actionId: 'dev', frequency: 10, lastUsedAt: now - 1000, successCount: 5, failureCount: 0, averageDurationMs: null },
       { currentCwd: '/repo', currentPackageId: null, currentQuery: '', now },
     );
@@ -39,7 +36,7 @@ describe('action intelligence', () => {
 
   it('creates suggestions from ranked actions', () => {
     const snapshot = createActionIntelligenceSnapshot(
-      [action({ id: 'dev', name: 'dev' })],
+      [action({ id: 'dev', label: 'dev' })],
       { dev: { actionId: 'dev', frequency: 5, lastUsedAt: 99, successCount: 3, failureCount: 0, averageDurationMs: null } },
       { currentCwd: '/repo', currentPackageId: null, currentQuery: 'dev', now: 100 },
     );

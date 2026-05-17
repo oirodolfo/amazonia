@@ -13,7 +13,7 @@ describe('terminal stream model', () => {
     });
 
     expect(frame.lines).toEqual(['error src/index.ts']);
-    expect(frame.tokens.some((token) => token.type === 'error')).toBe(true);
+    expect(frame.tokens.some((token) => token.severity === 'error')).toBe(true);
     expect(frame.sections.length).toBeGreaterThan(0);
   });
 

@@ -15,7 +15,7 @@ export interface DevtoolsTimelinePanelProps {
  * <DevtoolsTimelinePanel snapshot={snapshot} />
  * ```
  */
-export function DevtoolsTimelinePanel({snapshot}: DevtoolsTimelinePanelProps): React.Element {
+export function DevtoolsTimelinePanel({snapshot}: DevtoolsTimelinePanelProps): React.ReactElement {
     return (
         <section
             className="rounded-2xl border border-emerald-400/20 bg-black/30 p-4 shadow-[0_0_40px_rgba(16,185,129,0.08)]">

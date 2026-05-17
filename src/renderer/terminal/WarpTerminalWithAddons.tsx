@@ -27,7 +27,7 @@ export interface WarpTerminalWithAddonsProps {
  */
 export function WarpTerminalWithAddons(
     props: WarpTerminalWithAddonsProps,
-): React.Element {
+): React.ReactElement {
     const hostRef = useRef<HTMLDivElement | null>(null);
     const controllerRef = useRef<TerminalAddonController | null>(null);
     const [results, setResults] = useState<TerminalAddonController['results']>([]);

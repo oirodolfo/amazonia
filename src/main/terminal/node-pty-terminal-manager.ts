@@ -25,7 +25,7 @@ export interface PtyLikeProcess {
 export interface PtyLikeModule {
     spawn(
         shell: string,
-        args: readonly string[],
+        args: string | readonly string[] | string[],
         options: {
             readonly name: string;
             readonly cwd: string;
@@ -198,7 +198,7 @@ export class NodePtyTerminalManager {
     private spawnProcess(cwd: string, size: TerminalSize): PtyLikeProcess {
         const shell = resolveDefaultShell();
 
-        return this.pty.spawn(shell.command, shell.args, {
+        return this.pty.spawn(shell.command, [...shell.args], {
             name: 'xterm-256color',
             cwd,
             env: process.env,

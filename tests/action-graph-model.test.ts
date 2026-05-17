@@ -12,15 +12,11 @@ describe('buildActionGraph', () => {
         id: 'action',
         packageId: 'pkg',
         packageName: '@pkg/demo',
-        packagePath: '.',
-        name: 'dev',
+        label: 'dev',
         command: 'pnpm dev',
         cwd: '/repo',
         kind: 'script',
-        tool: 'package-json',
-        frequency: 0,
-        isFavorite: false,
-        searchText: 'dev',
+        weight: 0,
       }],
     }]);
 

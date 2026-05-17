@@ -7,7 +7,7 @@ describe('semantic terminal parser', () => {
       'error src/index.ts https://example.com',
     );
 
-    expect(tokens.some((token) => token.type === 'error')).toBe(true);
+    expect(tokens.some((token) => token.severity === 'error')).toBe(true);
     expect(tokens.some((token) => token.type === 'url')).toBe(true);
     expect(tokens.some((token) => token.type === 'file')).toBe(true);
   });

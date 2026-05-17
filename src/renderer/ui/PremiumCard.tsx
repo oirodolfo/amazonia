@@ -19,7 +19,7 @@ export interface PremiumCardProps {
  * <PremiumCard tone="forest" title="Timeline">...</PremiumCard>
  * ```
  */
-export function PremiumCard(props: PremiumCardProps): React.Element {
+export function PremiumCard(props: PremiumCardProps): React.ReactElement {
     const tone = getPremiumSurfaceTokens(props.tone ?? 'forest');
     return (
         <section

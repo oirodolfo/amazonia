@@ -1,5 +1,6 @@
 export type AnalyticsEventName =
-    'workspace.opened'
+    | 'workspace.opened'
+    | 'action.clicked'
     | 'action.started'
     | 'action.finished'
     | 'layout.changed'
@@ -68,3 +69,6 @@ export function createAnalyticsEvent(
 ): AnalyticsEvent {
     return {name, payload, createdAtIso: new Date().toISOString()};
 }
+
+/** Alias for renderer action wiring (local-only events). */
+export const createLocalAnalyticsEvent = createAnalyticsEvent;

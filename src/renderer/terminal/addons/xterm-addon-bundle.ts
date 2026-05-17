@@ -58,7 +58,7 @@ export function createXtermAddonBundle(
     options: CreateXtermAddonBundleOptions,
 ): XtermAddonBundle {
     const results: TerminalAddonLoadResult[] = [];
-    const bundle: MutableXtermAddonBundle = {
+    const bundle: LoadedXtermAddonBundle = {
         attach: null,
         clipboard: null,
         fit: null,
@@ -118,7 +118,21 @@ export function createXtermAddonBundle(
     };
 }
 
-type MutableXtermAddonBundle = Omit<XtermAddonBundle, 'results'>;
+type LoadedXtermAddonBundle = {
+    attach: AttachAddon | null;
+    clipboard: ClipboardAddon | null;
+    fit: FitAddon | null;
+    image: ImageAddon | null;
+    ligatures: LigaturesAddon | null;
+    progress: ProgressAddon | null;
+    search: SearchAddon | null;
+    serialize: SerializeAddon | null;
+    unicodeGraphemes: UnicodeGraphemesAddon | null;
+    unicode11: Unicode11Addon | null;
+    webFonts: WebFontsAddon | null;
+    webLinks: WebLinksAddon | null;
+    webgl: WebglAddon | null;
+};
 
 function createAddon(
     id: TerminalAddonId,
@@ -152,14 +166,20 @@ function createAddon(
         case 'web-fonts':
             return new WebFontsAddon();
         case 'web-links':
-            return new WebLinksAddon(options.openUrl);
+            return new WebLinksAddon(
+                options.openUrl
+                    ? (_event: MouseEvent, uri: string) => {
+                          options.openUrl?.(uri);
+                      }
+                    : undefined,
+            );
         case 'webgl':
             return new WebglAddon();
     }
 }
 
 function assignAddon(
-    bundle: MutableXtermAddonBundle,
+    bundle: LoadedXtermAddonBundle,
     id: TerminalAddonId,
     addon: ITerminalAddon,
 ): void {

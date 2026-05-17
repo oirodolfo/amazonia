@@ -22,7 +22,7 @@ export interface TerminalProblem {
  */
 export function createTerminalProblems(markers: readonly SemanticTerminalMarker[]): TerminalProblem[] {
     return markers
-        .filter((marker) => marker.type === 'error' || marker.type === 'warning')
+        .filter((marker): marker is SemanticTerminalMarker & {readonly type: 'error' | 'warning'} => marker.type === 'error' || marker.type === 'warning')
         .map((marker) => ({
             id: `problem:${marker.id}`,
             severity: marker.type,

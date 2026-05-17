@@ -114,8 +114,8 @@ export function createActionSuggestions(
         .slice(0, limit)
         .map((ranked) => ({
             id: `suggestion:${ranked.action.id}`,
-            title: ranked.action.name,
-            subtitle: `${ranked.action.packageName} · ${ranked.action.tool}`,
+            title: ranked.action.label,
+            subtitle: `${ranked.action.packageName} · ${ranked.action.kind}`,
             actionId: ranked.action.id,
             score: ranked.score,
             reasons: ranked.reasons.length > 0 ? ranked.reasons : ['good workspace match'],
@@ -134,7 +134,7 @@ export function createActionSuggestions(
  * ```
  */
 export function inferActionIntent(action: WorkspaceAction): ActionIntent {
-    const haystack = `${action.name} ${action.command}`.toLowerCase();
+    const haystack = `${action.label} ${action.command}`.toLowerCase();
 
     if (haystack.includes('test') || haystack.includes('vitest')) return 'test';
     if (haystack.includes('build')) return 'build';
@@ -144,10 +144,6 @@ export function inferActionIntent(action: WorkspaceAction): ActionIntent {
     if (haystack.includes('dev') || haystack.includes('start')) return 'dev';
 
     return 'unknown';
-}
-
-function orFalse(value: boolean): boolean {
-    return value;
 }
 
 function createEmptyUsageSignal(actionId: string): ActionUsageSignal {
@@ -193,7 +189,7 @@ function scoreQuery(action: WorkspaceAction, query: string, reasons: string[]): 
     }
 
     const tokens = normalizedQuery.split(/\s+/).filter(Boolean);
-    const haystack = action.searchText.toLowerCase();
+    const haystack = `${action.label} ${action.command} ${action.packageName}`.toLowerCase();
     const matches = tokens.filter((token) => haystack.includes(token)).length;
 
     if (matches === tokens.length) {
